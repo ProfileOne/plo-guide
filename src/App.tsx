@@ -39,7 +39,7 @@ import { CorpusReferenceView } from './components/CorpusReferenceView';
 const STORAGE_STATUS_KEY = 'plo_senior_64_guide_status_v1';
 const STORAGE_NOTES_KEY = 'plo_senior_64_guide_notes_v1';
 const YELLOW_BOOK_PDF_URL =
-  '/assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf';
+  'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf';
 
 const WEAK_AREAS: WeakAreaTag[] = [
   'Morphosyntactic Alignment',
