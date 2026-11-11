@@ -6,7 +6,11 @@ import {
   calculateProgressStats,
   cycleProblemStatus,
   filterProblems,
+  formatElapsedSeconds,
+  getProblemElapsedSeconds,
+  getProblemPdfAssets,
   getProblemStatus,
+  getTargetMinutesForDifficulty,
   resolveThemeMode,
   setProblemStatus,
   StatusMap,
@@ -14,10 +18,36 @@ import {
   validateGuideInvariants
 } from './studyGuideLogic';
 
-test('validateGuideInvariants confirms 64 problems, zero Junior-only, and zero excluded solved problems', () => {
+test('formatElapsedSeconds, getTargetMinutesForDifficulty, and getProblemElapsedSeconds format and compute timer state', () => {
+  assert.equal(formatElapsedSeconds(0), '00:00');
+  assert.equal(formatElapsedSeconds(65), '01:05');
+  assert.equal(formatElapsedSeconds(1799), '29:59');
+  assert.equal(formatElapsedSeconds(3661), '1:01:01');
+
+  assert.equal(getTargetMinutesForDifficulty('Easy'), 20);
+  assert.equal(getTargetMinutesForDifficulty('Medium'), 30);
+  assert.equal(getTargetMinutesForDifficulty('Hard'), 45);
+  assert.equal(getTargetMinutesForDifficulty('Expert'), 60);
+
+  assert.equal(getProblemElapsedSeconds({}, 1), 0);
+  assert.equal(getProblemElapsedSeconds({ 1: 425 }, 1), 425);
+});
+
+test('validateGuideInvariants confirms 72 problems, zero Junior-only, and zero excluded solved problems', () => {
   const check = validateGuideInvariants(PROBLEMS);
   assert.equal(check.valid, true, `Validation failed: ${check.errors.join('; ')}`);
-  assert.equal(PROBLEMS.length, 64);
+  assert.equal(PROBLEMS.length, 72);
+});
+
+test('getProblemPdfAssets provides standalone single-problem PDF and page images for all 72 problems', () => {
+  for (const problem of PROBLEMS) {
+    const assets = getProblemPdfAssets(problem.id);
+    const padded = String(problem.id).padStart(2, '0');
+    assert.equal(assets.singlePdfUrl, `problems/pdf/problem-${padded}.pdf`);
+    assert.equal(assets.pageImages.length >= 1, true);
+    assert.equal(assets.pageImages[0], `problems/pages/problem-${padded}-1.png`);
+    assert.equal(assets.fullPdfPageUrl.includes('#page='), true);
+  }
 });
 
 test('setProblemStatus and cycleProblemStatus transition through In Progress, Completed, and Review Needed', () => {
@@ -48,18 +78,18 @@ test('calculateProgressStats and calculateChapterProgress compute accurate count
   };
 
   const stats = calculateProgressStats(PROBLEMS, statusMap);
-  assert.equal(stats.total, 64);
+  assert.equal(stats.total, 72);
   assert.equal(stats.completed, 2);
   assert.equal(stats.inProgress, 1);
   assert.equal(stats.reviewNeeded, 1);
-  assert.equal(stats.notStarted, 60);
-  assert.equal(stats.completionPercent, Math.round((2 / 64) * 100));
+  assert.equal(stats.notStarted, 68);
+  assert.equal(stats.completionPercent, Math.round((2 / 72) * 100));
 
   const chProgress = calculateChapterProgress(PROBLEMS, statusMap);
-  assert.equal(chProgress.ch9.total, 12);
+  assert.equal(chProgress.ch9.total, 13);
   assert.equal(chProgress.ch9.completed, 2);
   assert.equal(chProgress.ch9.inProgress, 1);
-  assert.equal(chProgress.ch6.total, 13);
+  assert.equal(chProgress.ch6.total, 15);
   assert.equal(chProgress.ch6.reviewNeeded, 1);
 });
 
@@ -67,7 +97,7 @@ test('filterProblems filters by status, chapter, difficulty, weak area, and sear
   const statusMap: StatusMap = {
     1: 'Completed',
     14: 'In Progress',
-    34: 'Review Needed'
+    37: 'Review Needed'
   };
 
   const reviewOnly = filterProblems(PROBLEMS, statusMap, {

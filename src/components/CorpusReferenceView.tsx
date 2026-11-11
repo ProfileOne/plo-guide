@@ -12,10 +12,10 @@ export const CorpusReferenceView: React.FC = () => {
       <section className="bg-white dark:bg-[#141414] border border-slate-200 dark:border-neutral-800 rounded-xl overflow-hidden">
         <div className="px-6 py-4 border-b border-slate-200 dark:border-neutral-800 bg-slate-50 dark:bg-[#101010]">
           <h2 className="text-base font-bold text-slate-900 dark:text-[var(--dm-heading)]">
-            1. Corpus Pattern Landscape (209 Unique Senior / All Problems Analysed)
+            1. Corpus Pattern Landscape (PLO 2013–2024 + Yellow Book + IOL 2003–2026 Individual)
           </h2>
           <p className="text-xs text-slate-600 dark:text-[var(--dm-body)] mt-0.5">
-            Deduplicated across all 11 attached files (Yellow Book, PLO 2013–2024 Past Papers & Compilations, and PLO Camp 2026), excluding 17 pure Junior problems.
+            Deduplicated across all 12 attached files (IOL 2003–2026 Individual Problems, Yellow Book, PLO 2013–2024 Past Papers &amp; Compilations, and PLO Camp 2026), excluding pure Junior problems.
           </p>
         </div>
 

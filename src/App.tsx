@@ -26,12 +26,14 @@ import {
   calculateChapterProgress,
   calculateProgressStats,
   filterProblems,
+  getProblemElapsedSeconds,
   getProblemStatus,
   NotesMap,
   resolveThemeMode,
   setProblemStatus,
   StatusMap,
   ThemeMode,
+  TimerMap,
   toggleThemeMode
 } from './utils/studyGuideLogic';
 import { ProblemRow } from './components/ProblemRow';
@@ -41,10 +43,16 @@ import { CorpusReferenceView } from './components/CorpusReferenceView';
 
 const STORAGE_STATUS_KEY = 'plo_senior_64_guide_status_v1';
 const STORAGE_NOTES_KEY = 'plo_senior_64_guide_notes_v1';
+const STORAGE_TIMERS_KEY = 'plo_senior_64_guide_timers_v1';
 const STORAGE_THEME_KEY = 'plo_senior_64_guide_theme_v1';
 const STORAGE_TINT_KEY = 'plo_senior_64_guide_dm_tint_v1';
 
 const SOURCE_BOOKLETS = [
+  {
+    label: 'IOL 2003–2026 Individual',
+    sub: 'All IOL Individual Problems',
+    url: 'assets/aistudio/IOL_2003-2026_Individual_Problems_7bbe0dda.pdf'
+  },
   {
     label: 'Yellow Book Training Guide',
     sub: 'Theory & Worked Examples',
@@ -175,6 +183,16 @@ export default function App() {
     }
   });
 
+  // Persistent per-problem timer map (seconds elapsed)
+  const [timerMap, setTimerMap] = useState<TimerMap>(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_TIMERS_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  });
+
   // Filters
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'All' | ProblemStatus>('All');
@@ -230,6 +248,14 @@ export default function App() {
     }
   }, [notesMap]);
 
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_TIMERS_KEY, JSON.stringify(timerMap));
+    } catch {
+      // Ignore storage quota errors
+    }
+  }, [timerMap]);
+
   const handleToggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
     const nextTheme = toggleThemeMode(theme);
     const rect = (e.currentTarget || toggleBtnRef.current)?.getBoundingClientRect();
@@ -284,6 +310,13 @@ export default function App() {
     }));
   };
 
+  const handleUpdateTimer = (problemId: number, nextSeconds: number) => {
+    setTimerMap((prev) => ({
+      ...prev,
+      [problemId]: Math.max(0, Math.floor(nextSeconds))
+    }));
+  };
+
   const handleResetFilters = () => {
     setSearchQuery('');
     setStatusFilter('All');
@@ -305,6 +338,7 @@ export default function App() {
         chapterNumber: p.chapterNumber,
         scheduledDay: p.scheduledDay,
         status: getProblemStatus(statusMap, p.id),
+        elapsedSeconds: getProblemElapsedSeconds(timerMap, p.id),
         note: notesMap[p.id] ?? ''
       }))
     };
@@ -330,6 +364,7 @@ export default function App() {
         if (Array.isArray(parsed.problems)) {
           const nextStatuses: StatusMap = {};
           const nextNotes: NotesMap = {};
+          const nextTimers: TimerMap = {};
           for (const item of parsed.problems) {
             if (typeof item.id === 'number' && item.status) {
               nextStatuses[item.id] = item.status;
@@ -337,9 +372,13 @@ export default function App() {
             if (typeof item.id === 'number' && typeof item.note === 'string') {
               nextNotes[item.id] = item.note;
             }
+            if (typeof item.id === 'number' && typeof item.elapsedSeconds === 'number') {
+              nextTimers[item.id] = item.elapsedSeconds;
+            }
           }
           setStatusMap(nextStatuses);
           setNotesMap(nextNotes);
+          setTimerMap(nextTimers);
         }
       } catch {
         // Ignore invalid JSON
@@ -537,7 +576,7 @@ export default function App() {
                 Panini Linguistics Olympiad (Senior Round 1)
               </h1>
               <p className="text-xs text-slate-500 dark:text-[var(--dm-body)] mt-0.5">
-                Curated from 209 Senior/All problems across 11 files · Ordered by Yellow Book Chapter yield · Zero pure Junior or previously solved problems
+                72-problem curriculum curated from PLO 2013–2024, Yellow Book &amp; IOL 2003–2026 Individual Problems · Ordered by Yellow Book Chapter yield · Zero Junior-only or previously solved problems
               </p>
             </div>
 
@@ -554,17 +593,17 @@ export default function App() {
               <div className="w-full h-1.5 bg-slate-100 dark:bg-neutral-800 rounded-full overflow-hidden flex">
                 <div
                   className="bg-emerald-600 dark:bg-[var(--dm-accent)] transition-all duration-300"
-                  style={{ width: `${(overallStats.completed / 64) * 100}%` }}
+                  style={{ width: `${(overallStats.completed / 72) * 100}%` }}
                   title={`Completed: ${overallStats.completed}`}
                 />
                 <div
                   className="bg-amber-500 dark:bg-neutral-500 transition-all duration-300"
-                  style={{ width: `${(overallStats.inProgress / 64) * 100}%` }}
+                  style={{ width: `${(overallStats.inProgress / 72) * 100}%` }}
                   title={`In Progress: ${overallStats.inProgress}`}
                 />
                 <div
                   className="bg-rose-500 dark:bg-neutral-600 transition-all duration-300"
-                  style={{ width: `${(overallStats.reviewNeeded / 64) * 100}%` }}
+                  style={{ width: `${(overallStats.reviewNeeded / 72) * 100}%` }}
                   title={`Review Needed: ${overallStats.reviewNeeded}`}
                 />
               </div>
@@ -665,7 +704,7 @@ export default function App() {
                 >
                   {overallStats.notStarted}
                 </span>
-                <span className="text-[11px] text-slate-400 dark:text-[var(--dm-muted)]">of 64</span>
+                <span className="text-[11px] text-slate-400 dark:text-[var(--dm-muted)]">of 72</span>
               </div>
             </button>
           </div>
@@ -714,7 +753,7 @@ export default function App() {
                   >
                     <span>All 7 Included Chapters</span>
                     <span className="font-mono tabular-nums text-slate-300 dark:text-[var(--dm-accent)]">
-                      {overallStats.completed}/64
+                      {overallStats.completed}/72
                     </span>
                   </button>
 
@@ -905,7 +944,7 @@ export default function App() {
                   ) : (
                     <div className="space-y-2 p-2.5 bg-rose-50 dark:bg-neutral-950 rounded-md border border-rose-200 dark:border-neutral-700">
                       <p className="text-xs text-rose-800 dark:text-[var(--dm-body)] font-medium">
-                        Reset all 64 problem statuses to Not Started?
+                        Reset all 72 problem statuses to Not Started?
                       </p>
                       <div className="flex items-center gap-2">
                         <button
@@ -1005,7 +1044,7 @@ export default function App() {
                     </label>
 
                     <span className="font-mono tabular-nums font-medium text-slate-700 dark:text-[var(--dm-body)]" data-testid="visible-problem-count">
-                      Showing {filteredProblems.length} of 64
+                      Showing {filteredProblems.length} of 72
                     </span>
 
                     {hasActiveFilters && (
@@ -1131,6 +1170,7 @@ export default function App() {
                               problem={problem}
                               status={getProblemStatus(statusMap, problem.id)}
                               noteText={notesMap[problem.id] ?? ''}
+                              elapsedSeconds={getProblemElapsedSeconds(timerMap, problem.id)}
                               onStatusChange={handleStatusChange}
                               onOpenDetail={setSelectedProblem}
                             />
@@ -1213,9 +1253,15 @@ export default function App() {
             : 'Not Started'
         }
         noteText={selectedProblem ? notesMap[selectedProblem.id] ?? '' : ''}
+        elapsedSeconds={
+          selectedProblem
+            ? getProblemElapsedSeconds(timerMap, selectedProblem.id)
+            : 0
+        }
         onClose={() => setSelectedProblem(null)}
         onStatusChange={handleStatusChange}
         onSaveNote={handleSaveNote}
+        onUpdateTimer={handleUpdateTimer}
       />
     </div>
   );

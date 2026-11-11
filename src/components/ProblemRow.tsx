@@ -1,11 +1,13 @@
 import React from 'react';
-import { FileText } from 'lucide-react';
+import { FileText, BookOpen, ExternalLink, Timer } from 'lucide-react';
 import { ProblemStatus, StudyProblem } from '../data/studyGuideData';
+import { formatElapsedSeconds, getProblemPdfAssets } from '../utils/studyGuideLogic';
 
 interface ProblemRowProps {
   problem: StudyProblem;
   status: ProblemStatus;
   noteText: string;
+  elapsedSeconds?: number;
   onStatusChange: (problemId: number, status: ProblemStatus) => void;
   onOpenDetail: (problem: StudyProblem) => void;
 }
@@ -46,10 +48,12 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
   problem,
   status,
   noteText,
+  elapsedSeconds = 0,
   onStatusChange,
   onOpenDetail
 }) => {
   const hasNote = noteText.trim().length > 0;
+  const pdfAssets = getProblemPdfAssets(problem.id);
 
   const rowBg =
     status === 'Completed'
@@ -71,7 +75,7 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
         </span>
 
         <div className="min-w-0 flex-1 space-y-1.5">
-          {/* Top Line: Problem Title on Left, Minimal Controls on Right */}
+          {/* Top Line: Problem Title on Left, Direct Problem Button + Status Controls on Right */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2">
             <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 min-w-0">
               <button
@@ -88,8 +92,8 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
               )}
             </div>
 
-            {/* Minimal Right Controls (Text-only status pills + quiet Notes & PDF link) */}
-            <div className="flex flex-wrap items-center gap-2 shrink-0">
+            {/* Right Controls: Status pills + Instant "Open Problem" viewer button + Direct 1-page PDF tab link */}
+            <div className="flex flex-wrap items-center gap-1.5 shrink-0">
               <div
                 role="group"
                 aria-label={`Status for ${problem.exactName}`}
@@ -119,11 +123,24 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
               <button
                 type="button"
                 onClick={() => onOpenDetail(problem)}
-                aria-label={`Open PDF and notes for ${problem.exactName}`}
-                className="px-2.5 py-0.5 text-[11px] font-medium text-slate-500 dark:text-[var(--dm-accent)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] border border-slate-200/70 dark:border-neutral-800 rounded-md hover:bg-slate-100/60 dark:hover:bg-neutral-800/70 whitespace-nowrap shrink-0 cursor-pointer"
+                aria-label={`Open problem sheet for ${problem.exactName}`}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold text-slate-800 dark:text-[var(--dm-heading)] bg-slate-100 dark:bg-neutral-800 hover:bg-slate-200/80 dark:hover:bg-neutral-700 border border-slate-300/80 dark:border-neutral-700 rounded-md whitespace-nowrap shrink-0 cursor-pointer"
               >
-                {hasNote ? 'Edit Note & PDF' : 'Notes & PDF'}
+                <BookOpen className="w-3 h-3 text-slate-600 dark:text-[var(--dm-accent)] shrink-0" />
+                <span>{hasNote ? 'Open Problem & Note' : 'Open Problem'}</span>
               </button>
+
+              <a
+                href={pdfAssets.singlePdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Open standalone PDF for ${problem.exactName} in new tab`}
+                title={`Open standalone ${pdfAssets.pageCount}-page problem PDF`}
+                className="inline-flex items-center gap-1 px-2 py-1 text-[11px] font-mono tabular-nums text-slate-500 dark:text-[var(--dm-muted)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] border border-slate-200/80 dark:border-neutral-800 rounded-md hover:bg-slate-100/60 dark:hover:bg-neutral-800/70 whitespace-nowrap shrink-0"
+              >
+                <span>PDF</span>
+                <ExternalLink className="w-2.5 h-2.5 shrink-0" />
+              </a>
             </div>
           </div>
 
@@ -141,7 +158,7 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
             </p>
           )}
 
-          {/* Quiet Single-Line Metadata Footer (Never wraps awkwardly) */}
+          {/* Quiet Single-Line Metadata Footer */}
           <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-slate-400 dark:text-[var(--dm-muted)] font-mono tabular-nums pt-0.5">
             <span>
               Day {problem.scheduledDay}
@@ -151,6 +168,18 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
             <span>Difficulty: {problem.difficulty}</span>
             <span aria-hidden="true">·</span>
             <span>Division: {problem.division}</span>
+            {elapsedSeconds > 0 && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span
+                  className="inline-flex items-center gap-1 text-slate-600 dark:text-[var(--dm-accent)] font-medium"
+                  title="Logged solve time"
+                >
+                  <Timer className="w-3 h-3 shrink-0" />
+                  <span>{formatElapsedSeconds(elapsedSeconds)}</span>
+                </span>
+              </>
+            )}
             <span aria-hidden="true">·</span>
             <span className="font-sans">{problem.sourceAndYear}</span>
             {problem.weakAreasTargeted.length > 0 && (

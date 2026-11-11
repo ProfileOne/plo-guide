@@ -196,10 +196,11 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
                           <button
                             type="button"
                             onClick={() => onOpenDetail(prob)}
-                            className="p-1.5 text-slate-500 dark:text-[var(--dm-body)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] border border-slate-200 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-700 cursor-pointer"
-                            aria-label={`Open PDF and notes for ${prob.exactName}`}
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-slate-800 dark:text-[var(--dm-heading)] border border-slate-200 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-700 cursor-pointer whitespace-nowrap"
+                            aria-label={`Open problem sheet for ${prob.exactName}`}
                           >
-                            <BookOpen className="w-3.5 h-3.5" />
+                            <BookOpen className="w-3.5 h-3.5 text-slate-600 dark:text-[var(--dm-accent)]" />
+                            <span>Open Problem</span>
                           </button>
                         </div>
                       </div>

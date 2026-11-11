@@ -8,10 +8,59 @@ import {
   StudyProblem,
   WeakAreaTag
 } from '../data/studyGuideData';
+import { PROBLEM_PDF_MANIFEST, ProblemPdfAsset } from '../data/problemPagesManifest';
 
 export type StatusMap = Record<number, ProblemStatus>;
 export type NotesMap = Record<number, string>;
+export type TimerMap = Record<number, number>;
 export type ThemeMode = 'light' | 'dark';
+
+export function getProblemElapsedSeconds(timerMap: TimerMap, problemId: number): number {
+  const val = timerMap[problemId];
+  return typeof val === 'number' && Number.isFinite(val) && val >= 0 ? Math.floor(val) : 0;
+}
+
+export function formatElapsedSeconds(totalSeconds: number): string {
+  const safe = Math.max(0, Math.floor(totalSeconds));
+  const hours = Math.floor(safe / 3600);
+  const minutes = Math.floor((safe % 3600) / 60);
+  const seconds = safe % 60;
+  const mm = String(minutes).padStart(2, '0');
+  const ss = String(seconds).padStart(2, '0');
+  if (hours > 0) {
+    return `${hours}:${mm}:${ss}`;
+  }
+  return `${mm}:${ss}`;
+}
+
+export function getTargetMinutesForDifficulty(difficulty: DifficultyLevel): number {
+  switch (difficulty) {
+    case 'Easy':
+      return 20;
+    case 'Medium':
+      return 30;
+    case 'Hard':
+      return 45;
+    case 'Expert':
+      return 60;
+  }
+}
+
+export function getProblemPdfAssets(problemId: number): ProblemPdfAsset {
+  const entry = PROBLEM_PDF_MANIFEST[problemId];
+  if (entry) {
+    return entry;
+  }
+  const padded = String(problemId).padStart(2, '0');
+  return {
+    singlePdfUrl: `problems/pdf/problem-${padded}.pdf`,
+    fullPdfPageUrl: `problems/pdf/problem-${padded}.pdf`,
+    startPage: 1,
+    endPage: 1,
+    pageCount: 1,
+    pageImages: [`problems/pages/problem-${padded}-1.png`]
+  };
+}
 
 export function resolveThemeMode(
   storedTheme: string | null | undefined,
@@ -208,8 +257,8 @@ export function validateGuideInvariants(problems: StudyProblem[] = PROBLEMS): {
 } {
   const errors: string[] = [];
 
-  if (problems.length !== 64) {
-    errors.push(`Expected 64 problems, found ${problems.length}`);
+  if (problems.length !== 72) {
+    errors.push(`Expected 72 problems, found ${problems.length}`);
   }
 
   const seenIds = new Set<number>();
@@ -244,8 +293,8 @@ export function validateGuideInvariants(problems: StudyProblem[] = PROBLEMS): {
     }
   }
 
-  if (scheduledIds.length !== 64) {
-    errors.push(`Expected 64 scheduled problems across 16 days, found ${scheduledIds.length}`);
+  if (scheduledIds.length !== 72) {
+    errors.push(`Expected 72 scheduled problems across 16 days, found ${scheduledIds.length}`);
   }
 
   return {
