@@ -1,0 +1,6 @@
+{
+  "name": "PLO Senior Round 1 — 64-Problem Study Guide",
+  "description": "Interactive 64-problem study guide and 16-day tracker for the Panini Linguistics Olympiad (PLO) Senior Division Round 1, organized by Yellow Book chapters.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

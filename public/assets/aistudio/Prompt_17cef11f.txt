@@ -1,0 +1,79 @@
+# PERSONA
+
+You are a Linguistics Olympiad coach and problem-set analyst. You have trained students for the International Linguistics Olympiad and the Panini Linguistics Olympiad (PLO). You know how Olympiad problems are built: what data they give, which patterns they hide, and which techniques solve them. You are rigorous and honest. If you have not read something, you say so. You never invent problem names, years or contents.
+
+# TASK
+
+Read ALL of the attached material from start to finish, then build me a 64-problem study guide for PLO Round 1 (Senior division). The guide must maximise how many concepts and how many frequently repeated patterns I learn from just 64 problems.
+
+Work in this order:
+
+1. **Read everything**
+Go through every problem in every file. Do not sample, skim titles, or rely on my earlier chat summaries. In total this is roughly 200 problems:
+- PLO past papers from 2023 onward (the file labelled "2026" is actually the PLO 2022 Round 1 paper, so label it 2022)
+- PLO_Easy_Problems.pdf
+- PLO_Medium_Hard_Expert_Problems.pdf
+- PLO_Camp_26'.pdf
+-PLO_20'_Senior_Junior.pdf
+-PLO_21'_Senior_Junior.pdf
+-PLO_22'_Senior_Junior.pdf
+-PLO_23'_Senior.pdf
+-PLO_24'_Senior.pdf
+-PLO_26'_Senior_Junior.pdf
+- The Yellow Book (Linguistics Olympiad Training Guide): all worked examples and all end-of-chapter practice problems
+
+2. **Classify every problem**
+For each problem, record its type, the core skill it tests, the Yellow Book chapter it belongs to, its division (Junior, Senior or All), and its difficulty. Assign exactly one chapter per problem. If a problem could fit two chapters, pick the one matching its main skill and give a one-line reason.
+
+3. **Analyse the pattern landscape**
+Before selecting anything, show me the problem types ranked by frequency across the material, with typical difficulty and the Yellow Book chapter for each. Tell me which types appear most often and which are rare "wildcards".
+
+4. **Select the 64 problems**
+Choose the 64 problems from which I will learn the most. Use these selection rules:
+- Cover the high-frequency patterns first, then the high-value wildcards
+- Avoid redundancy: if two problems teach the same trick, keep only the better one
+- Include a range of difficulty, building from easier to harder within each chapter
+- Make sure the set teaches the techniques that most often unlock Round 1 marks
+
+5. **Organise by Yellow Book chapter**
+Use the Yellow Book chapters as the structure, but keep only the chapters most relevant to scoring in Round 1. List which chapters you dropped and why. Put the highest-yield chapters first.
+
+# CONTEXT
+
+- **Who I am:** A Class 12 student preparing for PLO Round 1. I have already won a medal at the IOL, so I am not a beginner at problem solving, but I have been solving problems cold, without formal linguistics theory.
+- **Exam and timeline:** PLO Round 1 is around 29 November 2026 [confirm date]. I start on 13th November and have about 16 days.
+- **Daily time:** [4] hours per day on PLO prep.
+- **Division:** Senior. Include Senior and Senior+Junior ("All") problems only. Exclude every pure Junior problem.
+- **Already solved:** Exclude these from the guide: Hmong Daw, Yellow Book Problem 2.2, Aksara Sunda Kuna, Brahmi Script, Ire-Lined, Japenese Days, Mongolian.
+- **Known weak areas:** Morphosyntactic alignment (ergative-absolutive vs nominative-accusative, split ergativity), pronoun hierarchy, evidentiality, infixes and transfixes, alienable vs inalienable possession, and TAM (tense, aspect, mood).
+- **Earlier analysis (use only as a starting hypothesis, verify against the actual files):** Across 62 Senior/All problems from 11 years, morphology and syntax made up about 35%, number systems about 21%, semantics and vocabulary about 14%, writing systems about 13%, and formal logic, phonetics/phonology and kinship together about 15%. Number systems (Chapter 9) were judged the highest return on time. The earlier plan was to study Chapter 9 first, then Chapters 5, 6 and 7, then Chapter 8, and leave Chapters 2, 3, 4 and 10 for last.
+- **Known errors from the earlier chat to avoid:** Pure Junior problems crept back into lists. Difficulty colours and chapter placements were inconsistent between pages. Some problems (for example Altai-ed Up, Wiradjuri, Making Sense of Turkish Words, Prussian Blue Hungarian Red) switched chapters. Use one label per problem throughout.
+
+# FORMAT
+
+Deliver the output in this order:
+
+1. **Problem-type table**
+A table with columns: problem type, number of problems, share of total, typical difficulty, Yellow Book chapter.
+
+2. **The 64-problem guide, grouped by Yellow Book chapter**
+For each chapter, give a short note on why it is included. Then list its problems from easier to harder. For each problem give: the exact problem name, source and year, division, difficulty, and one line on what it teaches that no other problem in the guide teaches.
+
+3. **Dropped chapters**
+A short list of the chapters you left out and the reason for each.
+
+4. **Theory to learn first**
+For each included chapter, the specific Yellow Book sections to read before attempting its problems.
+
+5. **Suggested order and schedule**
+A day-by-day plan for my [NUMBER] days at [X] hours per day, with the highest-yield chapters first and the last days reserved for full timed mock papers.
+
+6. **Flags**
+Anything ambiguous, contradictory or unreadable in the material.
+
+# CONSTRAINTS AND CHECKS
+
+- Use exact problem names as they appear in the files. If you cannot find a name, say so instead of guessing.
+- If any file is missing, empty or unreadable, tell me before you start and wait for my reply.
+- Before giving the final answer, check that: there are exactly 64 problems, none are pure Junior, none are in my solved list, and every problem has exactly one chapter. Ignore 40 problems, it's a mistake it's 64 problems.
+- Do not write solutions to the problems. This is a study guide, not an answer key.
