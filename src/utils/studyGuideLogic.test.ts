@@ -7,8 +7,10 @@ import {
   cycleProblemStatus,
   filterProblems,
   getProblemStatus,
+  resolveThemeMode,
   setProblemStatus,
   StatusMap,
+  toggleThemeMode,
   validateGuideInvariants
 } from './studyGuideLogic';
 
@@ -95,4 +97,13 @@ test('filterProblems filters by status, chapter, difficulty, weak area, and sear
     weakAreaFilter: 'Evidentiality'
   });
   assert.equal(evidentialWeakArea.length, 4);
+});
+
+test('resolveThemeMode and toggleThemeMode handle stored and system dark mode preferences', () => {
+  assert.equal(resolveThemeMode('dark', false), 'dark');
+  assert.equal(resolveThemeMode('light', true), 'light');
+  assert.equal(resolveThemeMode(null, true), 'dark');
+  assert.equal(resolveThemeMode(undefined, false), 'light');
+  assert.equal(toggleThemeMode('light'), 'dark');
+  assert.equal(toggleThemeMode('dark'), 'light');
 });

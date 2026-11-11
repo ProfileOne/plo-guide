@@ -11,6 +11,21 @@ import {
 
 export type StatusMap = Record<number, ProblemStatus>;
 export type NotesMap = Record<number, string>;
+export type ThemeMode = 'light' | 'dark';
+
+export function resolveThemeMode(
+  storedTheme: string | null | undefined,
+  systemPrefersDark = false
+): ThemeMode {
+  if (storedTheme === 'dark' || storedTheme === 'light') {
+    return storedTheme;
+  }
+  return systemPrefersDark ? 'dark' : 'light';
+}
+
+export function toggleThemeMode(current: ThemeMode): ThemeMode {
+  return current === 'dark' ? 'light' : 'dark';
+}
 
 export interface FilterCriteria {
   searchQuery: string;

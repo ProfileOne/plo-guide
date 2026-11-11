@@ -22,7 +22,7 @@ const STATUS_OPTIONS: {
     label: 'Not Started',
     shortLabel: 'Unstarted',
     icon: Circle,
-    activeClass: 'bg-slate-800 text-white shadow-xs'
+    activeClass: 'bg-slate-800 dark:bg-neutral-700 text-white shadow-xs'
   },
   {
     value: 'In Progress',
@@ -58,31 +58,31 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
 
   const difficultyColor =
     problem.difficulty === 'Easy'
-      ? 'text-emerald-700'
+      ? 'text-emerald-700 dark:text-emerald-400'
       : problem.difficulty === 'Medium'
-      ? 'text-amber-700'
+      ? 'text-amber-700 dark:text-amber-400'
       : problem.difficulty === 'Hard'
-      ? 'text-rose-700'
-      : 'text-purple-800 font-semibold';
+      ? 'text-rose-700 dark:text-rose-400'
+      : 'text-purple-800 dark:text-neutral-200 font-semibold';
 
   const rowBg =
     status === 'Completed'
-      ? 'bg-emerald-50/30 hover:bg-emerald-50/60'
+      ? 'bg-emerald-50/30 hover:bg-emerald-50/60 dark:bg-emerald-950/20 dark:hover:bg-emerald-950/35'
       : status === 'Review Needed'
-      ? 'bg-rose-50/30 hover:bg-rose-50/60'
+      ? 'bg-rose-50/30 hover:bg-rose-50/60 dark:bg-rose-950/20 dark:hover:bg-rose-950/35'
       : status === 'In Progress'
-      ? 'bg-amber-50/30 hover:bg-amber-50/60'
-      : 'bg-white hover:bg-slate-50/80';
+      ? 'bg-amber-50/30 hover:bg-amber-50/60 dark:bg-amber-950/20 dark:hover:bg-amber-950/35'
+      : 'bg-white hover:bg-slate-50/80 dark:bg-neutral-900 dark:hover:bg-neutral-800/70';
 
   return (
     <div
-      className={`group transition-colors duration-150 px-5 py-4 border-b border-slate-200/80 last:border-b-0 ${rowBg}`}
+      className={`group transition-colors duration-150 px-5 py-4 border-b border-slate-200/80 dark:border-neutral-800 last:border-b-0 ${rowBg}`}
       data-testid={`problem-row-${problem.id}`}
     >
       <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
         {/* Left: Number, Title, Unboxed Metadata, and Linguistic Takeaway */}
         <div className="flex items-start gap-3.5 min-w-0 flex-1">
-          <span className="font-mono tabular-nums text-xs font-semibold text-slate-400 pt-1 w-7 shrink-0">
+          <span className="font-mono tabular-nums text-xs font-semibold text-slate-400 dark:text-neutral-500 pt-1 w-7 shrink-0">
             #{String(problem.id).padStart(2, '0')}
           </span>
 
@@ -91,35 +91,35 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
               <button
                 type="button"
                 onClick={() => onOpenDetail(problem)}
-                className="text-left text-base font-semibold text-slate-900 hover:text-indigo-700 transition-colors focus-visible:outline-2 focus-visible:outline-indigo-600 rounded-xs"
+                className="text-left text-base font-semibold text-slate-900 dark:text-neutral-100 hover:text-indigo-700 dark:hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-neutral-400 rounded-xs"
               >
                 {problem.exactName}
               </button>
               {problem.alias && (
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-slate-500 dark:text-neutral-400">
                   ({problem.alias})
                 </span>
               )}
             </div>
 
             {/* Clean unboxed metadata with typographic separators (Zero-Pill discipline) */}
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
-              <span className="font-medium text-slate-700">{problem.sourceAndYear}</span>
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 dark:text-neutral-400">
+              <span className="font-medium text-slate-700 dark:text-neutral-300">{problem.sourceAndYear}</span>
               <span aria-hidden="true">·</span>
-              <span>Division: <strong className="font-medium text-slate-700">{problem.division}</strong></span>
+              <span>Division: <strong className="font-medium text-slate-700 dark:text-neutral-300">{problem.division}</strong></span>
               <span aria-hidden="true">·</span>
               <span>
                 Difficulty: <strong className={`font-medium ${difficultyColor}`}>{problem.difficulty}</strong>
               </span>
               <span aria-hidden="true">·</span>
-              <span className="font-mono tabular-nums text-slate-600">
+              <span className="font-mono tabular-nums text-slate-600 dark:text-neutral-300">
                 Day {problem.scheduledDay}
                 {problem.isMockPaper ? ` (${problem.mockPaperName})` : ''}
               </span>
               {problem.weakAreasTargeted.length > 0 && (
                 <>
                   <span aria-hidden="true">·</span>
-                  <span className="text-indigo-700 font-medium">
+                  <span className="text-indigo-700 dark:text-neutral-200 font-medium">
                     Targets: {problem.weakAreasTargeted.join(', ')}
                   </span>
                 </>
@@ -127,23 +127,23 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
             </div>
 
             {/* Unique linguistic concept taught */}
-            <p className="text-sm text-slate-700 leading-relaxed max-w-4xl">
-              <span className="font-medium text-slate-900">Teaches: </span>
+            <p className="text-sm text-slate-700 dark:text-neutral-300 leading-relaxed max-w-4xl">
+              <span className="font-medium text-slate-900 dark:text-neutral-100">Teaches: </span>
               {problem.uniqueSkillTaught}
             </p>
 
             {/* Single-chapter placement explanation when bridging two chapters */}
             {problem.chapterPlacementReason && (
-              <p className="text-xs text-slate-500 italic">
+              <p className="text-xs text-slate-500 dark:text-neutral-400 italic">
                 Chapter Rationale: {problem.chapterPlacementReason}
               </p>
             )}
 
             {/* Personal note preview if present */}
             {hasNote && (
-              <div className="pt-1 text-xs text-slate-600 flex items-center gap-1.5">
-                <FileText className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
-                <span className="truncate max-w-2xl font-medium text-slate-700">
+              <div className="pt-1 text-xs text-slate-600 dark:text-neutral-300 flex items-center gap-1.5">
+                <FileText className="w-3.5 h-3.5 text-indigo-600 dark:text-neutral-300 shrink-0" />
+                <span className="truncate max-w-2xl font-medium text-slate-700 dark:text-neutral-200">
                   Note: {noteText}
                 </span>
               </div>
@@ -156,7 +156,7 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
           <div
             role="group"
             aria-label={`Status for ${problem.exactName}`}
-            className="inline-flex items-center p-1 bg-slate-100 rounded-lg border border-slate-200/80"
+            className="inline-flex items-center p-1 bg-slate-100 dark:bg-neutral-800/90 rounded-lg border border-slate-200/80 dark:border-neutral-700"
           >
             {STATUS_OPTIONS.map((opt) => {
               const Icon = opt.icon;
@@ -171,7 +171,7 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
                   className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-md transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                     isSelected
                       ? opt.activeClass
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                      : 'text-slate-600 dark:text-neutral-300 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-neutral-700/60'
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5 shrink-0" />
@@ -185,9 +185,9 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
             type="button"
             onClick={() => onOpenDetail(problem)}
             aria-label={`Open PDF and notes for ${problem.exactName}`}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 hover:text-slate-900 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-700 dark:text-neutral-200 bg-white dark:bg-neutral-800 border border-slate-200 dark:border-neutral-700 rounded-lg hover:bg-slate-50 dark:hover:bg-neutral-700 hover:text-slate-900 dark:hover:text-white transition-colors whitespace-nowrap shrink-0 cursor-pointer"
           >
-            <BookOpen className="w-3.5 h-3.5 text-slate-500" />
+            <BookOpen className="w-3.5 h-3.5 text-slate-500 dark:text-neutral-400" />
             <span>{hasNote ? 'Edit Note & PDF' : 'Notes & PDF'}</span>
           </button>
         </div>
