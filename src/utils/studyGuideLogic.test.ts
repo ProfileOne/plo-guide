@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { PROBLEMS } from '../data/studyGuideData';
+import { CHAPTERS, PROBLEMS, SCHEDULE_DAYS } from '../data/studyGuideData';
 import {
   calculateChapterProgress,
   calculateProgressStats,
@@ -31,6 +31,31 @@ test('formatElapsedSeconds, getTargetMinutesForDifficulty, and getProblemElapsed
 
   assert.equal(getProblemElapsedSeconds({}, 1), 0);
   assert.equal(getProblemElapsedSeconds({ 1: 425 }, 1), 425);
+});
+
+test('Yellow Book chapter sections, 16-day schedule readings, and PLO 2026 labels match official pages', () => {
+  for (const ch of CHAPTERS) {
+    for (const sec of ch.theorySections) {
+      assert.equal(sec.pages.includes('[PDF p'), true, `Expected PDF page citation in ${sec.pages}`);
+    }
+  }
+
+  for (const day of SCHEDULE_DAYS) {
+    if (day.day >= 1 && day.day <= 12) {
+      assert.equal(
+        day.theoryReading.includes('[PDF pp.'),
+        true,
+        `Day ${day.day} theoryReading should include [PDF pp. ...]`
+      );
+    }
+  }
+
+  const day14 = SCHEDULE_DAYS.find((d) => d.day === 14);
+  assert.equal(day14?.focusTitle.includes('PLO 2026'), true);
+  for (const id of [34, 55, 58]) {
+    const p = PROBLEMS.find((prob) => prob.id === id);
+    assert.equal(p?.sourceAndYear.includes('PLO 2026'), true);
+  }
 });
 
 test('validateGuideInvariants confirms 72 problems, zero Junior-only, and zero excluded solved problems', () => {

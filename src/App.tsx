@@ -84,7 +84,7 @@ const SOURCE_BOOKLETS = [
     url: 'assets/aistudio/PLO_21__Senior_Junior_f1cb5bd2.pdf'
   },
   {
-    label: 'PLO 2022 Senior & Junior',
+    label: 'PLO 2026 Senior & Junior',
     sub: 'Mock Paper 1 (Day 14)',
     url: 'assets/aistudio/PLO_26__Senior_Junior_11665a6e.pdf'
   },
@@ -202,11 +202,10 @@ export default function App() {
   const [dayFilter, setDayFilter] = useState<'All' | number>('All');
   const [hideMockProblems, setHideMockProblems] = useState(false);
 
-  // Expanded theory panels per chapter
-  const [expandedTheory, setExpandedTheory] = useState<Record<string, boolean>>({
-    ch9: true,
-    ch6: true
-  });
+  // Expanded theory panels per chapter (collapsed by default for minimal view)
+  const [expandedTheory, setExpandedTheory] = useState<Record<string, boolean>>({});
+  const [showHeaderAbout, setShowHeaderAbout] = useState(false);
+  const [expandAllRows, setExpandAllRows] = useState(false);
 
   // Active drawer problem
   const [selectedProblem, setSelectedProblem] = useState<StudyProblem | null>(null);
@@ -570,14 +569,31 @@ export default function App() {
           aria-label="Study guide progress summary"
           className="bg-white dark:bg-[#131313] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg px-5 py-4"
         >
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-3.5 border-b border-slate-100 dark:border-neutral-800/70">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-neutral-800/70">
             <div className="min-w-0">
-              <h1 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-[var(--dm-heading)] tracking-tight">
-                Panini Linguistics Olympiad (Senior Round 1)
-              </h1>
-              <p className="text-xs text-slate-500 dark:text-[var(--dm-body)] mt-0.5">
-                72-problem curriculum curated from PLO 2013–2024, Yellow Book &amp; IOL 2003–2026 Individual Problems · Ordered by Yellow Book Chapter yield · Zero Junior-only or previously solved problems
-              </p>
+              <div className="flex flex-wrap items-center gap-2.5">
+                <h1 className="text-base sm:text-lg font-bold text-slate-900 dark:text-[var(--dm-heading)] tracking-tight">
+                  Panini Linguistics Olympiad (Senior Round 1)
+                </h1>
+                <button
+                  type="button"
+                  onClick={() => setShowHeaderAbout((v) => !v)}
+                  aria-expanded={showHeaderAbout}
+                  className="inline-flex items-center gap-0.5 px-2 py-0.5 text-[11px] font-medium text-slate-500 dark:text-[var(--dm-muted)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] bg-slate-100 dark:bg-neutral-800/80 rounded cursor-pointer"
+                >
+                  <span>{showHeaderAbout ? 'Hide Info' : 'About'}</span>
+                  {showHeaderAbout ? (
+                    <ChevronUp className="w-3 h-3" />
+                  ) : (
+                    <ChevronDown className="w-3 h-3" />
+                  )}
+                </button>
+              </div>
+              {showHeaderAbout && (
+                <p className="text-xs text-slate-500 dark:text-[var(--dm-body)] mt-1.5">
+                  72-problem curriculum curated from PLO 2013–2026, Yellow Book &amp; IOL 2003–2026 Individual Problems · Ordered by Yellow Book Chapter yield · Zero Junior-only or previously solved problems
+                </p>
+              )}
             </div>
 
             {/* Right: Minimal Overall Progress */}
@@ -1032,7 +1048,21 @@ export default function App() {
                     )}
                   </div>
 
-                  <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-[var(--dm-muted)]">
+                  <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-[var(--dm-muted)]">
+                    <button
+                      type="button"
+                      onClick={() => setExpandAllRows((v) => !v)}
+                      aria-pressed={expandAllRows}
+                      className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium text-slate-600 dark:text-[var(--dm-body)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] bg-slate-100 dark:bg-neutral-800 rounded cursor-pointer"
+                    >
+                      <span>{expandAllRows ? 'Minimal View' : 'Expand All Info'}</span>
+                      {expandAllRows ? (
+                        <ChevronUp className="w-3 h-3" />
+                      ) : (
+                        <ChevronDown className="w-3 h-3" />
+                      )}
+                    </button>
+
                     <label className="inline-flex items-center gap-1.5 cursor-pointer select-none">
                       <input
                         type="checkbox"
@@ -1040,7 +1070,7 @@ export default function App() {
                         onChange={(e) => setHideMockProblems(e.target.checked)}
                         className="rounded border-slate-300 dark:border-neutral-700 text-slate-900 dark:text-[var(--dm-accent)] focus:ring-slate-500 dark:focus:ring-[var(--dm-accent)]"
                       />
-                      <span>Hide 13 Mock Exam Problems (Days 14–16)</span>
+                      <span>Hide Mock Problems</span>
                     </label>
 
                     <span className="font-mono tabular-nums font-medium text-slate-700 dark:text-[var(--dm-body)]" data-testid="visible-problem-count">
@@ -1096,32 +1126,32 @@ export default function App() {
                         aria-labelledby={`heading-${chapter.id}`}
                         className="bg-white dark:bg-[#131313] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg overflow-hidden"
                       >
-                        {/* Chapter Header */}
-                        <div className="px-5 py-4 bg-slate-50/40 dark:bg-[#101010] border-b border-slate-200/70 dark:border-neutral-800/80 space-y-2.5">
-                          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-                            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                        {/* Minimal 1-Line Chapter Header (Theory & Why Included expand on click) */}
+                        <div className="px-4 sm:px-5 py-3 bg-slate-50/40 dark:bg-[#101010] border-b border-slate-200/70 dark:border-neutral-800/80">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
                               <h2
                                 id={`heading-${chapter.id}`}
-                                className="text-base sm:text-lg font-bold text-slate-900 dark:text-[var(--dm-heading)]"
+                                className="text-sm sm:text-base font-bold text-slate-900 dark:text-[var(--dm-heading)]"
                               >
                                 {chapter.title}
                               </h2>
                               <span className="text-xs font-mono tabular-nums text-slate-400 dark:text-[var(--dm-muted)]">
-                                {chapter.problemCount} Problems · Priority {chapter.priorityRank}/7 · Share: {chapter.shareOfCorpus}
+                                {chapter.problemCount} Problems · Priority {chapter.priorityRank}/7
                               </span>
                             </div>
 
                             <div className="flex items-center gap-3 shrink-0">
                               <span className="text-xs font-mono tabular-nums text-slate-500 dark:text-[var(--dm-muted)]">
-                                Completed: <strong className="text-slate-900 dark:text-[var(--dm-heading)]">{chProg.completed}/{chProg.total}</strong> ({chProg.completionPercent}%)
+                                <strong className="text-slate-900 dark:text-[var(--dm-heading)]">{chProg.completed}/{chProg.total}</strong> ({chProg.completionPercent}%)
                               </span>
                               <button
                                 type="button"
                                 onClick={() => toggleTheory(chapter.id)}
                                 aria-expanded={isTheoryOpen}
-                                className="inline-flex items-center gap-1 text-xs font-medium text-slate-600 dark:text-[var(--dm-accent)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] cursor-pointer whitespace-nowrap"
+                                className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium text-slate-600 dark:text-[var(--dm-accent)] bg-slate-100 dark:bg-neutral-800/80 hover:text-slate-900 dark:hover:text-[var(--dm-heading)] rounded cursor-pointer whitespace-nowrap"
                               >
-                                <span>Theory to Read First</span>
+                                <span>{isTheoryOpen ? 'Hide Theory & Info' : 'Theory & Info'}</span>
                                 {isTheoryOpen ? (
                                   <ChevronUp className="w-3.5 h-3.5" />
                                 ) : (
@@ -1131,14 +1161,14 @@ export default function App() {
                             </div>
                           </div>
 
-                          <p className="text-xs text-slate-500 dark:text-[var(--dm-body)] leading-relaxed max-w-5xl">
-                            <strong className="font-medium text-slate-700 dark:text-[var(--dm-heading)]">Why included: </strong>
-                            {chapter.whyIncluded}
-                          </p>
-
-                          {/* Minimal Collapsible Theory Prerequisite List (No heavy nested boxes) */}
+                          {/* Collapsible Chapter Overview + Yellow Book Theory Sections */}
                           {isTheoryOpen && (
-                            <div className="mt-2 pt-2.5 border-t border-slate-200/60 dark:border-neutral-800/70">
+                            <div className="mt-2.5 pt-2.5 border-t border-slate-200/60 dark:border-neutral-800/70 space-y-2.5">
+                              <p className="text-xs text-slate-500 dark:text-[var(--dm-body)] leading-relaxed max-w-5xl">
+                                <strong className="font-medium text-slate-700 dark:text-[var(--dm-heading)]">Why included ({chapter.shareOfCorpus}): </strong>
+                                {chapter.whyIncluded}
+                              </p>
+
                               <div className="border-l-2 border-slate-300 dark:border-neutral-700 pl-3.5 space-y-1.5">
                                 {chapter.theorySections.map((sec) => (
                                   <div
@@ -1171,6 +1201,7 @@ export default function App() {
                               status={getProblemStatus(statusMap, problem.id)}
                               noteText={notesMap[problem.id] ?? ''}
                               elapsedSeconds={getProblemElapsedSeconds(timerMap, problem.id)}
+                              forceExpanded={expandAllRows}
                               onStatusChange={handleStatusChange}
                               onOpenDetail={setSelectedProblem}
                             />

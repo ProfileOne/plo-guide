@@ -14,7 +14,9 @@ import {
   Play,
   Pause,
   RotateCcw,
-  Timer
+  Timer,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import { CHAPTERS, ProblemStatus, StudyProblem } from '../data/studyGuideData';
 import {
@@ -81,8 +83,9 @@ export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
   const [viewerMode, setViewerMode] = useState<'sheet' | 'pdf'>('sheet');
   const [zoomPercent, setZoomPercent] = useState<number>(100);
   const [isTimerRunning, setIsTimerRunning] = useState<boolean>(false);
+  const [showDrawerInfo, setShowDrawerInfo] = useState<boolean>(false);
 
-  // When a problem is opened, auto-start the timer unless it is already marked Completed
+  // When a problem is opened, keep the timer paused until the user explicitly clicks Start
   useEffect(() => {
     if (!problem) {
       setIsTimerRunning(false);
@@ -92,7 +95,8 @@ export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
     setSavedNotice(false);
     setViewerMode('sheet');
     setZoomPercent(100);
-    setIsTimerRunning(status !== 'Completed');
+    setIsTimerRunning(false);
+    setShowDrawerInfo(false);
     // Only trigger when switching to a different problem ID
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [problem?.id]);
@@ -131,8 +135,6 @@ export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
     onStatusChange(problem.id, nextStatus);
     if (nextStatus === 'Completed') {
       setIsTimerRunning(false);
-    } else if (nextStatus === 'In Progress' && !isTimerRunning) {
-      setIsTimerRunning(true);
     }
   };
 
@@ -169,7 +171,7 @@ export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-2 shrink-0">
-            {/* Built-in Problem Solve Timer right in the top bar */}
+            {/* Built-in Problem Solve Timer right in the top bar (Click-to-Start) */}
             <div
               data-testid="problem-solve-timer"
               className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-mono tabular-nums text-xs ${
@@ -202,23 +204,35 @@ export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
 
               <button
                 type="button"
+                data-testid="timer-toggle-btn"
                 onClick={() => setIsTimerRunning((r) => !r)}
                 aria-label={isTimerRunning ? 'Pause problem timer' : 'Start problem timer'}
-                title={isTimerRunning ? 'Pause timer' : 'Resume timer'}
-                className="p-1 rounded hover:bg-slate-200/70 dark:hover:bg-neutral-800 text-slate-700 dark:text-[var(--dm-heading)] cursor-pointer"
+                title={isTimerRunning ? 'Pause timer' : 'Click to start timer'}
+                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded font-sans text-[11px] font-semibold cursor-pointer ${
+                  isTimerRunning
+                    ? 'bg-amber-100/80 dark:bg-neutral-800 text-amber-900 dark:text-[var(--dm-accent)] hover:bg-amber-200/70 dark:hover:bg-neutral-700'
+                    : 'bg-slate-900 dark:bg-neutral-800 text-white dark:text-[var(--dm-heading)] hover:bg-slate-800 dark:hover:bg-neutral-700'
+                }`}
               >
                 {isTimerRunning ? (
-                  <Pause className="w-3 h-3" />
+                  <>
+                    <Pause className="w-3 h-3" />
+                    <span>Pause</span>
+                  </>
                 ) : (
-                  <Play className="w-3 h-3" />
+                  <>
+                    <Play className="w-3 h-3" />
+                    <span>{elapsedSeconds > 0 ? 'Resume' : 'Start'}</span>
+                  </>
                 )}
               </button>
 
               <button
                 type="button"
+                data-testid="timer-reset-btn"
                 onClick={() => {
+                  setIsTimerRunning(false);
                   onUpdateTimer(problem.id, 0);
-                  setIsTimerRunning(true);
                 }}
                 aria-label="Reset problem timer"
                 title="Reset timer to 00:00"
@@ -437,30 +451,48 @@ export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
             </div>
           </form>
 
-          {/* 4. METADATA & CORE TAKEAWAY */}
-          <div className="p-4 bg-slate-50 dark:bg-[#101010] rounded-xl border border-slate-200/80 dark:border-neutral-800 space-y-2.5">
-            <div className="flex flex-wrap items-center gap-2 text-xs text-slate-600 dark:text-[var(--dm-body)]">
-              <span><strong className="dark:text-[var(--dm-heading)]">Source:</strong> {problem.sourceAndYear}</span>
-              <span aria-hidden="true">·</span>
-              <span><strong className="dark:text-[var(--dm-heading)]">Division:</strong> {problem.division}</span>
-              <span aria-hidden="true">·</span>
-              <span><strong className="dark:text-[var(--dm-heading)]">Difficulty:</strong> {problem.difficulty}</span>
-            </div>
+          {/* 4. METADATA & CORE TAKEAWAY (Click to Expand) */}
+          <div className="bg-slate-50 dark:bg-[#101010] rounded-xl border border-slate-200/80 dark:border-neutral-800 overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setShowDrawerInfo((v) => !v)}
+              aria-expanded={showDrawerInfo}
+              className="w-full px-4 py-3 flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-[var(--dm-heading)] hover:bg-slate-100/80 dark:hover:bg-neutral-800/60 cursor-pointer"
+            >
+              <span>{showDrawerInfo ? 'Hide Problem Concept & Source Info' : 'Show Problem Concept & Source Info'}</span>
+              {showDrawerInfo ? (
+                <ChevronUp className="w-4 h-4 text-slate-400 dark:text-[var(--dm-muted)]" />
+              ) : (
+                <ChevronDown className="w-4 h-4 text-slate-400 dark:text-[var(--dm-muted)]" />
+              )}
+            </button>
 
-            <div className="text-sm text-slate-800 dark:text-[var(--dm-body)] leading-relaxed">
-              <strong className="text-slate-900 dark:text-[var(--dm-accent)]">Unique Concept Taught: </strong>
-              {problem.uniqueSkillTaught}
-            </div>
+            {showDrawerInfo && (
+              <div className="px-4 pb-4 pt-2 border-t border-slate-200/70 dark:border-neutral-800 space-y-2.5">
+                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-600 dark:text-[var(--dm-body)]">
+                  <span><strong className="dark:text-[var(--dm-heading)]">Source:</strong> {problem.sourceAndYear}</span>
+                  <span aria-hidden="true">·</span>
+                  <span><strong className="dark:text-[var(--dm-heading)]">Division:</strong> {problem.division}</span>
+                  <span aria-hidden="true">·</span>
+                  <span><strong className="dark:text-[var(--dm-heading)]">Difficulty:</strong> {problem.difficulty}</span>
+                </div>
 
-            {problem.chapterPlacementReason && (
-              <div className="text-xs text-slate-600 dark:text-[var(--dm-muted)] italic border-t border-slate-200 dark:border-neutral-800 pt-2">
-                <strong className="not-italic dark:text-[var(--dm-body)]">Single-Chapter Assignment Reason:</strong> {problem.chapterPlacementReason}
-              </div>
-            )}
+                <div className="text-sm text-slate-800 dark:text-[var(--dm-body)] leading-relaxed">
+                  <strong className="text-slate-900 dark:text-[var(--dm-accent)]">Unique Concept Taught: </strong>
+                  {problem.uniqueSkillTaught}
+                </div>
 
-            {problem.weakAreasTargeted.length > 0 && (
-              <div className="text-xs text-slate-700 dark:text-[var(--dm-accent)] font-medium border-t border-slate-200 dark:border-neutral-800 pt-2">
-                Targeted Weak Areas: {problem.weakAreasTargeted.join(' · ')}
+                {problem.chapterPlacementReason && (
+                  <div className="text-xs text-slate-600 dark:text-[var(--dm-muted)] italic border-t border-slate-200 dark:border-neutral-800 pt-2">
+                    <strong className="not-italic dark:text-[var(--dm-body)]">Single-Chapter Assignment Reason:</strong> {problem.chapterPlacementReason}
+                  </div>
+                )}
+
+                {problem.weakAreasTargeted.length > 0 && (
+                  <div className="text-xs text-slate-700 dark:text-[var(--dm-accent)] font-medium border-t border-slate-200 dark:border-neutral-800 pt-2">
+                    Targeted Weak Areas: {problem.weakAreasTargeted.join(' · ')}
+                  </div>
+                )}
               </div>
             )}
           </div>

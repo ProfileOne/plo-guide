@@ -86,25 +86,25 @@ export const CHAPTERS: ChapterMeta[] = [
       {
         sectionCode: '9.1',
         title: 'Introduction: Bases, Sub-bases, Orders & Carryovers',
-        pages: 'pp. 321–326',
+        pages: 'pp. 321–331 [PDF pp. 345–355]',
         keyTakeaway: 'Identify constituent order (multiplier × base + unit) and morphological linkers via digit-frequency analysis.'
       },
       {
         sectionCode: '9.2',
         title: 'Overcounting Systems',
-        pages: 'pp. 326–329',
+        pages: 'pp. 332–341 [PDF pp. 356–365]',
         keyTakeaway: 'Recognize "4 towards the 2nd twenty" (= 24, not 44) or fractional step overcounting (Dzongkha) by checking whether the multiplier increments one step early.'
       },
       {
         sectionCode: '9.3',
         title: 'Subtractive Systems',
-        pages: 'pp. 329–331',
+        pages: 'pp. 342–344 [PDF pp. 366–368]',
         keyTakeaway: 'Spot sudden morpheme changes at 8–9, 10–11 (Birom), or 15–19 signaling back-counting from the next threshold.'
       },
       {
         sectionCode: '9.4–9.5',
         title: 'Body-Part Counting & Time Reckoning',
-        pages: 'pp. 331–335',
+        pages: 'pp. 345–352 [PDF pp. 369–376]',
         keyTakeaway: 'Map anatomical symmetry axes (midpoint = nose/chest) and equatorial 6-hour clock offsets.'
       }
     ]
@@ -123,25 +123,25 @@ export const CHAPTERS: ChapterMeta[] = [
       {
         sectionCode: '6.1–6.3.4',
         title: 'Transitivity, Valency & TAM (Tense, Aspect, Mood)',
-        pages: 'pp. 199–207',
+        pages: 'pp. 199–203 [PDF pp. 223–227]',
         keyTakeaway: 'Distinguish hodiernal/hesternal/crastinal tense, perfective/imperfective/semelfactive aspect, and realis/irrealis/optative mood.'
       },
       {
         sectionCode: '6.3.5',
         title: 'Evidentiality Systems',
-        pages: 'pp. 207–209',
+        pages: 'p. 204 [PDF p. 228]',
         keyTakeaway: 'Separate information source (visual, non-visual sensory, inferential from traces, reportative/hearsay) from tense.'
       },
       {
         sectionCode: '6.4–6.7',
-        title: 'Verb Templates & Pronoun Hierarchy',
-        pages: 'pp. 209–218',
+        title: 'Verb Templates, Argument Patterns & Pronoun Hierarchy',
+        pages: 'pp. 205–228 [PDF pp. 229–252]',
         keyTakeaway: 'In 1>2>3 (Hakhun) or 2>1>3 (Plains Cree) hierarchies, one person slot indexes the higher-ranked participant while a Direct/Inverse marker encodes direction of action.'
       },
       {
         sectionCode: '6.8',
         title: 'Verb Semantics, Pluractionality & Fluid-S Alignment',
-        pages: 'pp. 218–221',
+        pages: 'pp. 229–232 [PDF pp. 253–256]',
         keyTakeaway: 'Track causatives, middle/passive valency operations (Alabama), and active/stative (volitional vs. accidental) intransitive subject marking.'
       }
     ]
@@ -160,19 +160,19 @@ export const CHAPTERS: ChapterMeta[] = [
       {
         sectionCode: '7.1–7.3',
         title: 'Word Order, V2 Dislocation & Focusing',
-        pages: 'pp. 257–263',
+        pages: 'pp. 257–268 [PDF pp. 281–292]',
         keyTakeaway: 'Correlate SOV/VSO with postpositions/prepositions, mood-conditioned V2 fronting (Iquito), and polarity-driven inversion (Epun).'
       },
       {
         sectionCode: '7.4',
         title: 'Morphosyntactic Alignment & Antipassive Voice',
-        pages: 'pp. 263–266',
+        pages: 'pp. 269–273 [PDF pp. 293–297]',
         keyTakeaway: 'Compare intransitive (S) with transitive agent (A) and patient (P): Nominative-Accusative (S=A≠P), Ergative-Absolutive (S=P≠A, plus Dyirbal antipassive -ŋay-).'
       },
       {
         sectionCode: '7.5',
         title: 'Split Alignment & Second-Position Clitics',
-        pages: 'pp. 266–269',
+        pages: 'pp. 274–275 [PDF pp. 298–299]',
         keyTakeaway: '1st/2nd pronouns favour accusative while common nouns favour ergative (Wiradjuri); Wackernagel auxiliary clusters attach after the first constituent (Wambaya, Luiseño).'
       }
     ]
@@ -191,19 +191,19 @@ export const CHAPTERS: ChapterMeta[] = [
       {
         sectionCode: '5.1–5.2',
         title: 'Morpheme Types: Infix, Circumfix, Transfix & Autosegmental Spread',
-        pages: 'pp. 145–151',
+        pages: 'pp. 145–152 [PDF pp. 169–176]',
         keyTakeaway: 'Isolate discontinuous root consonants (Semitic C1-C2-C3 transfixes), prosodic infix landing sites (Ulwa), and autosegmental nasal/harmony spread (Terêna).'
       },
       {
         sectionCode: '5.3–5.6',
-        title: 'Nominal Variables, Multi-Slot Classifiers & Reduplication',
-        pages: 'pp. 151–164',
+        title: 'Nominal Variables, Multi-Slot Classifiers, Reduplication & Suppletion',
+        pages: 'pp. 153–164 [PDF pp. 177–188]',
         keyTakeaway: 'Track Bantu singular/plural class pairs, multi-target sortal classifiers across NP constituents (Kilivila), and partial CV/CVC reduplication.'
       },
       {
         sectionCode: '5.7–5.8',
         title: 'Alienable vs. Inalienable Possession & Colour Hierarchy',
-        pages: 'pp. 164–168',
+        pages: 'pp. 164–179 [PDF pp. 188–203]',
         keyTakeaway: 'Inalienable nouns (kin, body parts) take direct affixes/infixes; alienable nouns and loanwords require possessive classifiers or helper roots.'
       }
     ]
@@ -222,13 +222,13 @@ export const CHAPTERS: ChapterMeta[] = [
       {
         sectionCode: '8.1 & 10.1',
         title: 'Semantic Fields, Metaphorical Calques & Topographical Deixis',
-        pages: 'pp. 299–302, 365–370',
+        pages: 'p. 299 & pp. 365–368 [PDF p. 323 & pp. 389–392]',
         keyTakeaway: 'Recognize cross-linguistic calques ("eye of water" = spring) and riverine/elevation coordinate axes (upriver vs. downriver, uphill vs. downhill in Aralle-Tabulahan).'
       },
       {
         sectionCode: '8.2 & 10.2',
         title: 'The Graph Method for Gloss Matrices & Kinship Trees',
-        pages: 'pp. 302–307, 371–377',
+        pages: 'pp. 300–310 & pp. 369–379 [PDF pp. 324–334 & pp. 393–403]',
         keyTakeaway: 'Match nodes uniquely by degree sequences, cycle lengths, and symmetrical marriage/exchange cycles (Komnzo sister-exchange).'
       }
     ]
@@ -245,15 +245,15 @@ export const CHAPTERS: ChapterMeta[] = [
       'Essential for dedicated phonology/prosody problems—including autosegmental High-tone mora counting (IOL 2025 Kuria), iterative iambic stress & gemination (IOL 2026 Central Yup’ik), Irish slender/broad orthography (GaeilGo), rule ordering (Valley Yokuts), and long-distance sibilant harmony (Barbareño).',
     theorySections: [
       {
-        sectionCode: '3.2, 3.5 & 4.1–4.3',
-        title: 'Articulatory Features, Tone Mora-Counting & Stress Windows',
-        pages: 'pp. 49–58, 70–74, 91–96',
+        sectionCode: '3.2, 3.5–3.6 & 4.1–4.3',
+        title: 'Articulatory Features, Stress Windows, Tone & Complementary Distribution',
+        pages: 'pp. 50–58, 69–74, 91–100 [PDF pp. 74–82, 93–98, 115–124]',
         keyTakeaway: 'Group sounds by natural classes, count moras for autosegmental tone targets (Kuria), and parse left-to-right iambic feet (Central Yup’ik).'
       },
       {
         sectionCode: '4.4–4.6',
-        title: 'Assimilation, Dissimilation, Vowel Harmony & Rule Ordering',
-        pages: 'pp. 96–107',
+        title: 'Phonological Processes, Vowel Harmony & Consonant Mutation',
+        pages: 'pp. 101–124 [PDF pp. 125–148]',
         keyTakeaway: 'Check feeding vs. bleeding rule order when vowel harmony, epenthesis, syncope, and sibilant/voicing dissimilation interact.'
       }
     ]
@@ -270,15 +270,15 @@ export const CHAPTERS: ChapterMeta[] = [
       'Since you have already solved 5 script problems (Hmong Daw, Luwian, Aksara Sunda Kuna, Brahmi, Ire-Lined), these 4 problems cover the remaining Senior archetypes: 2D Braille matrices (Tenji), featural triangle blocks (Ditema tsa Dinoko), polyvalent abjad + Aramaic heterograms (IOL 2019 Book Pahlavi), and Old Persian cuneiform.',
     theorySections: [
       {
-        sectionCode: '2.4, 2.7–2.9',
+        sectionCode: '2.1–2.9',
         title: 'Abjads, Heterograms (Ideograms), Syllabaries & Featural Systems',
-        pages: 'pp. 15–24',
+        pages: 'pp. 11–26 [PDF pp. 35–50]',
         keyTakeaway: 'Spot frozen Aramaic heterograms vs. polyvalent phonetic spellings (Book Pahlavi), featural stroke geometry (Ditema), and semi-alphabetic cuneiform.'
       },
       {
         sectionCode: '2.11',
-        title: 'Braille & Compositional Matrix Scripts',
-        pages: 'pp. 25–26',
+        title: 'Braille Alphabet & Compositional Matrix Scripts',
+        pages: 'pp. 27–29 [PDF pp. 51–53]',
         keyTakeaway: 'Decompose 6-dot cells into vowel sub-grids, consonant sub-grids, and spatial shift modifiers (voicing/palatalisation prefixes).'
       }
     ]
@@ -337,10 +337,10 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 4,
     exactName: 'Problem #4: Telling Time in Swahili',
-    alias: 'Yellow Book Problem 9.8 (Swahili)',
-    sourceAndYear: 'PLO 2014 Round 1 (PLO_Easy_Problems.pdf, p. 11 / Yellow Book p. 335)',
+    alias: 'Yellow Book Problem 9.8 (Swahili, p. 349 [PDF p. 373])',
+    sourceAndYear: 'PLO 2014 Round 1 (PLO_Easy_Problems.pdf, p. 11 / Yellow Book p. 349 [PDF p. 373])',
     pdfUrl: 'assets/aistudio/PLO_Easy_Problems__1__c3f35e58.pdf',
-    pdfLabel: 'PLO_Easy_Problems.pdf (p. 11)',
+    pdfLabel: 'PLO_Easy_Problems.pdf (p. 11) / Yellow Book p. 349',
     division: 'All',
     difficulty: 'Easy',
     chapterId: 'ch9',
@@ -353,8 +353,8 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 5,
     exactName: 'IOL 2012 Problem #2: Umbu-Ungu',
-    alias: 'Yellow Book Problem 9.4 (Umbu-Ungu, p. 327)',
-    sourceAndYear: 'IOL 2012 Individual (IOL_2003-2026_Individual_Problems.pdf, p. 52 / Yellow Book p. 327)',
+    alias: 'Yellow Book Problem 9.4 (Umbu-Ungu, p. 332 [PDF p. 356])',
+    sourceAndYear: 'IOL 2012 Individual (IOL_2003-2026_Individual_Problems.pdf, p. 52 / Yellow Book p. 332 [PDF p. 356])',
     pdfUrl: 'assets/aistudio/IOL_2003-2026_Individual_Problems_7bbe0dda.pdf',
     pdfLabel: 'IOL_2003-2026_Individual_Problems.pdf (p. 52)',
     division: 'All',
@@ -369,9 +369,9 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 6,
     exactName: 'Problem 9.6 (Yoruba)',
-    sourceAndYear: 'Yellow Book Ch 9 Worked Example (UKLO 2020, p. 330)',
+    sourceAndYear: 'Yellow Book Ch 9 Worked Example (UKLO 2020, p. 343 [PDF p. 367])',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 330)',
+    pdfLabel: 'Yellow_Book.pdf (p. 343 [PDF p. 367])',
     division: 'All',
     difficulty: 'Medium',
     chapterId: 'ch9',
@@ -385,9 +385,9 @@ export const PROBLEMS: StudyProblem[] = [
     id: 7,
     exactName: 'Problem 9.16 (Tifal)',
     alias: 'PLO Camp 26\' Problem 67. Tifal',
-    sourceAndYear: 'Yellow Book Ch 9 Practice (MSK 2017, p. 355 / PLO_Camp_26\'.pdf, p. 44)',
+    sourceAndYear: 'Yellow Book Ch 9 Practice (MSK 2017, p. 358 [PDF p. 382] / PLO_Camp_26\'.pdf, p. 44)',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 355)',
+    pdfLabel: 'Yellow_Book.pdf (p. 358 [PDF p. 382])',
     division: 'All',
     difficulty: 'Medium',
     chapterId: 'ch9',
@@ -446,9 +446,9 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 11,
     exactName: 'Problem 9.15 (Chabu)',
-    sourceAndYear: 'Yellow Book Ch 9 Practice (UkrLO 2018, p. 354)',
+    sourceAndYear: 'Yellow Book Ch 9 Practice (UkrLO 2018, p. 358 [PDF p. 382])',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 354)',
+    pdfLabel: 'Yellow_Book.pdf (p. 358 [PDF p. 382])',
     division: 'All',
     difficulty: 'Hard',
     chapterId: 'ch9',
@@ -556,9 +556,9 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 18,
     exactName: 'Problem 6.8 (Tariana)',
-    sourceAndYear: 'Yellow Book Ch 6 Practice (ČLO 2019, p. 227)',
+    sourceAndYear: 'Yellow Book Ch 6 Practice (ČLO 2019, p. 234 [PDF p. 258])',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 227)',
+    pdfLabel: 'Yellow_Book.pdf (p. 234 [PDF p. 258])',
     division: 'All',
     difficulty: 'Medium',
     chapterId: 'ch6',
@@ -571,9 +571,9 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 19,
     exactName: 'Problem 6.4 (Itelmen)',
-    sourceAndYear: 'Yellow Book Ch 6 Worked Example (MSK 1998, p. 214)',
+    sourceAndYear: 'Yellow Book Ch 6 Worked Example (MSK 1998, p. 219 [PDF p. 243])',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 214)',
+    pdfLabel: 'Yellow_Book.pdf (p. 219 [PDF p. 243])',
     division: 'All',
     difficulty: 'Medium',
     chapterId: 'ch6',
@@ -602,9 +602,9 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 21,
     exactName: 'Problem 6.6 (Tabasaran)',
-    sourceAndYear: 'Yellow Book Ch 6 Worked Example (MSK 1998, p. 219)',
+    sourceAndYear: 'Yellow Book Ch 6 Worked Example (MSK 1998, p. 230 [PDF p. 254])',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 219)',
+    pdfLabel: 'Yellow_Book.pdf (p. 230 [PDF p. 254])',
     division: 'All',
     difficulty: 'Medium',
     chapterId: 'ch6',
@@ -647,9 +647,9 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 24,
     exactName: 'Problem 6.10 (Gyarung)',
-    sourceAndYear: 'Yellow Book Ch 6 Practice (MSK 1998, p. 229)',
+    sourceAndYear: 'Yellow Book Ch 6 Practice (MSK 1998, p. 237 [PDF p. 261])',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 229)',
+    pdfLabel: 'Yellow_Book.pdf (p. 237 [PDF p. 261])',
     division: 'All',
     difficulty: 'Hard',
     chapterId: 'ch6',
@@ -662,8 +662,8 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 25,
     exactName: 'IOL 2018 Problem 2: Hakhun',
-    alias: 'Yellow Book Problem 6.11 (Hakhun, p. 230)',
-    sourceAndYear: 'IOL 2018 Individual (IOL_2003-2026_Individual_Problems.pdf, p. 97 / Yellow Book p. 230)',
+    alias: 'Yellow Book Problem 6.11 (Hakhun, p. 239 [PDF p. 263])',
+    sourceAndYear: 'IOL 2018 Individual (IOL_2003-2026_Individual_Problems.pdf, p. 97 / Yellow Book p. 239 [PDF p. 263])',
     pdfUrl: 'assets/aistudio/IOL_2003-2026_Individual_Problems_7bbe0dda.pdf',
     pdfLabel: 'IOL_2003-2026_Individual_Problems.pdf (p. 97)',
     division: 'Senior',
@@ -694,9 +694,9 @@ export const PROBLEMS: StudyProblem[] = [
     id: 27,
     exactName: 'Problem 6.13 (Ainu)',
     alias: 'PLO Camp 26\' Problem 40. Ainu',
-    sourceAndYear: 'Yellow Book Ch 6 Practice (RoLO 2021, p. 233 / PLO_Camp_26\'.pdf, p. 25)',
+    sourceAndYear: 'Yellow Book Ch 6 Practice (RoLO 2021, p. 240 [PDF p. 264] / PLO_Camp_26\'.pdf, p. 25)',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 233)',
+    pdfLabel: 'Yellow_Book.pdf (p. 240 [PDF p. 264])',
     division: 'All',
     difficulty: 'Hard',
     chapterId: 'ch6',
@@ -756,9 +756,9 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 31,
     exactName: 'Problem 7.2 (Morphosyntactic alignments)',
-    sourceAndYear: 'Yellow Book Ch 7 Worked Example (RoLO 2016: Dyirbal, Tahitian, Nez-Perce, Wappo, p. 265)',
+    sourceAndYear: 'Yellow Book Ch 7 Worked Example (RoLO 2016: Dyirbal, Tahitian, Nez-Perce, Wappo, p. 269 [PDF p. 293])',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 265)',
+    pdfLabel: 'Yellow_Book.pdf (p. 269 [PDF p. 293])',
     division: 'All',
     difficulty: 'Medium',
     chapterId: 'ch7',
@@ -805,16 +805,16 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 34,
     exactName: 'Problem 5: Dhivehi',
-    sourceAndYear: 'PLO 2022 Round 1 (PLO_26\'_Senior_Junior.pdf [2022 paper], p. 9)',
+    sourceAndYear: 'PLO 2026 Round 1 (PLO_26\'_Senior_Junior.pdf, p. 9)',
     pdfUrl: 'assets/aistudio/PLO_26__Senior_Junior_11665a6e.pdf',
-    pdfLabel: 'PLO_26\'_Senior_Junior.pdf [2022] (p. 9)',
+    pdfLabel: 'PLO_26\'_Senior_Junior.pdf (p. 9)',
     division: 'All',
     difficulty: 'Medium',
     chapterId: 'ch7',
     chapterNumber: 7,
     scheduledDay: 14,
     isMockPaper: true,
-    mockPaperName: 'Mock Paper 1 (PLO 2022 Round 1)',
+    mockPaperName: 'Mock Paper 1 (PLO 2026 Senior & Junior)',
     uniqueSkillTaught:
       'Volitional vs. involuntary/accidental syntax, where changing the verb to the involuntary stem flips the agent into the dative case and alters TAM marking.',
     weakAreasTargeted: ['Morphosyntactic Alignment', 'TAM (Tense, Aspect, Mood)']
@@ -875,9 +875,9 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 38,
     exactName: 'Problem 7.3 (Luiseño)',
-    sourceAndYear: 'Yellow Book Ch 7 Practice (UKLO 2012, p. 272)',
+    sourceAndYear: 'Yellow Book Ch 7 Practice (UKLO 2012, p. 276 [PDF p. 300])',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 272)',
+    pdfLabel: 'Yellow_Book.pdf (p. 276 [PDF p. 300])',
     division: 'All',
     difficulty: 'Hard',
     chapterId: 'ch7',
@@ -967,9 +967,9 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 44,
     exactName: 'Problem 5.6 (Fijian)',
-    sourceAndYear: 'Yellow Book Ch 5 Worked Example (UKLO 2018, p. 165)',
+    sourceAndYear: 'Yellow Book Ch 5 Worked Example (UKLO 2018, p. 164 [PDF p. 189])',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 165)',
+    pdfLabel: 'Yellow_Book.pdf (p. 164 [PDF p. 189])',
     division: 'All',
     difficulty: 'Easy',
     chapterId: 'ch5',
@@ -998,9 +998,9 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 46,
     exactName: 'Problem 5.9 (Ulwa)',
-    sourceAndYear: 'Yellow Book Ch 5 Practice (TurLom 2003, p. 174)',
+    sourceAndYear: 'Yellow Book Ch 5 Practice (TurLom 2003, p. 180 [PDF p. 204])',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 174)',
+    pdfLabel: 'Yellow_Book.pdf (p. 180 [PDF p. 204])',
     division: 'All',
     difficulty: 'Medium',
     chapterId: 'ch5',
@@ -1013,9 +1013,9 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 47,
     exactName: 'Problem 5.13 (Maltese)',
-    sourceAndYear: 'Yellow Book Ch 5 Practice (LLO 2020, p. 178)',
+    sourceAndYear: 'Yellow Book Ch 5 Practice (LLO 2020, p. 183 [PDF p. 207])',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 178)',
+    pdfLabel: 'Yellow_Book.pdf (p. 183 [PDF p. 207])',
     division: 'All',
     difficulty: 'Medium',
     chapterId: 'ch5',
@@ -1030,9 +1030,9 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 48,
     exactName: 'Problem 5.15 (Ilocano)',
-    sourceAndYear: 'Yellow Book Ch 5 Practice (NACLO 2008, p. 180)',
+    sourceAndYear: 'Yellow Book Ch 5 Practice (NACLO 2008, p. 185 [PDF p. 209])',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 180)',
+    pdfLabel: 'Yellow_Book.pdf (p. 185 [PDF p. 209])',
     division: 'All',
     difficulty: 'Medium',
     chapterId: 'ch5',
@@ -1114,9 +1114,9 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 53,
     exactName: 'Problem 5.17 (Iaai)',
-    sourceAndYear: 'Yellow Book Ch 5 Practice (APLO 2020, p. 183)',
+    sourceAndYear: 'Yellow Book Ch 5 Practice (APLO 2020, p. 186 [PDF p. 210])',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 183)',
+    pdfLabel: 'Yellow_Book.pdf (p. 186 [PDF p. 210])',
     division: 'Senior',
     difficulty: 'Hard',
     chapterId: 'ch5',
@@ -1131,10 +1131,10 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 54,
     exactName: 'Problem No. 1 (20 Points): Basque',
-    alias: 'Yellow Book Problem 8.3 (Basque)',
-    sourceAndYear: 'PLO Round 1 (PLO_Easy_Problems.pdf, p. 36 / Yellow Book p. 308)',
+    alias: 'Yellow Book Problem 8.3 (Basque, p. 311 [PDF p. 335])',
+    sourceAndYear: 'PLO Round 1 (PLO_Easy_Problems.pdf, p. 36 / Yellow Book p. 311 [PDF p. 335])',
     pdfUrl: 'assets/aistudio/PLO_Easy_Problems__1__c3f35e58.pdf',
-    pdfLabel: 'PLO_Easy_Problems.pdf (p. 36)',
+    pdfLabel: 'PLO_Easy_Problems.pdf (p. 36) / Yellow Book p. 311',
     division: 'All',
     difficulty: 'Easy',
     chapterId: 'ch8',
@@ -1147,16 +1147,16 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 55,
     exactName: 'Problem 1: miks salat',
-    sourceAndYear: 'PLO 2022 Round 1 (PLO_26\'_Senior_Junior.pdf [2022 paper], p. 2)',
+    sourceAndYear: 'PLO 2026 Round 1 (PLO_26\'_Senior_Junior.pdf, p. 2)',
     pdfUrl: 'assets/aistudio/PLO_26__Senior_Junior_11665a6e.pdf',
-    pdfLabel: 'PLO_26\'_Senior_Junior.pdf [2022] (p. 2)',
+    pdfLabel: 'PLO_26\'_Senior_Junior.pdf (p. 2)',
     division: 'All',
     difficulty: 'Easy',
     chapterId: 'ch8',
     chapterNumber: 8,
     scheduledDay: 14,
     isMockPaper: true,
-    mockPaperName: 'Mock Paper 1 (PLO 2022 Round 1)',
+    mockPaperName: 'Mock Paper 1 (PLO 2026 Senior & Junior)',
     uniqueSkillTaught:
       'Comparative creole lexical semantics and calquing across Nigerian Pidgin (Naijá) and Tok Pisin ("eye-water" = tear, "grass belong head" = hair).',
     weakAreasTargeted: []
@@ -1164,7 +1164,8 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 56,
     exactName: 'IOL 2016 Problem 1: Aralle-Tabulahan',
-    sourceAndYear: 'IOL 2016 Individual (IOL_2003-2026_Individual_Problems.pdf, p. 85)',
+    alias: 'Yellow Book Problem 10.8 (Aralle-Tabulahan, p. 388 [PDF p. 412])',
+    sourceAndYear: 'IOL 2016 Individual (IOL_2003-2026_Individual_Problems.pdf, p. 85 / Yellow Book p. 388 [PDF p. 412])',
     pdfUrl: 'assets/aistudio/IOL_2003-2026_Individual_Problems_7bbe0dda.pdf',
     pdfLabel: 'IOL_2003-2026_Individual_Problems.pdf (p. 85)',
     division: 'All',
@@ -1194,16 +1195,16 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 58,
     exactName: 'Problem 4: Karuk',
-    sourceAndYear: 'PLO 2022 Round 1 (PLO_26\'_Senior_Junior.pdf [2022 paper], p. 7)',
+    sourceAndYear: 'PLO 2026 Round 1 (PLO_26\'_Senior_Junior.pdf, p. 7)',
     pdfUrl: 'assets/aistudio/PLO_26__Senior_Junior_11665a6e.pdf',
-    pdfLabel: 'PLO_26\'_Senior_Junior.pdf [2022] (p. 7)',
+    pdfLabel: 'PLO_26\'_Senior_Junior.pdf (p. 7)',
     division: 'All',
     difficulty: 'Medium',
     chapterId: 'ch8',
     chapterNumber: 8,
     scheduledDay: 14,
     isMockPaper: true,
-    mockPaperName: 'Mock Paper 1 (PLO 2022 Round 1)',
+    mockPaperName: 'Mock Paper 1 (PLO 2026 Senior & Junior)',
     uniqueSkillTaught:
       'Cross-domain semantic compounding linking animal metaphors, months of the year, and body-part numerals into a single integrated lexical network.',
     weakAreasTargeted: []
@@ -1228,10 +1229,10 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 60,
     exactName: 'Problem No. 6 (25 Points): Malagasy',
-    alias: 'Cheesy Malagasy / Yellow Book Problem 8.8 (Malagasy)',
-    sourceAndYear: 'PLO Round 1 (PLO_Medium_Hard_Expert_Problems.pdf, p. 10 / Yellow Book p. 313)',
+    alias: 'Cheesy Malagasy / Yellow Book Problem 8.8 (Malagasy, p. 314 [PDF p. 338])',
+    sourceAndYear: 'PLO Round 1 (PLO_Medium_Hard_Expert_Problems.pdf, p. 10 / Yellow Book p. 314 [PDF p. 338])',
     pdfUrl: 'assets/aistudio/PLO_Medium_Hard_Expert_Problems__1__4210d91e.pdf',
-    pdfLabel: 'PLO_Medium_Hard_Expert_Problems.pdf (p. 10)',
+    pdfLabel: 'PLO_Medium_Hard_Expert_Problems.pdf (p. 10) / Yellow Book p. 314',
     division: 'All',
     difficulty: 'Hard',
     chapterId: 'ch8',
@@ -1292,9 +1293,9 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 64,
     exactName: 'Problem 4.4 (Valley Yokuts)',
-    sourceAndYear: 'Yellow Book Ch 4 Worked Example (RoLO 2019, p. 101)',
+    sourceAndYear: 'Yellow Book Ch 4 Worked Example (RoLO 2019, p. 111 [PDF p. 135])',
     pdfUrl: 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
-    pdfLabel: 'Yellow_Book.pdf (p. 101)',
+    pdfLabel: 'Yellow_Book.pdf (p. 111 [PDF p. 135])',
     division: 'All',
     difficulty: 'Medium',
     chapterId: 'ch4',
@@ -1371,7 +1372,7 @@ export const PROBLEMS: StudyProblem[] = [
   {
     id: 69,
     exactName: 'Problem 3: Tenji Braille',
-    alias: 'Compare Yellow Book Problem 2.4 (Japanese Braille)',
+    alias: 'Compare Yellow Book Problem 2.4 (Japanese Braille, p. 27 [PDF p. 51])',
     sourceAndYear: 'PLO 2020 Round 1 (PLO_20\'_Senior_Junior.pdf, p. 5)',
     pdfUrl: 'assets/aistudio/PLO_20__Senior_Junior_e80ce274.pdf',
     pdfLabel: 'PLO_20\'_Senior_Junior.pdf (p. 5)',
@@ -1439,7 +1440,7 @@ export const SCHEDULE_DAYS: ScheduleDay[] = [
     day: 1,
     dateLabel: 'Fri, 13 Nov 2026',
     focusTitle: 'Ch 1 Intro + Ch 9: Number Systems (Part 1 — Bases, Overcounting & Subtraction)',
-    theoryReading: 'Yellow Book Ch 1 (1.4–1.5, pp. 5–10) & Ch 9 (9.1–9.5, pp. 321–335)',
+    theoryReading: 'Yellow Book Ch 1 (1.1–1.5, pp. 1–10 [PDF pp. 25–34]) & Ch 9 (9.1–9.5, pp. 321–352 [PDF pp. 345–376])',
     timeBreakdown: '1.0h Theory + 3.0h Problems (6)',
     problemIds: [1, 2, 3, 4, 5, 6],
     isMockExamDay: false
@@ -1448,7 +1449,7 @@ export const SCHEDULE_DAYS: ScheduleDay[] = [
     day: 2,
     dateLabel: 'Sat, 14 Nov 2026',
     focusTitle: 'Ch 9: Number Systems (Part 2 — Tallies, IOL Birom, Equations & IOL Dzongkha)',
-    theoryReading: 'Review Ch 9 Worked Solutions (pp. 336–348)',
+    theoryReading: 'Yellow Book Ch 9 Practice & Solutions (9.6–9.7, pp. 353–364 [PDF pp. 377–388])',
     timeBreakdown: '0.5h Review + 3.5h Problems (6)',
     problemIds: [7, 8, 9, 10, 11, 12],
     isMockExamDay: false,
@@ -1458,7 +1459,7 @@ export const SCHEDULE_DAYS: ScheduleDay[] = [
     day: 3,
     dateLabel: 'Sun, 15 Nov 2026',
     focusTitle: 'Ch 6: Verb & VP — TAM & Evidentiality (Part 1)',
-    theoryReading: 'Yellow Book Ch 6 (6.1–6.6, pp. 199–215)',
+    theoryReading: 'Yellow Book Ch 6 (6.1–6.6, pp. 199–222 [PDF pp. 223–246])',
     timeBreakdown: '1.0h Theory + 3.0h Problems (5)',
     problemIds: [14, 15, 16, 17, 18],
     isMockExamDay: false
@@ -1467,7 +1468,7 @@ export const SCHEDULE_DAYS: ScheduleDay[] = [
     day: 4,
     dateLabel: 'Mon, 16 Nov 2026',
     focusTitle: 'Ch 6: Verb & VP — IOL Plains Cree Hierarchy, Fluid-S & IOL Nooni (Part 2)',
-    theoryReading: 'Yellow Book Ch 6 (6.7–6.8, pp. 215–226)',
+    theoryReading: 'Yellow Book Ch 6 (6.7–6.8, pp. 223–232 [PDF pp. 247–256])',
     timeBreakdown: '0.75h Theory + 3.25h Problems (5)',
     problemIds: [19, 20, 21, 22, 23],
     isMockExamDay: false
@@ -1476,7 +1477,7 @@ export const SCHEDULE_DAYS: ScheduleDay[] = [
     day: 5,
     dateLabel: 'Tue, 17 Nov 2026',
     focusTitle: 'Ch 6: Verb & VP — IOL Hakhun, IOL Alabama & Expert Synthesis (Part 3)',
-    theoryReading: 'Review Ch 6 Pronoun Hierarchy & Pluractionality notes',
+    theoryReading: 'Yellow Book Ch 6 Practice & Solutions (6.9–6.10, pp. 233–256 [PDF pp. 257–280])',
     timeBreakdown: '4.0h Deep Problem Solving (5)',
     problemIds: [24, 25, 26, 27, 28],
     isMockExamDay: false
@@ -1485,7 +1486,7 @@ export const SCHEDULE_DAYS: ScheduleDay[] = [
     day: 6,
     dateLabel: 'Wed, 18 Nov 2026',
     focusTitle: 'Ch 7: Syntax — Alignment & Polish Logic (Part 1)',
-    theoryReading: 'Yellow Book Ch 7 (7.1–7.5, pp. 257–272)',
+    theoryReading: 'Yellow Book Ch 7 (7.1–7.5, pp. 257–275 [PDF pp. 281–299])',
     timeBreakdown: '1.0h Theory + 3.0h Problems (5)',
     problemIds: [29, 30, 31, 32, 33],
     isMockExamDay: false
@@ -1494,7 +1495,7 @@ export const SCHEDULE_DAYS: ScheduleDay[] = [
     day: 7,
     dateLabel: 'Thu, 19 Nov 2026',
     focusTitle: 'Ch 7: Syntax — IOL Dyirbal, IOL Wambaya, IOL Iquito & Switch-Ref (Part 2)',
-    theoryReading: 'Review Ergative / Split-Ergative & V2 diagrams (pp. 263–269)',
+    theoryReading: 'Yellow Book Ch 7 Alignment & Practice (7.4–7.7, pp. 269–298 [PDF pp. 293–322])',
     timeBreakdown: '0.5h Review + 3.5h Problems (5)',
     problemIds: [38, 39, 40, 41, 42],
     isMockExamDay: false,
@@ -1504,7 +1505,7 @@ export const SCHEDULE_DAYS: ScheduleDay[] = [
     day: 8,
     dateLabel: 'Fri, 20 Nov 2026',
     focusTitle: 'Ch 5: Noun & NP — Possession, IOL Kilivila Classifiers & Infixes/Transfixes (Part 1)',
-    theoryReading: 'Yellow Book Ch 5 (5.1–5.8, pp. 145–170)',
+    theoryReading: 'Yellow Book Ch 5 (5.1–5.8, pp. 145–179 [PDF pp. 169–203])',
     timeBreakdown: '1.0h Theory + 3.0h Problems (5)',
     problemIds: [43, 44, 45, 46, 47],
     isMockExamDay: false
@@ -1513,7 +1514,7 @@ export const SCHEDULE_DAYS: ScheduleDay[] = [
     day: 9,
     dateLabel: 'Sat, 21 Nov 2026',
     focusTitle: 'Ch 5: Noun & NP (IOL Terêna & Iaai) + Ch 8: Semantics (Basque & IOL Aralle-Tabulahan)',
-    theoryReading: 'Yellow Book Ch 8 (8.1–8.2, pp. 299–307) & Ch 10 (10.1, pp. 365–370)',
+    theoryReading: 'Yellow Book Ch 5 (5.9, pp. 180–187 [PDF pp. 204–211]), Ch 8 (8.1–8.2, pp. 299–310 [PDF pp. 323–334]) & Ch 10 (10.1, pp. 365–368 [PDF pp. 389–392])',
     timeBreakdown: '0.75h Theory + 3.25h Problems (5)',
     problemIds: [48, 49, 53, 54, 56],
     isMockExamDay: false,
@@ -1523,7 +1524,7 @@ export const SCHEDULE_DAYS: ScheduleDay[] = [
     day: 10,
     dateLabel: 'Sun, 22 Nov 2026',
     focusTitle: 'Ch 8: Semantics — Kubeo, Malagasy, IOL Komnzo Kinship & Vector Embeddings (Part 2)',
-    theoryReading: 'Review Graph Method degree-counting (pp. 302–307) & Kinship (pp. 371–377)',
+    theoryReading: 'Yellow Book Ch 8 Graph Method (8.2–8.3, pp. 300–314 [PDF pp. 324–338]) & Ch 10 Kinship (10.2, pp. 369–379 [PDF pp. 393–403])',
     timeBreakdown: '0.5h Review + 3.5h Problems (4)',
     problemIds: [57, 60, 61, 62],
     isMockExamDay: false,
@@ -1533,7 +1534,7 @@ export const SCHEDULE_DAYS: ScheduleDay[] = [
     day: 11,
     dateLabel: 'Mon, 23 Nov 2026',
     focusTitle: 'Ch 4: Phonology — Rendaku, Rule Ordering, IOL Kuria Tone & IOL Central Yup’ik Stress',
-    theoryReading: 'Yellow Book Ch 3 (3.2 & 3.5, pp. 49–58, 70–74) & Ch 4 (4.1–4.6, pp. 91–107)',
+    theoryReading: 'Yellow Book Ch 3 (3.2 & 3.5–3.6, pp. 50–58, 69–74 [PDF pp. 74–82, 93–98]) & Ch 4 (4.1–4.6, pp. 91–124 [PDF pp. 115–148])',
     timeBreakdown: '1.0h Theory + 3.0h Problems (5)',
     problemIds: [63, 64, 65, 67, 68],
     isMockExamDay: false,
@@ -1543,7 +1544,7 @@ export const SCHEDULE_DAYS: ScheduleDay[] = [
     day: 12,
     dateLabel: 'Tue, 24 Nov 2026',
     focusTitle: 'Ch 2: Writing Systems — Braille, Featural Blocks & IOL Book Pahlavi Heterograms',
-    theoryReading: 'Yellow Book Ch 2 (2.1–2.11, pp. 11–26)',
+    theoryReading: 'Yellow Book Ch 2 (2.1–2.11, pp. 11–29 [PDF pp. 35–53])',
     timeBreakdown: '1.0h Theory + 3.0h Problems (3)',
     problemIds: [69, 70, 71],
     isMockExamDay: false,
@@ -1562,8 +1563,8 @@ export const SCHEDULE_DAYS: ScheduleDay[] = [
   {
     day: 14,
     dateLabel: 'Thu, 26 Nov 2026',
-    focusTitle: 'Timed Mock Paper 1: PLO 2022 Round 1 (File labelled 2026)',
-    theoryReading: 'Strict exam simulation (Mongolian skipped as already solved)',
+    focusTitle: 'Timed Mock Paper 1: PLO 2026 Senior & Junior Round 1',
+    theoryReading: 'Strict exam simulation (PLO_26\'_Senior_Junior.pdf — Mongolian skipped as already solved)',
     timeBreakdown: '3.0h Timed Paper + 1.0h Post-Mortem Grading',
     problemIds: [55, 58, 34],
     isMockExamDay: true
@@ -1674,19 +1675,19 @@ export const PATTERN_LANDSCAPE: PatternLandscapeRow[] = [
 
 export const DROPPED_CHAPTERS = [
   {
-    chapter: 'Chapter 1: Introduction to linguistics problems (pp. 1–10)',
+    chapter: 'Chapter 1: Introduction to linguistics problems (pp. 1–10 [PDF pp. 25–34])',
     reason:
       'Contains 0 problems—it is purely a 10-page methodological introduction covering Rosetta Stone vs. Chaos-and-Order structures, solution writing, and the zero morpheme (∅). Assigned as a 30-minute theory warm-up on Day 1.'
   },
   {
-    chapter: 'Chapter 3: Phonetics — Folded into Chapter 4 via IOL 2025 Kuria & IOL 2026 Central Yup’ik (pp. 49–89)',
+    chapter: 'Chapter 3: Phonetics — Folded into Chapter 4 via IOL 2025 Kuria & IOL 2026 Central Yup’ik (pp. 49–89 [PDF pp. 73–113])',
     reason:
-      'Instead of a separate low-yield chapter, articulatory features (§3.2), autosegmental tone mora-counting, and iambic stress windows (§3.5) are integrated directly into Chapter 4 via IOL 2025 Kuria (#65) and IOL 2026 Central Yup’ik (#67).'
+      'Instead of a separate low-yield chapter, articulatory features (§3.2, pp. 50–58), stress windows (§3.5, pp. 69–73), and autosegmental tone (§3.6, p. 74) are integrated directly into Chapter 4 via IOL 2025 Kuria (#65) and IOL 2026 Central Yup’ik (#67).'
   },
   {
-    chapter: 'Chapter 10: Other types of problems — Folded into Chapter 8 via IOL 2016 Aralle-Tabulahan & IOL 2024 Komnzo (pp. 365–396)',
+    chapter: 'Chapter 10: Other types of problems — Folded into Chapter 8 via IOL 2016 Aralle-Tabulahan & IOL 2024 Komnzo (pp. 365–396 [PDF pp. 389–420])',
     reason:
-      'Topographical/riverine orientation (§10.1) and kinship exchange graphs (§10.2) are now directly trained inside Chapter 8 via IOL 2016 Problem 1: Aralle-Tabulahan (#56) and IOL 2024 Problem 3: Komnzo Kinship (#61), plus royal genealogy in Problem #72 (Old Persian).'
+      'Topographical/riverine orientation (§10.1, pp. 365–368) and kinship exchange graphs (§10.2, pp. 369–379) are now directly trained inside Chapter 8 via IOL 2016 Problem 1: Aralle-Tabulahan (#56, YB Problem 10.8 on p. 388) and IOL 2024 Problem 3: Komnzo Kinship (#61), plus royal genealogy in Problem #72 (Old Persian).'
   }
 ];
 
@@ -1697,9 +1698,9 @@ export const CORPUS_FLAGS = [
       '7 overlapping regional/textbook exercises (Yup’ik 9.3, Proto-Algonquian 6.5, Arabic 7.7, Sixteen Japanese Phrases, Turkish 8.4, Nasal Consonants 4.3, and Javanese 2.10) were swapped out and replaced with 15 gold-standard IOL Individual Problems (2012–2026) from IOL_2003-2026_Individual_Problems.pdf, bringing the curriculum to 72 problems.'
   },
   {
-    title: 'Mislabelled PLO 2022 Paper (PLO_26\'_Senior_Junior.pdf)',
+    title: 'PLO 2026 Senior & Junior Paper (PLO_26\'_Senior_Junior.pdf)',
     detail:
-      'The file named PLO_26\'_Senior_Junior.pdf has a header typo reading "Panini Linguistics Olympiad 2026", but it is the official PLO 2022 Round 1 paper (Problem 3 Mongolian explicitly references the 2022 Beijing Winter Olympics). All problems from this file are labelled PLO 2022.'
+      'The booklet PLO_26\'_Senior_Junior.pdf is labelled PLO 2026 Senior & Junior and serves as Timed Mock Paper 1 on Day 14 (Problems #55 miks salat, #58 Karuk, and #34 Dhivehi; Problem 3 Mongolian and Problem 2 Luwian are skipped as already solved).'
   },
   {
     title: 'Three Separate PLO 2023 PDFs Attached',
