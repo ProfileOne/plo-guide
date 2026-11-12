@@ -6,6 +6,7 @@ import {
   AlertTriangle,
   Circle,
   BookOpen,
+  FileText,
   ChevronDown,
   ChevronUp
 } from 'lucide-react';
@@ -24,8 +25,29 @@ import {
 interface ScheduleViewProps {
   statusMap: StatusMap;
   onStatusChange: (problemId: number, status: ProblemStatus) => void;
-  onOpenDetail: (problem: StudyProblem) => void;
+  onOpenDetail: (problem: StudyProblem, initialMode?: 'sheet' | 'pdf') => void;
+  onOpenBookletModal: (title: string, pdfUrl: string, initialPage: number, subtitle?: string) => void;
 }
+
+const YELLOW_BOOK_URL = 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf';
+
+const DAY_PDF_TARGET: Record<number, { title: string; pdfUrl: string; page: number }> = {
+  1: { title: 'Yellow Book — Ch 9: Number Systems (§9.1–9.5)', pdfUrl: YELLOW_BOOK_URL, page: 345 },
+  2: { title: 'Yellow Book — Ch 9 Practice & Solutions (§9.6–9.7)', pdfUrl: YELLOW_BOOK_URL, page: 377 },
+  3: { title: 'Yellow Book — Ch 6: Verb & Verb Phrase (§6.1–6.5)', pdfUrl: YELLOW_BOOK_URL, page: 187 },
+  4: { title: 'Yellow Book — Ch 6 Practice & Solutions (§6.6–6.7)', pdfUrl: YELLOW_BOOK_URL, page: 214 },
+  5: { title: 'Yellow Book — Ch 7: Syntax & Alignment (§7.1–7.6)', pdfUrl: YELLOW_BOOK_URL, page: 229 },
+  6: { title: 'Yellow Book — Ch 7 Practice & Solutions (§7.7–7.8)', pdfUrl: YELLOW_BOOK_URL, page: 263 },
+  7: { title: 'Yellow Book — Ch 5: Noun & Noun Phrase (§5.1–5.5)', pdfUrl: YELLOW_BOOK_URL, page: 131 },
+  8: { title: 'Yellow Book — Ch 5 Practice & Solutions (§5.6–5.7)', pdfUrl: YELLOW_BOOK_URL, page: 155 },
+  9: { title: 'Yellow Book — Ch 8: Semantics & Kinship (§8.1–8.5)', pdfUrl: YELLOW_BOOK_URL, page: 295 },
+  10: { title: 'Yellow Book — Ch 8 Practice & Solutions (§8.6–8.7)', pdfUrl: YELLOW_BOOK_URL, page: 306 },
+  11: { title: 'Yellow Book — Ch 4: Phonology (§4.1–4.7)', pdfUrl: YELLOW_BOOK_URL, page: 95 },
+  12: { title: 'Yellow Book — Ch 2: Writing Systems (§2.1–2.7)', pdfUrl: YELLOW_BOOK_URL, page: 35 },
+  14: { title: 'PLO 2026 Senior & Junior (Mock Paper 1)', pdfUrl: 'assets/aistudio/PLO_26__Senior_Junior_11665a6e.pdf', page: 1 },
+  15: { title: 'PLO 2023 Senior (Mock Paper 2)', pdfUrl: 'assets/aistudio/PLO_23__Senior_dab9c4d4.pdf', page: 1 },
+  16: { title: 'PLO 2024 Senior (Mock Paper 3)', pdfUrl: 'assets/aistudio/PLO_24__Senior_76504da1.pdf', page: 1 }
+};
 
 const NEXT_STATUS_BUTTONS: {
   value: ProblemStatus;
@@ -62,7 +84,8 @@ const NEXT_STATUS_BUTTONS: {
 export const ScheduleView: React.FC<ScheduleViewProps> = ({
   statusMap,
   onStatusChange,
-  onOpenDetail
+  onOpenDetail,
+  onOpenBookletModal
 }) => {
   const [showPlanNote, setShowPlanNote] = useState(false);
   const [expandedProbIds, setExpandedProbIds] = useState<Record<number, boolean>>({});
@@ -125,6 +148,7 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
                   .filter((p): p is StudyProblem => Boolean(p));
 
           const dayStats = calculateProgressStats(dayProblems, statusMap);
+          const pdfTarget = DAY_PDF_TARGET[dayItem.day];
 
           return (
             <section
@@ -143,13 +167,35 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
                       · {dayItem.focusTitle}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-500 dark:text-[var(--dm-body)]">
-                    <strong className="text-slate-700 dark:text-[var(--dm-heading)]">Theory: </strong>
-                    {dayItem.theoryReading}
-                    <span className="ml-2 text-slate-400 dark:text-[var(--dm-muted)] font-mono">
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-[var(--dm-body)]">
+                    <span>
+                      <strong className="text-slate-700 dark:text-[var(--dm-heading)]">Theory: </strong>
+                      {dayItem.theoryReading}
+                    </span>
+                    <span className="text-slate-400 dark:text-[var(--dm-muted)] font-mono">
                       ({dayItem.timeBreakdown})
                     </span>
-                  </p>
+                    {pdfTarget && (
+                      <button
+                        type="button"
+                        data-testid={`day-${dayItem.day}-theory-pdf-btn`}
+                        onClick={() =>
+                          onOpenBookletModal(
+                            pdfTarget.title,
+                            pdfTarget.pdfUrl,
+                            pdfTarget.page,
+                            dayItem.theoryReading
+                          )
+                        }
+                        className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-mono font-medium text-slate-700 dark:text-[var(--dm-accent)] bg-white dark:bg-neutral-800 border border-slate-200 dark:border-neutral-700 rounded hover:bg-slate-100 dark:hover:bg-neutral-700 cursor-pointer"
+                      >
+                        <FileText className="w-3 h-3 shrink-0" />
+                        <span>
+                          {dayItem.day >= 14 ? 'Open Mock Booklet PDF' : `Open Yellow Book (PDF p. ${pdfTarget.page})`}
+                        </span>
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 {dayProblems.length > 0 && (
@@ -184,7 +230,7 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
                             </span>
                             <button
                               type="button"
-                              onClick={() => onOpenDetail(prob)}
+                              onClick={() => onOpenDetail(prob, 'sheet')}
                               className="text-sm font-semibold text-slate-900 dark:text-[var(--dm-heading)] hover:text-indigo-700 dark:hover:text-[var(--dm-accent)] text-left cursor-pointer"
                             >
                               {prob.exactName}
@@ -207,7 +253,7 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
                             </button>
                           </div>
 
-                          <div className="flex items-center gap-2 shrink-0">
+                          <div className="flex items-center gap-1.5 shrink-0">
                             <div
                               role="group"
                               aria-label={`Day ${dayItem.day} status for ${prob.exactName}`}
@@ -237,12 +283,22 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
 
                             <button
                               type="button"
-                              onClick={() => onOpenDetail(prob)}
+                              onClick={() => onOpenDetail(prob, 'sheet')}
                               className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold text-slate-800 dark:text-[var(--dm-heading)] border border-slate-200 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-700 cursor-pointer whitespace-nowrap"
                               aria-label={`Open problem sheet for ${prob.exactName}`}
                             >
                               <BookOpen className="w-3 h-3 text-slate-600 dark:text-[var(--dm-accent)]" />
                               <span>Open Problem</span>
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => onOpenDetail(prob, 'pdf')}
+                              className="inline-flex items-center gap-1 px-2 py-1 text-[11px] font-mono text-slate-600 dark:text-[var(--dm-body)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] border border-slate-200 dark:border-neutral-700 rounded-lg bg-slate-50 dark:bg-neutral-900 hover:bg-slate-100 dark:hover:bg-neutral-800 cursor-pointer whitespace-nowrap"
+                              aria-label={`Open interactive PDF for ${prob.exactName}`}
+                            >
+                              <FileText className="w-3 h-3 text-slate-500 dark:text-[var(--dm-accent)]" />
+                              <span>PDF</span>
                             </button>
                           </div>
                         </div>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   X,
-  ExternalLink,
   CheckCircle2,
   Clock,
   AlertTriangle,
@@ -16,7 +15,8 @@ import {
   RotateCcw,
   Timer,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  BookOpen
 } from 'lucide-react';
 import { CHAPTERS, ProblemStatus, StudyProblem } from '../data/studyGuideData';
 import {
@@ -24,9 +24,11 @@ import {
   getProblemPdfAssets,
   getTargetMinutesForDifficulty
 } from '../utils/studyGuideLogic';
+import { InteractivePdfViewer } from './InteractivePdfViewer';
 
 interface ProblemDetailDrawerProps {
   problem: StudyProblem | null;
+  initialViewerMode?: 'sheet' | 'pdf';
   status: ProblemStatus;
   noteText: string;
   elapsedSeconds: number;
@@ -34,6 +36,7 @@ interface ProblemDetailDrawerProps {
   onStatusChange: (problemId: number, status: ProblemStatus) => void;
   onSaveNote: (problemId: number, note: string) => void;
   onUpdateTimer: (problemId: number, nextSeconds: number) => void;
+  onOpenBookletModal?: (title: string, pdfUrl: string, initialPage: number, subtitle?: string) => void;
 }
 
 const STATUS_BUTTONS: {
@@ -70,17 +73,19 @@ const STATUS_BUTTONS: {
 
 export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
   problem,
+  initialViewerMode = 'sheet',
   status,
   noteText,
   elapsedSeconds,
   onClose,
   onStatusChange,
   onSaveNote,
-  onUpdateTimer
+  onUpdateTimer,
+  onOpenBookletModal
 }) => {
   const [draftNote, setDraftNote] = useState(noteText);
   const [savedNotice, setSavedNotice] = useState(false);
-  const [viewerMode, setViewerMode] = useState<'sheet' | 'pdf'>('sheet');
+  const [viewerMode, setViewerMode] = useState<'sheet' | 'pdf'>(initialViewerMode);
   const [zoomPercent, setZoomPercent] = useState<number>(100);
   const [isTimerRunning, setIsTimerRunning] = useState<boolean>(false);
   const [showDrawerInfo, setShowDrawerInfo] = useState<boolean>(false);
@@ -93,13 +98,13 @@ export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
     }
     setDraftNote(noteText);
     setSavedNotice(false);
-    setViewerMode('sheet');
+    setViewerMode(initialViewerMode);
     setZoomPercent(100);
     setIsTimerRunning(false);
     setShowDrawerInfo(false);
-    // Only trigger when switching to a different problem ID
+    // Only trigger when switching to a different problem ID or initialViewerMode
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [problem?.id]);
+  }, [problem?.id, initialViewerMode]);
 
   // Keep draftNote synced if external noteText changes
   useEffect(() => {
@@ -142,6 +147,8 @@ export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
     pdfAssets.startPage === pdfAssets.endPage
       ? `p. ${pdfAssets.startPage}`
       : `pp. ${pdfAssets.startPage}–${pdfAssets.endPage}`;
+
+  const cleanFullPdfUrl = pdfAssets.fullPdfPageUrl.split('#')[0];
 
   return (
     <div
@@ -242,25 +249,38 @@ export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
               </button>
             </div>
 
-            <a
-              href={pdfAssets.singlePdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-800 dark:text-[var(--dm-heading)] bg-white dark:bg-neutral-800 border border-slate-300 dark:border-neutral-700 rounded-lg hover:bg-slate-100 dark:hover:bg-neutral-700 whitespace-nowrap"
+            <button
+              type="button"
+              onClick={() => setViewerMode('pdf')}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg border whitespace-nowrap cursor-pointer ${
+                viewerMode === 'pdf'
+                  ? 'bg-slate-900 dark:bg-neutral-700 text-white dark:text-[var(--dm-heading)] border-slate-900 dark:border-neutral-600'
+                  : 'text-slate-800 dark:text-[var(--dm-heading)] bg-white dark:bg-neutral-800 border-slate-300 dark:border-neutral-700 hover:bg-slate-100 dark:hover:bg-neutral-700'
+              }`}
             >
-              <span>Open Problem Only (PDF)</span>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-500 dark:text-[var(--dm-accent)]" />
-            </a>
+              <FileText className="w-3.5 h-3.5 text-slate-500 dark:text-[var(--dm-accent)]" />
+              <span>Problem PDF</span>
+            </button>
 
-            <a
-              href={pdfAssets.fullPdfPageUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-600 dark:text-[var(--dm-body)] bg-slate-100 dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg hover:bg-slate-200/70 dark:hover:bg-neutral-800 whitespace-nowrap"
+            <button
+              type="button"
+              onClick={() => {
+                if (onOpenBookletModal) {
+                  onOpenBookletModal(
+                    problem.pdfLabel,
+                    cleanFullPdfUrl,
+                    pdfAssets.startPage,
+                    `${problem.exactName} (${pageRangeLabel})`
+                  );
+                } else {
+                  setViewerMode('pdf');
+                }
+              }}
+              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-600 dark:text-[var(--dm-body)] bg-slate-100 dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-lg hover:bg-slate-200/70 dark:hover:bg-neutral-800 whitespace-nowrap cursor-pointer"
             >
+              <BookOpen className="w-3.5 h-3.5 text-slate-400 dark:text-[var(--dm-muted)]" />
               <span>Full Booklet ({pageRangeLabel})</span>
-              <ExternalLink className="w-3 h-3 text-slate-400 dark:text-[var(--dm-muted)]" />
-            </a>
+            </button>
 
             <button
               type="button"
@@ -275,7 +295,7 @@ export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
 
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          {/* 1. EXACT PROBLEM SHEET VIEWER (Placed first so user immediately sees the problem without searching) */}
+          {/* 1. EXACT PROBLEM SHEET & INTERACTIVE PDF VIEWER */}
           <div className="space-y-2.5">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2">
@@ -335,6 +355,7 @@ export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
                   </button>
                   <button
                     type="button"
+                    data-testid="tab-interactive-pdf"
                     onClick={() => setViewerMode('pdf')}
                     aria-pressed={viewerMode === 'pdf'}
                     className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-md cursor-pointer ${
@@ -370,16 +391,15 @@ export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
                 ))}
               </div>
             ) : (
-              <div
-                data-testid="problem-pdf-iframe-container"
-                className="w-full h-[580px] rounded-xl border border-slate-200 dark:border-neutral-800 overflow-hidden bg-slate-100 dark:bg-[#0e0e0e]"
-              >
-                <iframe
-                  src={`${pdfAssets.singlePdfUrl}#view=FitH`}
-                  title={`Standalone PDF for ${problem.exactName}`}
-                  className="w-full h-full"
-                />
-              </div>
+              <InteractivePdfViewer
+                pdfUrl={pdfAssets.singlePdfUrl}
+                fullBookletUrl={cleanFullPdfUrl}
+                startPage={pdfAssets.startPage}
+                endPage={pdfAssets.endPage}
+                initialPage={1}
+                title={`problem-${String(problem.id).padStart(2, '0')}-${problem.exactName}`}
+                heightClass="h-[540px]"
+              />
             )}
           </div>
 

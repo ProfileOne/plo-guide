@@ -8,6 +8,7 @@ import {
   ChevronDown,
   ChevronUp,
   ExternalLink,
+  FileText,
   Filter,
   Moon,
   Sun
@@ -40,6 +41,7 @@ import { ProblemRow } from './components/ProblemRow';
 import { ProblemDetailDrawer } from './components/ProblemDetailDrawer';
 import { ScheduleView } from './components/ScheduleView';
 import { CorpusReferenceView } from './components/CorpusReferenceView';
+import { BookletModalState, BookletPdfModal } from './components/BookletPdfModal';
 
 const STORAGE_STATUS_KEY = 'plo_senior_64_guide_status_v1';
 const STORAGE_NOTES_KEY = 'plo_senior_64_guide_notes_v1';
@@ -207,8 +209,26 @@ export default function App() {
   const [showHeaderAbout, setShowHeaderAbout] = useState(false);
   const [expandAllRows, setExpandAllRows] = useState(false);
 
-  // Active drawer problem
+  // Active drawer problem & initial viewer mode
   const [selectedProblem, setSelectedProblem] = useState<StudyProblem | null>(null);
+  const [drawerInitialMode, setDrawerInitialMode] = useState<'sheet' | 'pdf'>('sheet');
+
+  // Active booklet/theory interactive PDF modal
+  const [activeBookletModal, setActiveBookletModal] = useState<BookletModalState | null>(null);
+
+  const handleOpenProblem = (problem: StudyProblem, initialMode: 'sheet' | 'pdf' = 'sheet') => {
+    setDrawerInitialMode(initialMode);
+    setSelectedProblem(problem);
+  };
+
+  const handleOpenBookletModal = (
+    title: string,
+    pdfUrl: string,
+    initialPage = 1,
+    subtitle?: string
+  ) => {
+    setActiveBookletModal({ title, pdfUrl, initialPage, subtitle });
+  };
 
   // Inline confirmation for reset
   const [confirmingReset, setConfirmingReset] = useState(false);
@@ -731,7 +751,8 @@ export default function App() {
           <ScheduleView
             statusMap={statusMap}
             onStatusChange={handleStatusChange}
-            onOpenDetail={setSelectedProblem}
+            onOpenDetail={handleOpenProblem}
+            onOpenBookletModal={handleOpenBookletModal}
           />
         ) : activeTab === 'reference' ? (
           <CorpusReferenceView />
@@ -923,16 +944,15 @@ export default function App() {
                 </h2>
                 <div className="space-y-1">
                   {SOURCE_BOOKLETS.map((bk) => (
-                    <a
+                    <button
                       key={bk.label}
-                      href={bk.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-between gap-2 px-2 py-1 text-xs text-slate-600 dark:text-[var(--dm-body)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] hover:bg-slate-50 dark:hover:bg-neutral-800/60 rounded-md"
+                      type="button"
+                      onClick={() => handleOpenBookletModal(bk.label, bk.url, 1, bk.sub)}
+                      className="w-full flex items-center justify-between gap-2 px-2 py-1 text-xs text-slate-600 dark:text-[var(--dm-body)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] hover:bg-slate-50 dark:hover:bg-neutral-800/60 rounded-md text-left cursor-pointer"
                     >
                       <span className="truncate">{bk.label}</span>
                       <ExternalLink className="w-3 h-3 text-slate-400 dark:text-[var(--dm-accent)] shrink-0" />
-                    </a>
+                    </button>
                   ))}
                 </div>
 
@@ -1169,24 +1189,40 @@ export default function App() {
                                 {chapter.whyIncluded}
                               </p>
 
-                              <div className="border-l-2 border-slate-300 dark:border-neutral-700 pl-3.5 space-y-1.5">
-                                {chapter.theorySections.map((sec) => (
-                                  <div
-                                    key={sec.sectionCode}
-                                    className="text-xs leading-relaxed flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4"
-                                  >
-                                    <div className="text-slate-600 dark:text-[var(--dm-body)]">
-                                      <span className="font-mono font-semibold text-slate-800 dark:text-[var(--dm-accent)]">
-                                        Yellow Book §{sec.sectionCode}: {sec.title}
-                                      </span>
-                                      <span className="mx-1.5 text-slate-300 dark:text-neutral-600">—</span>
-                                      <span>{sec.keyTakeaway}</span>
+                                <div className="border-l-2 border-slate-300 dark:border-neutral-700 pl-3.5 space-y-1.5">
+                                {chapter.theorySections.map((sec) => {
+                                  const pdfPageMatch = sec.pages.match(/\[PDF\s+pp?\.\s*(\d+)/i);
+                                  const startPdfPage = pdfPageMatch ? Number(pdfPageMatch[1]) : 1;
+                                  return (
+                                    <div
+                                      key={sec.sectionCode}
+                                      className="text-xs leading-relaxed flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4"
+                                    >
+                                      <div className="text-slate-600 dark:text-[var(--dm-body)]">
+                                        <span className="font-mono font-semibold text-slate-800 dark:text-[var(--dm-accent)]">
+                                          Yellow Book §{sec.sectionCode}: {sec.title}
+                                        </span>
+                                        <span className="mx-1.5 text-slate-300 dark:text-neutral-600">—</span>
+                                        <span>{sec.keyTakeaway}</span>
+                                      </div>
+                                      <button
+                                        type="button"
+                                        onClick={() =>
+                                          handleOpenBookletModal(
+                                            `Yellow Book §${sec.sectionCode}: ${sec.title}`,
+                                            'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf',
+                                            startPdfPage,
+                                            `${chapter.title} · ${sec.pages}`
+                                          )
+                                        }
+                                        className="inline-flex items-center gap-1 px-2 py-0.5 font-mono tabular-nums text-[11px] text-slate-600 dark:text-[var(--dm-accent)] bg-white dark:bg-neutral-800 border border-slate-200 dark:border-neutral-700 rounded hover:bg-slate-100 dark:hover:bg-neutral-700 shrink-0 cursor-pointer"
+                                      >
+                                        <FileText className="w-3 h-3 shrink-0" />
+                                        <span>{sec.pages}</span>
+                                      </button>
                                     </div>
-                                    <span className="font-mono tabular-nums text-[11px] text-slate-400 dark:text-[var(--dm-muted)] shrink-0">
-                                      {sec.pages}
-                                    </span>
-                                  </div>
-                                ))}
+                                  );
+                                })}
                               </div>
                             </div>
                           )}
@@ -1203,7 +1239,7 @@ export default function App() {
                               elapsedSeconds={getProblemElapsedSeconds(timerMap, problem.id)}
                               forceExpanded={expandAllRows}
                               onStatusChange={handleStatusChange}
-                              onOpenDetail={setSelectedProblem}
+                              onOpenDetail={handleOpenProblem}
                             />
                           ))}
                         </div>
@@ -1278,6 +1314,7 @@ export default function App() {
       {/* Slide-Over Detail & PDF Drawer */}
       <ProblemDetailDrawer
         problem={selectedProblem}
+        initialViewerMode={drawerInitialMode}
         status={
           selectedProblem
             ? getProblemStatus(statusMap, selectedProblem.id)
@@ -1293,6 +1330,13 @@ export default function App() {
         onStatusChange={handleStatusChange}
         onSaveNote={handleSaveNote}
         onUpdateTimer={handleUpdateTimer}
+        onOpenBookletModal={handleOpenBookletModal}
+      />
+
+      {/* Interactive Booklet & Theory PDF Modal */}
+      <BookletPdfModal
+        booklet={activeBookletModal}
+        onClose={() => setActiveBookletModal(null)}
       />
     </div>
   );
