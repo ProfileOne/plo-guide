@@ -28,25 +28,25 @@ const STATUS_OPTIONS: {
   {
     value: 'Not Started',
     label: 'Not Started',
-    shortLabel: 'Unstarted',
+    shortLabel: 'Todo',
     activeClass: 'bg-slate-900 dark:bg-neutral-700 text-white dark:text-[var(--dm-heading)] font-medium'
   },
   {
     value: 'In Progress',
     label: 'In Progress',
-    shortLabel: 'In Progress',
+    shortLabel: 'Doing',
     activeClass: 'bg-amber-600 dark:bg-neutral-600 text-white dark:text-[var(--dm-heading)] font-medium'
   },
   {
     value: 'Completed',
     label: 'Completed',
-    shortLabel: 'Completed',
+    shortLabel: 'Done',
     activeClass: 'bg-emerald-600 dark:bg-[#3a362e] text-white dark:text-[var(--dm-accent)] font-medium'
   },
   {
     value: 'Review Needed',
     label: 'Review Needed',
-    shortLabel: 'Review Needed',
+    shortLabel: 'Review',
     activeClass: 'bg-rose-600 dark:bg-[#3d2b2b] text-white dark:text-[#e2b4b4] font-medium'
   }
 ];
@@ -67,21 +67,21 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
 
   const rowBg =
     status === 'Completed'
-      ? 'bg-emerald-50/20 hover:bg-emerald-50/40 dark:bg-[#161512] dark:hover:bg-[#1c1b17]'
+      ? 'bg-emerald-50/15 hover:bg-emerald-50/30 dark:bg-[#151412] dark:hover:bg-[#1a1916]'
       : status === 'Review Needed'
-      ? 'bg-rose-50/20 hover:bg-rose-50/40 dark:bg-[#171212] dark:hover:bg-[#1e1818]'
+      ? 'bg-rose-50/15 hover:bg-rose-50/30 dark:bg-[#161212] dark:hover:bg-[#1c1616]'
       : status === 'In Progress'
-      ? 'bg-amber-50/20 hover:bg-amber-50/40 dark:bg-[#151412] dark:hover:bg-[#1b1a17]'
-      : 'bg-white hover:bg-slate-50/60 dark:bg-[#131313] dark:hover:bg-[#181818]';
+      ? 'bg-amber-50/15 hover:bg-amber-50/30 dark:bg-[#151412] dark:hover:bg-[#1a1916]'
+      : 'bg-white hover:bg-slate-50/50 dark:bg-[#121212] dark:hover:bg-[#161616]';
 
   return (
     <div
-      className={`group px-4 sm:px-5 py-2.5 ${rowBg}`}
+      className={`group px-4 py-2 transition-colors duration-150 ${rowBg}`}
       data-testid={`problem-row-${problem.id}`}
     >
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2">
-        {/* Left: Compact #ID + Problem Name + Minimal Meta + Click-for-More Toggle */}
-        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 min-w-0 flex-1">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        {/* Left: #ID + Problem Name + Minimal Meta + More Toggle */}
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 min-w-0 flex-1">
           <span className="font-mono tabular-nums text-xs text-slate-400 dark:text-[var(--dm-muted)] w-6 shrink-0">
             #{String(problem.id).padStart(2, '0')}
           </span>
@@ -89,7 +89,7 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
           <button
             type="button"
             onClick={() => onOpenDetail(problem, 'sheet')}
-            className="text-left text-sm font-semibold text-slate-900 dark:text-[var(--dm-heading)] hover:text-slate-600 dark:hover:text-[var(--dm-accent)] focus-visible:outline-1 focus-visible:outline-slate-500 dark:focus-visible:outline-[var(--dm-accent)] rounded-xs cursor-pointer truncate max-w-full"
+            className="text-left text-[13px] sm:text-sm font-medium text-slate-900 dark:text-[var(--dm-heading)] hover:text-slate-600 dark:hover:text-[var(--dm-accent)] focus-visible:outline-1 focus-visible:outline-slate-500 dark:focus-visible:outline-[var(--dm-accent)] rounded-xs cursor-pointer truncate max-w-full"
           >
             {problem.exactName}
           </button>
@@ -100,7 +100,7 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
 
           {elapsedSeconds > 0 && (
             <span
-              className="inline-flex items-center gap-1 text-[11px] font-mono tabular-nums text-slate-600 dark:text-[var(--dm-accent)] font-medium"
+              className="inline-flex items-center gap-1 text-[11px] font-mono tabular-nums text-slate-500 dark:text-[var(--dm-accent)]"
               title="Logged solve time"
             >
               <Timer className="w-3 h-3 shrink-0" />
@@ -110,7 +110,7 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
 
           {hasNote && (
             <span
-              className="inline-flex items-center gap-1 text-[11px] text-slate-500 dark:text-[var(--dm-accent)]"
+              className="inline-flex items-center text-[11px] text-slate-400 dark:text-[var(--dm-accent)]"
               title="Has saved note"
             >
               <FileText className="w-3 h-3 shrink-0" />
@@ -122,7 +122,7 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
             data-testid={`toggle-more-${problem.id}`}
             onClick={() => setIsExpanded((prev) => !prev)}
             aria-expanded={showDetails}
-            className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[11px] font-medium text-slate-400 dark:text-[var(--dm-muted)] hover:text-slate-800 dark:hover:text-[var(--dm-heading)] hover:bg-slate-100 dark:hover:bg-neutral-800/80 rounded cursor-pointer"
+            className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[11px] text-slate-400 dark:text-[var(--dm-muted)] hover:text-slate-800 dark:hover:text-[var(--dm-heading)] rounded cursor-pointer"
           >
             <span>{showDetails ? 'Less' : 'More'}</span>
             {showDetails ? (
@@ -133,12 +133,16 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
           </button>
         </div>
 
-        {/* Right Controls: Status pills + Instant "Open Problem" viewer button + Interactive PDF button */}
-        <div className="flex flex-wrap items-center gap-1.5 shrink-0 pl-8 lg:pl-0">
+        {/* Right Controls: Quiet Status Switcher + Sheet & PDF Triggers */}
+        <div className="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
           <div
             role="group"
             aria-label={`Status for ${problem.exactName}`}
-            className="inline-flex items-center p-0.5 bg-slate-100/80 dark:bg-neutral-800/60 rounded-md"
+            className={`inline-flex items-center p-0.5 rounded transition-opacity duration-150 ${
+              status === 'Not Started'
+                ? 'opacity-55 group-hover:opacity-100 focus-within:opacity-100'
+                : 'opacity-100'
+            }`}
           >
             {STATUS_OPTIONS.map((opt) => {
               const isSelected = status === opt.value;
@@ -149,7 +153,7 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
                   onClick={() => onStatusChange(problem.id, opt.value)}
                   aria-pressed={isSelected}
                   aria-label={`Mark ${problem.exactName} as ${opt.label}`}
-                  className={`px-2 py-0.5 text-[11px] rounded-xs whitespace-nowrap shrink-0 cursor-pointer ${
+                  className={`px-1.5 py-0.5 text-[11px] rounded-xs whitespace-nowrap shrink-0 cursor-pointer ${
                     isSelected
                       ? opt.activeClass
                       : 'text-slate-400 dark:text-[var(--dm-muted)] hover:text-slate-800 dark:hover:text-[var(--dm-body)]'
@@ -161,14 +165,16 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
             })}
           </div>
 
+          <span className="text-slate-200 dark:text-neutral-800 select-none" aria-hidden="true">|</span>
+
           <button
             type="button"
             onClick={() => onOpenDetail(problem, 'sheet')}
             aria-label={`Open problem sheet for ${problem.exactName}`}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold text-slate-800 dark:text-[var(--dm-heading)] bg-slate-100 dark:bg-neutral-800 hover:bg-slate-200/80 dark:hover:bg-neutral-700 border border-slate-300/80 dark:border-neutral-700 rounded-md whitespace-nowrap shrink-0 cursor-pointer"
+            className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-medium text-slate-700 dark:text-[var(--dm-heading)] hover:bg-slate-100 dark:hover:bg-neutral-800 rounded whitespace-nowrap shrink-0 cursor-pointer"
           >
-            <BookOpen className="w-3 h-3 text-slate-600 dark:text-[var(--dm-accent)] shrink-0" />
-            <span>Open Problem</span>
+            <BookOpen className="w-3 h-3 text-slate-400 dark:text-[var(--dm-accent)] shrink-0" />
+            <span>Sheet</span>
           </button>
 
           <button
@@ -177,19 +183,19 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
             onClick={() => onOpenDetail(problem, 'pdf')}
             aria-label={`Open interactive PDF for ${problem.exactName}`}
             title={`Open interactive ${pdfAssets.pageCount}-page problem PDF`}
-            className="inline-flex items-center gap-1 px-2 py-1 text-[11px] font-mono tabular-nums text-slate-600 dark:text-[var(--dm-body)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] border border-slate-200/80 dark:border-neutral-800 rounded-md hover:bg-slate-100/70 dark:hover:bg-neutral-800/70 whitespace-nowrap shrink-0 cursor-pointer"
+            className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-mono tabular-nums text-slate-500 dark:text-[var(--dm-body)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] hover:bg-slate-100 dark:hover:bg-neutral-800 rounded whitespace-nowrap shrink-0 cursor-pointer"
           >
-            <FileText className="w-3 h-3 text-slate-500 dark:text-[var(--dm-accent)] shrink-0" />
+            <FileText className="w-3 h-3 text-slate-400 dark:text-[var(--dm-accent)] shrink-0" />
             <span>PDF</span>
           </button>
         </div>
       </div>
 
-      {/* Expandable Details (Hidden by default to keep the eye calm; revealed when clicking "More") */}
+      {/* Expandable Details (Hidden by default; revealed when clicking "More") */}
       {showDetails && (
         <div
           data-testid={`problem-details-${problem.id}`}
-          className="mt-2 pl-8 pr-2 py-2 border-l-2 border-slate-200 dark:border-neutral-800 space-y-1 text-xs text-slate-600 dark:text-[var(--dm-body)]"
+          className="mt-2 pt-2 pl-8 pr-2 border-t border-slate-100 dark:border-neutral-800/70 space-y-1 text-xs text-slate-600 dark:text-[var(--dm-body)]"
         >
           <p className="leading-relaxed max-w-4xl">
             <span className="font-semibold text-slate-800 dark:text-[var(--dm-accent)]">Teaches: </span>
@@ -217,14 +223,14 @@ export const ProblemRow: React.FC<ProblemRowProps> = ({
           </div>
 
           {problem.chapterPlacementReason && (
-            <p className="text-[11px] text-slate-400 dark:text-[var(--dm-muted)] italic">
-              <span className="not-italic font-medium text-slate-600 dark:text-[var(--dm-body)]">Chapter Rationale: </span>
+            <p className="text-[11px] text-slate-400 dark:text-[var(--dm-muted)]">
+              <span className="font-medium text-slate-600 dark:text-[var(--dm-body)]">Chapter Rationale: </span>
               {problem.chapterPlacementReason}
             </p>
           )}
 
           {problem.weakAreasTargeted.length > 0 && (
-            <p className="text-[11px] text-slate-600 dark:text-[var(--dm-accent)] font-medium">
+            <p className="text-[11px] text-slate-600 dark:text-[var(--dm-accent)]">
               Targets: {problem.weakAreasTargeted.join(' · ')}
             </p>
           )}

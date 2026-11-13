@@ -199,6 +199,9 @@ export default function App() {
   const [expandedTheory, setExpandedTheory] = useState<Record<string, boolean>>({});
   const [showHeaderAbout, setShowHeaderAbout] = useState(false);
   const [expandAllRows, setExpandAllRows] = useState(false);
+  const [showWeakAreas, setShowWeakAreas] = useState(false);
+  const [showDayGrid, setShowDayGrid] = useState(false);
+  const [showBooklets, setShowBooklets] = useState(false);
 
   // Active drawer problem & initial viewer mode
   const [selectedProblem, setSelectedProblem] = useState<StudyProblem | null>(null);
@@ -568,167 +571,142 @@ export default function App() {
       </header>
 
       {/* Main Container */}
-      <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-6 py-6 flex-1 flex flex-col gap-6">
-        {/* Minimal Progress Summary Strip */}
+      <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-6 py-4 flex-1 flex flex-col gap-4">
+        {/* Ultra-Minimal Single-Strip Progress Summary */}
         <section
           aria-label="Study guide progress summary"
-          className="bg-white dark:bg-[#131313] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg px-5 py-4"
+          className="bg-white dark:bg-[#121212] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg px-4 py-3"
         >
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-neutral-800/70">
-            <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-2.5">
-                <h1 className="text-base sm:text-lg font-bold text-slate-900 dark:text-[var(--dm-heading)] tracking-tight">
-                  Panini Linguistics Olympiad (Senior Round 1)
-                </h1>
-                <button
-                  type="button"
-                  onClick={() => setShowHeaderAbout((v) => !v)}
-                  aria-expanded={showHeaderAbout}
-                  className="inline-flex items-center gap-0.5 px-2 py-0.5 text-[11px] font-medium text-slate-500 dark:text-[var(--dm-muted)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] bg-slate-100 dark:bg-neutral-800/80 rounded cursor-pointer"
-                >
-                  <span>{showHeaderAbout ? 'Hide Info' : 'About'}</span>
-                  {showHeaderAbout ? (
-                    <ChevronUp className="w-3 h-3" />
-                  ) : (
-                    <ChevronDown className="w-3 h-3" />
-                  )}
-                </button>
-              </div>
-              {showHeaderAbout && (
-                <p className="text-xs text-slate-500 dark:text-[var(--dm-body)] mt-1.5">
-                  72-problem curriculum curated from PLO 2013–2026, Yellow Book &amp; IOL 2003–2026 Individual Problems · Ordered by Yellow Book Chapter yield · Zero Junior-only or previously solved problems
-                </p>
-              )}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+            {/* Title + About Toggle */}
+            <div className="min-w-0 flex flex-wrap items-center gap-2">
+              <h1 className="text-sm sm:text-base font-semibold text-slate-900 dark:text-[var(--dm-heading)] tracking-tight">
+                Panini Linguistics Olympiad (Senior Round 1)
+              </h1>
+              <button
+                type="button"
+                onClick={() => setShowHeaderAbout((v) => !v)}
+                aria-expanded={showHeaderAbout}
+                className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[11px] text-slate-500 dark:text-[var(--dm-muted)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] rounded cursor-pointer"
+              >
+                <span>{showHeaderAbout ? 'Less' : 'About'}</span>
+                {showHeaderAbout ? (
+                  <ChevronUp className="w-3 h-3" />
+                ) : (
+                  <ChevronDown className="w-3 h-3" />
+                )}
+              </button>
             </div>
 
-            {/* Right: Minimal Overall Progress */}
-            <div className="w-full lg:w-64 space-y-1.5 shrink-0">
-              <div className="flex items-center justify-between text-xs font-mono tabular-nums">
-                <span className="text-slate-500 dark:text-[var(--dm-muted)]">
-                  Overall Completion
-                </span>
-                <span className="font-semibold text-slate-900 dark:text-[var(--dm-accent)]" data-testid="overall-completion-label">
+            {/* Compact Status Counts & Completion Bar */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+              <div className="flex flex-wrap items-center gap-1.5 text-xs font-mono tabular-nums">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveTab('guide');
+                    setStatusFilter(statusFilter === 'Completed' ? 'All' : 'Completed');
+                  }}
+                  className={`inline-flex items-center gap-1 px-2 py-0.5 rounded cursor-pointer ${
+                    statusFilter === 'Completed'
+                      ? 'bg-emerald-600 dark:bg-[#3a362e] text-white dark:text-[var(--dm-accent)] font-semibold'
+                      : 'text-slate-600 dark:text-[var(--dm-body)] hover:bg-slate-100 dark:hover:bg-neutral-800'
+                  }`}
+                >
+                  <span className="font-sans text-[11px] opacity-80">Done</span>
+                  <span data-testid="count-completed" className="font-semibold">
+                    {overallStats.completed}
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveTab('guide');
+                    setStatusFilter(statusFilter === 'In Progress' ? 'All' : 'In Progress');
+                  }}
+                  className={`inline-flex items-center gap-1 px-2 py-0.5 rounded cursor-pointer ${
+                    statusFilter === 'In Progress'
+                      ? 'bg-amber-600 dark:bg-neutral-700 text-white dark:text-[var(--dm-heading)] font-semibold'
+                      : 'text-slate-600 dark:text-[var(--dm-body)] hover:bg-slate-100 dark:hover:bg-neutral-800'
+                  }`}
+                >
+                  <span className="font-sans text-[11px] opacity-80">Doing</span>
+                  <span data-testid="count-in-progress" className="font-semibold">
+                    {overallStats.inProgress}
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveTab('guide');
+                    setStatusFilter(statusFilter === 'Review Needed' ? 'All' : 'Review Needed');
+                  }}
+                  className={`inline-flex items-center gap-1 px-2 py-0.5 rounded cursor-pointer ${
+                    statusFilter === 'Review Needed'
+                      ? 'bg-rose-600 dark:bg-[#3d2b2b] text-white dark:text-[#e2b4b4] font-semibold'
+                      : 'text-slate-600 dark:text-[var(--dm-body)] hover:bg-slate-100 dark:hover:bg-neutral-800'
+                  }`}
+                >
+                  <span className="font-sans text-[11px] opacity-80">Review</span>
+                  <span data-testid="count-review-needed" className="font-semibold">
+                    {overallStats.reviewNeeded}
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveTab('guide');
+                    setStatusFilter(statusFilter === 'Not Started' ? 'All' : 'Not Started');
+                  }}
+                  className={`inline-flex items-center gap-1 px-2 py-0.5 rounded cursor-pointer ${
+                    statusFilter === 'Not Started'
+                      ? 'bg-slate-800 dark:bg-neutral-700 text-white dark:text-[var(--dm-heading)] font-semibold'
+                      : 'text-slate-500 dark:text-[var(--dm-muted)] hover:bg-slate-100 dark:hover:bg-neutral-800'
+                  }`}
+                >
+                  <span className="font-sans text-[11px] opacity-80">Todo</span>
+                  <span data-testid="count-not-started" className="font-semibold">
+                    {overallStats.notStarted}
+                  </span>
+                </button>
+              </div>
+
+              <div className="flex items-center gap-2.5 shrink-0">
+                <div className="w-24 sm:w-28 h-1.5 bg-slate-100 dark:bg-neutral-800 rounded-full overflow-hidden flex">
+                  <div
+                    className="bg-emerald-600 dark:bg-[var(--dm-accent)] transition-all duration-300"
+                    style={{ width: `${(overallStats.completed / 72) * 100}%` }}
+                    title={`Completed: ${overallStats.completed}`}
+                  />
+                  <div
+                    className="bg-amber-500 dark:bg-neutral-500 transition-all duration-300"
+                    style={{ width: `${(overallStats.inProgress / 72) * 100}%` }}
+                    title={`In Progress: ${overallStats.inProgress}`}
+                  />
+                  <div
+                    className="bg-rose-500 dark:bg-neutral-600 transition-all duration-300"
+                    style={{ width: `${(overallStats.reviewNeeded / 72) * 100}%` }}
+                    title={`Review Needed: ${overallStats.reviewNeeded}`}
+                  />
+                </div>
+                <span
+                  className="text-xs font-mono tabular-nums font-semibold text-slate-800 dark:text-[var(--dm-accent)]"
+                  data-testid="overall-completion-label"
+                >
                   {overallStats.completed} / {overallStats.total} ({overallStats.completionPercent}%)
                 </span>
               </div>
-              <div className="w-full h-1.5 bg-slate-100 dark:bg-neutral-800 rounded-full overflow-hidden flex">
-                <div
-                  className="bg-emerald-600 dark:bg-[var(--dm-accent)] transition-all duration-300"
-                  style={{ width: `${(overallStats.completed / 72) * 100}%` }}
-                  title={`Completed: ${overallStats.completed}`}
-                />
-                <div
-                  className="bg-amber-500 dark:bg-neutral-500 transition-all duration-300"
-                  style={{ width: `${(overallStats.inProgress / 72) * 100}%` }}
-                  title={`In Progress: ${overallStats.inProgress}`}
-                />
-                <div
-                  className="bg-rose-500 dark:bg-neutral-600 transition-all duration-300"
-                  style={{ width: `${(overallStats.reviewNeeded / 72) * 100}%` }}
-                  title={`Review Needed: ${overallStats.reviewNeeded}`}
-                />
-              </div>
             </div>
           </div>
 
-          {/* Minimal 4-Column Hairline Status Strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 dark:divide-neutral-800/70 pt-3">
-            <button
-              type="button"
-              onClick={() => {
-                setActiveTab('guide');
-                setStatusFilter(statusFilter === 'Completed' ? 'All' : 'Completed');
-              }}
-              className={`text-left px-3 py-1.5 first:pl-0 rounded-xs cursor-pointer ${
-                statusFilter === 'Completed'
-                  ? 'opacity-100'
-                  : 'opacity-85 hover:opacity-100'
-              }`}
-            >
-              <div className="text-xs text-slate-500 dark:text-[var(--dm-muted)]">Completed</div>
-              <div className="flex items-baseline gap-2 mt-0.5">
-                <span
-                  className="text-xl font-bold text-slate-900 dark:text-[var(--dm-heading)] font-mono tabular-nums"
-                  data-testid="count-completed"
-                >
-                  {overallStats.completed}
-                </span>
-                <span className="text-[11px] text-slate-400 dark:text-[var(--dm-muted)]">Filter</span>
-              </div>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setActiveTab('guide');
-                setStatusFilter(statusFilter === 'In Progress' ? 'All' : 'In Progress');
-              }}
-              className={`text-left px-3 py-1.5 rounded-xs cursor-pointer ${
-                statusFilter === 'In Progress'
-                  ? 'opacity-100'
-                  : 'opacity-85 hover:opacity-100'
-              }`}
-            >
-              <div className="text-xs text-slate-500 dark:text-[var(--dm-muted)]">In Progress</div>
-              <div className="flex items-baseline gap-2 mt-0.5">
-                <span
-                  className="text-xl font-bold text-slate-900 dark:text-[var(--dm-heading)] font-mono tabular-nums"
-                  data-testid="count-in-progress"
-                >
-                  {overallStats.inProgress}
-                </span>
-                <span className="text-[11px] text-slate-400 dark:text-[var(--dm-muted)]">Filter</span>
-              </div>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setActiveTab('guide');
-                setStatusFilter(statusFilter === 'Review Needed' ? 'All' : 'Review Needed');
-              }}
-              className={`text-left px-3 py-1.5 rounded-xs cursor-pointer ${
-                statusFilter === 'Review Needed'
-                  ? 'opacity-100'
-                  : 'opacity-85 hover:opacity-100'
-              }`}
-            >
-              <div className="text-xs text-slate-500 dark:text-[var(--dm-muted)]">Review Needed</div>
-              <div className="flex items-baseline gap-2 mt-0.5">
-                <span
-                  className="text-xl font-bold text-slate-900 dark:text-[var(--dm-heading)] font-mono tabular-nums"
-                  data-testid="count-review-needed"
-                >
-                  {overallStats.reviewNeeded}
-                </span>
-                <span className="text-[11px] text-slate-400 dark:text-[var(--dm-muted)]">Day 13 Redo</span>
-              </div>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setActiveTab('guide');
-                setStatusFilter(statusFilter === 'Not Started' ? 'All' : 'Not Started');
-              }}
-              className={`text-left px-3 py-1.5 rounded-xs cursor-pointer ${
-                statusFilter === 'Not Started'
-                  ? 'opacity-100'
-                  : 'opacity-85 hover:opacity-100'
-              }`}
-            >
-              <div className="text-xs text-slate-500 dark:text-[var(--dm-muted)]">Remaining (Unstarted)</div>
-              <div className="flex items-baseline gap-2 mt-0.5">
-                <span
-                  className="text-xl font-bold text-slate-900 dark:text-[var(--dm-heading)] font-mono tabular-nums"
-                  data-testid="count-not-started"
-                >
-                  {overallStats.notStarted}
-                </span>
-                <span className="text-[11px] text-slate-400 dark:text-[var(--dm-muted)]">of 72</span>
-              </div>
-            </button>
-          </div>
+          {showHeaderAbout && (
+            <p className="mt-2 pt-2 border-t border-slate-100 dark:border-neutral-800/70 text-xs text-slate-500 dark:text-[var(--dm-body)]">
+              72-problem curriculum curated from PLO 2013–2026, Yellow Book &amp; IOL 2003–2026 Individual Problems · Ordered in Beginner Linguistic Progression · Zero Junior-only or previously solved problems
+            </p>
+          )}
         </section>
 
         {/* View Switcher Content */}
@@ -743,22 +721,22 @@ export default function App() {
           <CorpusReferenceView />
         ) : (
           /* Main Study Workspace (Sticky Left Sidebar + Main List) */
-          <div className="flex flex-col lg:flex-row items-start gap-6">
-            {/* Sticky Left Sidebar: Stays visible while scrolling so left column is never blank */}
-            <aside className="w-full lg:w-68 shrink-0 space-y-3.5 lg:sticky lg:top-15 lg:max-h-[calc(100vh-4.5rem)] lg:overflow-y-auto lg:pr-1">
-              {/* 1. Chapter Navigation */}
-              <div className="bg-white dark:bg-[#131313] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg p-3.5 space-y-2">
-                <div className="flex items-center justify-between">
+          <div className="flex flex-col lg:flex-row items-start gap-5">
+            {/* Minimal Sticky Left Sidebar */}
+            <aside className="w-full lg:w-64 shrink-0 space-y-2.5 lg:sticky lg:top-15 lg:max-h-[calc(100vh-4.5rem)] lg:overflow-y-auto lg:pr-1">
+              {/* 1. Chapter Navigation (Always Open) */}
+              <div className="bg-white dark:bg-[#121212] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg p-3 space-y-1.5">
+                <div className="flex items-center justify-between px-1">
                   <h2 className="text-xs font-semibold text-slate-900 dark:text-[var(--dm-heading)]">
-                    Chapters (Beginner Order)
+                    Chapters (1–7)
                   </h2>
                   {chapterFilter !== 'All' && (
                     <button
                       type="button"
                       onClick={() => setChapterFilter('All')}
-                      className="text-xs text-slate-600 dark:text-[var(--dm-accent)] hover:underline cursor-pointer"
+                      className="text-[11px] text-slate-500 dark:text-[var(--dm-accent)] hover:underline cursor-pointer"
                     >
-                      Show All
+                      All
                     </button>
                   )}
                 </div>
@@ -767,14 +745,14 @@ export default function App() {
                   <button
                     type="button"
                     onClick={() => setChapterFilter('All')}
-                    className={`w-full flex items-center justify-between px-2.5 py-1.5 text-xs rounded-md cursor-pointer ${
+                    className={`w-full flex items-center justify-between px-2 py-1 text-xs rounded cursor-pointer ${
                       chapterFilter === 'All'
-                        ? 'bg-slate-900 dark:bg-neutral-800 text-white dark:text-[var(--dm-heading)] font-semibold'
+                        ? 'bg-slate-900 dark:bg-neutral-800 text-white dark:text-[var(--dm-heading)] font-medium'
                         : 'text-slate-600 dark:text-[var(--dm-body)] hover:bg-slate-100 dark:hover:bg-neutral-800/60'
                     }`}
                   >
-                    <span>All 7 Included Chapters</span>
-                    <span className="font-mono tabular-nums text-slate-300 dark:text-[var(--dm-accent)]">
+                    <span>All 7 Chapters</span>
+                    <span className="font-mono tabular-nums text-[11px] text-slate-300 dark:text-[var(--dm-accent)]">
                       {overallStats.completed}/72
                     </span>
                   </button>
@@ -789,9 +767,9 @@ export default function App() {
                         onClick={() =>
                           setChapterFilter(isSelected ? 'All' : ch.id)
                         }
-                        className={`w-full flex items-center justify-between px-2.5 py-1.5 text-xs rounded-md cursor-pointer ${
+                        className={`w-full flex items-center justify-between px-2 py-1 text-xs rounded cursor-pointer ${
                           isSelected
-                            ? 'bg-slate-900 dark:bg-neutral-800 text-white dark:text-[var(--dm-heading)] font-semibold'
+                            ? 'bg-slate-900 dark:bg-neutral-800 text-white dark:text-[var(--dm-heading)] font-medium'
                             : 'text-slate-600 dark:text-[var(--dm-body)] hover:bg-slate-100 dark:hover:bg-neutral-800/60'
                         }`}
                       >
@@ -799,7 +777,7 @@ export default function App() {
                           {ch.priorityRank}. {ch.shortTitle}
                         </span>
                         <span
-                          className={`font-mono tabular-nums shrink-0 ${
+                          className={`font-mono tabular-nums text-[11px] shrink-0 ${
                             isSelected
                               ? 'text-slate-200 dark:text-[var(--dm-accent)]'
                               : prog.completed > 0
@@ -815,291 +793,308 @@ export default function App() {
                 </div>
               </div>
 
-              {/* 2. Target Weak Areas Filter */}
-              <div className="bg-white dark:bg-[#131313] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg p-3.5 space-y-2">
+              {/* 2. Target Weak Areas Filter (Collapsible unless active) */}
+              <div className="bg-white dark:bg-[#121212] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg p-3">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-xs font-semibold text-slate-900 dark:text-[var(--dm-heading)]">
-                    Focus on Your Weak Areas
-                  </h2>
+                  <button
+                    type="button"
+                    onClick={() => setShowWeakAreas((v) => !v)}
+                    aria-expanded={showWeakAreas || weakAreaFilter !== 'All'}
+                    className="flex-1 flex items-center justify-between text-xs font-semibold text-slate-800 dark:text-[var(--dm-heading)] cursor-pointer text-left"
+                  >
+                    <span>Weak Areas (6)</span>
+                    {showWeakAreas || weakAreaFilter !== 'All' ? (
+                      <ChevronUp className="w-3.5 h-3.5 text-slate-400 dark:text-[var(--dm-muted)]" />
+                    ) : (
+                      <ChevronDown className="w-3.5 h-3.5 text-slate-400 dark:text-[var(--dm-muted)]" />
+                    )}
+                  </button>
                   {weakAreaFilter !== 'All' && (
                     <button
                       type="button"
                       onClick={() => setWeakAreaFilter('All')}
-                      className="text-xs text-slate-600 dark:text-[var(--dm-accent)] hover:underline cursor-pointer"
+                      className="ml-2 text-[11px] text-slate-500 dark:text-[var(--dm-accent)] hover:underline cursor-pointer"
                     >
                       Clear
                     </button>
                   )}
                 </div>
 
-                <div className="space-y-0.5">
-                  {WEAK_AREAS.map((area) => {
-                    const areaProblems = PROBLEMS.filter((p) =>
-                      p.weakAreasTargeted.includes(area)
-                    );
-                    const doneCount = areaProblems.filter(
-                      (p) => getProblemStatus(statusMap, p.id) === 'Completed'
-                    ).length;
-                    const active = weakAreaFilter === area;
+                {(showWeakAreas || weakAreaFilter !== 'All') && (
+                  <div className="mt-2 pt-2 border-t border-slate-100 dark:border-neutral-800/70 space-y-0.5">
+                    {WEAK_AREAS.map((area) => {
+                      const areaProblems = PROBLEMS.filter((p) =>
+                        p.weakAreasTargeted.includes(area)
+                      );
+                      const doneCount = areaProblems.filter(
+                        (p) => getProblemStatus(statusMap, p.id) === 'Completed'
+                      ).length;
+                      const active = weakAreaFilter === area;
 
-                    return (
-                      <button
-                        key={area}
-                        type="button"
-                        onClick={() =>
-                          setWeakAreaFilter(active ? 'All' : area)
-                        }
-                        className={`w-full flex items-center justify-between px-2.5 py-1 text-xs rounded-md cursor-pointer text-left ${
-                          active
-                            ? 'bg-slate-900 dark:bg-neutral-800 text-white dark:text-[var(--dm-heading)] font-semibold'
-                            : 'text-slate-600 dark:text-[var(--dm-body)] hover:bg-slate-100 dark:hover:bg-neutral-800/60'
-                        }`}
-                      >
-                        <span className="truncate pr-2">{area}</span>
-                        <span
-                          className={`font-mono tabular-nums shrink-0 ${
+                      return (
+                        <button
+                          key={area}
+                          type="button"
+                          onClick={() =>
+                            setWeakAreaFilter(active ? 'All' : area)
+                          }
+                          className={`w-full flex items-center justify-between px-2 py-1 text-xs rounded cursor-pointer text-left ${
                             active
-                              ? 'text-slate-200 dark:text-[var(--dm-accent)]'
-                              : doneCount > 0
-                              ? 'text-emerald-600 dark:text-[var(--dm-accent)]'
-                              : 'text-slate-400 dark:text-[var(--dm-muted)]'
+                              ? 'bg-slate-900 dark:bg-neutral-800 text-white dark:text-[var(--dm-heading)] font-medium'
+                              : 'text-slate-600 dark:text-[var(--dm-body)] hover:bg-slate-100 dark:hover:bg-neutral-800/60'
                           }`}
                         >
-                          {doneCount}/{areaProblems.length}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
+                          <span className="truncate pr-2">{area}</span>
+                          <span
+                            className={`font-mono tabular-nums text-[11px] shrink-0 ${
+                              active
+                                ? 'text-slate-200 dark:text-[var(--dm-accent)]'
+                                : doneCount > 0
+                                ? 'text-emerald-600 dark:text-[var(--dm-accent)]'
+                                : 'text-slate-400 dark:text-[var(--dm-muted)]'
+                            }`}
+                          >
+                            {doneCount}/{areaProblems.length}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
-              {/* 3. 16-Day Schedule Quick Filter Grid (Fills left column with fast day-by-day filtering) */}
-              <div className="bg-white dark:bg-[#131313] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg p-3.5 space-y-2">
+              {/* 3. 16-Day Schedule Quick Filter Grid (Collapsible unless active) */}
+              <div className="bg-white dark:bg-[#121212] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg p-3">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-xs font-semibold text-slate-900 dark:text-[var(--dm-heading)]">
-                    Filter by Study Day (Days 1–16)
-                  </h2>
+                  <button
+                    type="button"
+                    onClick={() => setShowDayGrid((v) => !v)}
+                    aria-expanded={showDayGrid || dayFilter !== 'All'}
+                    className="flex-1 flex items-center justify-between text-xs font-semibold text-slate-800 dark:text-[var(--dm-heading)] cursor-pointer text-left"
+                  >
+                    <span>Study Days (D1–D16)</span>
+                    {showDayGrid || dayFilter !== 'All' ? (
+                      <ChevronUp className="w-3.5 h-3.5 text-slate-400 dark:text-[var(--dm-muted)]" />
+                    ) : (
+                      <ChevronDown className="w-3.5 h-3.5 text-slate-400 dark:text-[var(--dm-muted)]" />
+                    )}
+                  </button>
                   {dayFilter !== 'All' && (
                     <button
                       type="button"
                       onClick={() => setDayFilter('All')}
-                      className="text-xs text-slate-600 dark:text-[var(--dm-accent)] hover:underline cursor-pointer"
+                      className="ml-2 text-[11px] text-slate-500 dark:text-[var(--dm-accent)] hover:underline cursor-pointer"
                     >
-                      All Days
+                      All
                     </button>
                   )}
                 </div>
 
-                <div className="grid grid-cols-4 gap-1">
-                  {SCHEDULE_DAYS.map((d) => {
-                    const isSelected = dayFilter === d.day;
-                    const dayProbs =
-                      d.day === 13
-                        ? PROBLEMS.filter((p) => getProblemStatus(statusMap, p.id) === 'Review Needed')
-                        : PROBLEMS.filter((p) => p.scheduledDay === d.day);
-                    const allDone =
-                      dayProbs.length > 0 &&
-                      dayProbs.every((p) => getProblemStatus(statusMap, p.id) === 'Completed');
+                {(showDayGrid || dayFilter !== 'All') && (
+                  <div className="mt-2 pt-2 border-t border-slate-100 dark:border-neutral-800/70 grid grid-cols-4 gap-1">
+                    {SCHEDULE_DAYS.map((d) => {
+                      const isSelected = dayFilter === d.day;
+                      const dayProbs =
+                        d.day === 13
+                          ? PROBLEMS.filter((p) => getProblemStatus(statusMap, p.id) === 'Review Needed')
+                          : PROBLEMS.filter((p) => p.scheduledDay === d.day);
+                      const allDone =
+                        dayProbs.length > 0 &&
+                        dayProbs.every((p) => getProblemStatus(statusMap, p.id) === 'Completed');
 
-                    return (
-                      <button
-                        key={d.day}
-                        type="button"
-                        onClick={() => setDayFilter(isSelected ? 'All' : d.day)}
-                        title={`Day ${d.day} (${d.dateLabel}): ${d.focusTitle}`}
-                        className={`px-1.5 py-1 text-[11px] font-mono tabular-nums rounded cursor-pointer border text-center ${
-                          isSelected
-                            ? 'bg-slate-900 dark:bg-neutral-700 text-white dark:text-[var(--dm-heading)] border-slate-900 dark:border-[var(--dm-accent)] font-semibold'
-                            : allDone
-                            ? 'bg-emerald-50/60 dark:bg-[#1c1a16] text-emerald-700 dark:text-[var(--dm-accent)] border-emerald-200 dark:border-neutral-800'
-                            : 'bg-slate-50/70 dark:bg-[#0f0f0f] text-slate-600 dark:text-[var(--dm-body)] border-slate-200/60 dark:border-neutral-800/80 hover:bg-slate-100 dark:hover:bg-neutral-800'
-                        }`}
-                      >
-                        D{d.day}
-                      </button>
-                    );
-                  })}
-                </div>
+                      return (
+                        <button
+                          key={d.day}
+                          type="button"
+                          onClick={() => setDayFilter(isSelected ? 'All' : d.day)}
+                          title={`Day ${d.day} (${d.dateLabel}): ${d.focusTitle}`}
+                          className={`px-1.5 py-1 text-[11px] font-mono tabular-nums rounded cursor-pointer border text-center ${
+                            isSelected
+                              ? 'bg-slate-900 dark:bg-neutral-700 text-white dark:text-[var(--dm-heading)] border-slate-900 dark:border-[var(--dm-accent)] font-semibold'
+                              : allDone
+                              ? 'bg-emerald-50/60 dark:bg-[#1c1a16] text-emerald-700 dark:text-[var(--dm-accent)] border-emerald-200 dark:border-neutral-800'
+                              : 'bg-slate-50/70 dark:bg-[#0f0f0f] text-slate-600 dark:text-[var(--dm-body)] border-slate-200/60 dark:border-neutral-800/80 hover:bg-slate-100 dark:hover:bg-neutral-800'
+                          }`}
+                        >
+                          D{d.day}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
-              {/* 4. Source PDF Booklets Library & Log Controls */}
-              <div className="bg-white dark:bg-[#131313] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg p-3.5 space-y-2.5">
-                <h2 className="text-xs font-semibold text-slate-900 dark:text-[var(--dm-heading)]">
-                  Source PDF Booklets
-                </h2>
-                <div className="space-y-1">
-                  {SOURCE_BOOKLETS.map((bk) => (
-                    <button
-                      key={bk.label}
-                      type="button"
-                      onClick={() => handleOpenBookletModal(bk.label, bk.url, 1, bk.sub)}
-                      className="w-full flex items-center justify-between gap-2 px-2 py-1 text-xs text-slate-600 dark:text-[var(--dm-body)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] hover:bg-slate-50 dark:hover:bg-neutral-800/60 rounded-md text-left cursor-pointer"
-                    >
-                      <span className="truncate">{bk.label}</span>
-                      <ExternalLink className="w-3 h-3 text-slate-400 dark:text-[var(--dm-accent)] shrink-0" />
-                    </button>
-                  ))}
-                </div>
-
-                <div className="pt-2 border-t border-slate-100 dark:border-neutral-800/80 space-y-1.5">
-                  <label className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-[var(--dm-body)] bg-slate-50 dark:bg-neutral-800/70 border border-slate-200/70 dark:border-neutral-700/80 hover:bg-slate-100 dark:hover:bg-neutral-700 rounded-md cursor-pointer">
-                    <Upload className="w-3 h-3 text-slate-400 dark:text-[var(--dm-muted)]" />
-                    <span>Import Study Log (JSON)</span>
-                    <input
-                      type="file"
-                      accept="application/json"
-                      onChange={handleImportProgress}
-                      className="sr-only"
-                    />
-                  </label>
-
-                  {!confirmingReset ? (
-                    <button
-                      type="button"
-                      onClick={() => setConfirmingReset(true)}
-                      className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1 text-xs text-slate-500 dark:text-[var(--dm-muted)] hover:text-rose-700 dark:hover:text-[var(--dm-heading)] rounded-md cursor-pointer"
-                    >
-                      <RotateCcw className="w-3 h-3" />
-                      <span>Reset All Statuses</span>
-                    </button>
+              {/* 4. Source PDF Booklets Library & Log Controls (Collapsible) */}
+              <div className="bg-white dark:bg-[#121212] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg p-3">
+                <button
+                  type="button"
+                  onClick={() => setShowBooklets((v) => !v)}
+                  aria-expanded={showBooklets}
+                  className="w-full flex items-center justify-between text-xs font-semibold text-slate-800 dark:text-[var(--dm-heading)] cursor-pointer text-left"
+                >
+                  <span>Source PDFs &amp; Log (10)</span>
+                  {showBooklets ? (
+                    <ChevronUp className="w-3.5 h-3.5 text-slate-400 dark:text-[var(--dm-muted)]" />
                   ) : (
-                    <div className="space-y-2 p-2.5 bg-rose-50 dark:bg-neutral-950 rounded-md border border-rose-200 dark:border-neutral-700">
-                      <p className="text-xs text-rose-800 dark:text-[var(--dm-body)] font-medium">
-                        Reset all 72 problem statuses to Not Started?
-                      </p>
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setStatusMap({});
-                            setConfirmingReset(false);
-                          }}
-                          className="flex-1 px-2.5 py-1 text-xs font-semibold text-white bg-rose-600 rounded hover:bg-rose-700 cursor-pointer"
-                        >
-                          Confirm Reset
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setConfirmingReset(false)}
-                          className="flex-1 px-2.5 py-1 text-xs font-medium text-slate-700 dark:text-[var(--dm-body)] bg-white dark:bg-neutral-800 border border-slate-200 dark:border-neutral-700 rounded hover:bg-slate-50 dark:hover:bg-neutral-700 cursor-pointer"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
+                    <ChevronDown className="w-3.5 h-3.5 text-slate-400 dark:text-[var(--dm-muted)]" />
                   )}
-                </div>
+                </button>
+
+                {showBooklets && (
+                  <div className="mt-2 pt-2 border-t border-slate-100 dark:border-neutral-800/70 space-y-2">
+                    <div className="space-y-0.5">
+                      {SOURCE_BOOKLETS.map((bk) => (
+                        <button
+                          key={bk.label}
+                          type="button"
+                          onClick={() => handleOpenBookletModal(bk.label, bk.url, 1, bk.sub)}
+                          className="w-full flex items-center justify-between gap-2 px-2 py-1 text-xs text-slate-600 dark:text-[var(--dm-body)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] hover:bg-slate-50 dark:hover:bg-neutral-800/60 rounded text-left cursor-pointer"
+                        >
+                          <span className="truncate">{bk.label}</span>
+                          <ExternalLink className="w-3 h-3 text-slate-400 dark:text-[var(--dm-accent)] shrink-0" />
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="pt-2 border-t border-slate-100 dark:border-neutral-800/80 space-y-1.5">
+                      <label className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1 text-xs font-medium text-slate-600 dark:text-[var(--dm-body)] bg-slate-50 dark:bg-neutral-800/70 border border-slate-200/70 dark:border-neutral-700/80 hover:bg-slate-100 dark:hover:bg-neutral-700 rounded cursor-pointer">
+                        <Upload className="w-3 h-3 text-slate-400 dark:text-[var(--dm-muted)]" />
+                        <span>Import Study Log (JSON)</span>
+                        <input
+                          type="file"
+                          accept="application/json"
+                          onChange={handleImportProgress}
+                          className="sr-only"
+                        />
+                      </label>
+
+                      {!confirmingReset ? (
+                        <button
+                          type="button"
+                          onClick={() => setConfirmingReset(true)}
+                          className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-1 text-xs text-slate-500 dark:text-[var(--dm-muted)] hover:text-rose-700 dark:hover:text-[var(--dm-heading)] rounded cursor-pointer"
+                        >
+                          <RotateCcw className="w-3 h-3" />
+                          <span>Reset All Statuses</span>
+                        </button>
+                      ) : (
+                        <div className="space-y-2 p-2 bg-rose-50 dark:bg-neutral-950 rounded border border-rose-200 dark:border-neutral-700">
+                          <p className="text-xs text-rose-800 dark:text-[var(--dm-body)] font-medium">
+                            Reset all 72 problem statuses to Not Started?
+                          </p>
+                          <div className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setStatusMap({});
+                                setConfirmingReset(false);
+                              }}
+                              className="flex-1 px-2 py-1 text-xs font-semibold text-white bg-rose-600 rounded hover:bg-rose-700 cursor-pointer"
+                            >
+                              Confirm Reset
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setConfirmingReset(false)}
+                              className="flex-1 px-2 py-1 text-xs font-medium text-slate-700 dark:text-[var(--dm-body)] bg-white dark:bg-neutral-800 border border-slate-200 dark:border-neutral-700 rounded hover:bg-slate-50 dark:hover:bg-neutral-700 cursor-pointer"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             </aside>
 
             {/* Main Column: Filter Bar + Chapter Problem Tables */}
-            <main className="flex-1 min-w-0 w-full space-y-5">
-              {/* Minimal Search & Filter Toolbar */}
-              <div className="bg-white dark:bg-[#131313] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg p-3.5 space-y-2.5">
-                <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2.5">
+            <main className="flex-1 min-w-0 w-full space-y-3.5">
+              {/* Ultra-Minimal Single-Line Search & Filter Bar */}
+              <div className="bg-white dark:bg-[#121212] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg px-3.5 py-2.5 flex flex-col xl:flex-row xl:items-center justify-between gap-2.5">
+                <div className="flex flex-1 items-center gap-2">
                   {/* Search Input */}
                   <div className="relative flex-1">
-                    <Search className="w-3.5 h-3.5 text-slate-400 dark:text-[var(--dm-muted)] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <Search className="w-3.5 h-3.5 text-slate-400 dark:text-[var(--dm-muted)] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                     <input
                       type="search"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       aria-label="Search problems by name, language, year, or linguistic skill"
-                      placeholder="Search problems by language, source, or concept (e.g., 'ergativity', 'overcounting', 'Wiradjuri')..."
-                      className="w-full pl-8.5 pr-3 py-1.5 text-xs sm:text-sm bg-slate-50/70 dark:bg-[#0e0e0e] border border-slate-200/80 dark:border-neutral-800 rounded-md text-slate-900 dark:text-[var(--dm-heading)] placeholder:text-slate-400 dark:placeholder:text-neutral-500 focus:bg-white dark:focus:bg-neutral-900 focus:outline-1 focus:outline-slate-400 dark:focus:outline-[var(--dm-accent)]"
+                      placeholder="Search language, source, or concept..."
+                      className="w-full pl-8 pr-2.5 py-1 text-xs bg-slate-50/70 dark:bg-[#0e0e0e] border border-slate-200/80 dark:border-neutral-800 rounded text-slate-900 dark:text-[var(--dm-heading)] placeholder:text-slate-400 dark:placeholder:text-neutral-500 focus:bg-white dark:focus:bg-neutral-900 focus:outline-1 focus:outline-slate-400 dark:focus:outline-[var(--dm-accent)]"
                     />
                   </div>
 
                   {/* Difficulty Select */}
-                  <div className="flex items-center gap-2 shrink-0">
-                    <label htmlFor="difficulty-select" className="text-xs text-slate-500 dark:text-[var(--dm-muted)] whitespace-nowrap">
-                      Difficulty:
-                    </label>
-                    <select
-                      id="difficulty-select"
-                      value={difficultyFilter}
-                      onChange={(e) =>
-                        setDifficultyFilter(e.target.value as 'All' | DifficultyLevel)
-                      }
-                      className="px-2.5 py-1.5 text-xs font-medium bg-slate-50/70 dark:bg-[#0e0e0e] border border-slate-200/80 dark:border-neutral-800 rounded-md text-slate-800 dark:text-[var(--dm-body)] focus:outline-1 focus:outline-slate-400 dark:focus:outline-[var(--dm-accent)]"
-                    >
-                      <option value="All">All Difficulties</option>
-                      <option value="Easy">Easy</option>
-                      <option value="Medium">Medium</option>
-                      <option value="Hard">Hard</option>
-                      <option value="Expert">Expert</option>
-                    </select>
-                  </div>
+                  <select
+                    id="difficulty-select"
+                    aria-label="Filter by difficulty"
+                    value={difficultyFilter}
+                    onChange={(e) =>
+                      setDifficultyFilter(e.target.value as 'All' | DifficultyLevel)
+                    }
+                    className="px-2 py-1 text-xs bg-slate-50/70 dark:bg-[#0e0e0e] border border-slate-200/80 dark:border-neutral-800 rounded text-slate-700 dark:text-[var(--dm-body)] focus:outline-1 focus:outline-slate-400 dark:focus:outline-[var(--dm-accent)] shrink-0"
+                  >
+                    <option value="All">All Difficulties</option>
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                    <option value="Expert">Expert</option>
+                  </select>
                 </div>
 
-                {/* Status Filter Segmented Bar + Mock Toggle */}
-                <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-neutral-800/70">
-                  <div className="flex flex-wrap items-center gap-1">
-                    {(['All', 'In Progress', 'Completed', 'Review Needed', 'Not Started'] as const).map(
-                      (st) => (
-                        <button
-                          key={st}
-                          type="button"
-                          onClick={() => setStatusFilter(st)}
-                          className={`px-2.5 py-1 text-xs rounded-md whitespace-nowrap shrink-0 cursor-pointer ${
-                            statusFilter === st
-                              ? 'bg-slate-900 dark:bg-neutral-800 text-white dark:text-[var(--dm-heading)] font-medium'
-                              : 'text-slate-500 dark:text-[var(--dm-muted)] hover:text-slate-900 dark:hover:text-[var(--dm-body)]'
-                          }`}
-                        >
-                          {st === 'All' ? 'All Statuses' : st}
-                        </button>
-                      )
+                {/* Right Controls: Expand All, Mock Toggle, Count, Reset */}
+                <div className="flex flex-wrap items-center justify-between xl:justify-end gap-2.5 text-xs text-slate-500 dark:text-[var(--dm-muted)] shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setExpandAllRows((v) => !v)}
+                    aria-pressed={expandAllRows}
+                    className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] text-slate-600 dark:text-[var(--dm-body)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] bg-slate-100/80 dark:bg-neutral-800/80 rounded cursor-pointer"
+                  >
+                    <span>{expandAllRows ? 'Minimal View' : 'Expand All Info'}</span>
+                    {expandAllRows ? (
+                      <ChevronUp className="w-3 h-3" />
+                    ) : (
+                      <ChevronDown className="w-3 h-3" />
                     )}
-                  </div>
+                  </button>
 
-                  <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-[var(--dm-muted)]">
+                  <label className="inline-flex items-center gap-1.5 text-[11px] cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={hideMockProblems}
+                      onChange={(e) => setHideMockProblems(e.target.checked)}
+                      className="rounded border-slate-300 dark:border-neutral-700 text-slate-900 dark:text-[var(--dm-accent)] focus:ring-slate-500 dark:focus:ring-[var(--dm-accent)]"
+                    />
+                    <span>Hide Mock</span>
+                  </label>
+
+                  <span
+                    className="font-mono tabular-nums text-[11px] text-slate-600 dark:text-[var(--dm-body)]"
+                    data-testid="visible-problem-count"
+                  >
+                    Showing {filteredProblems.length} of 72
+                  </span>
+
+                  {hasActiveFilters && (
                     <button
                       type="button"
-                      onClick={() => setExpandAllRows((v) => !v)}
-                      aria-pressed={expandAllRows}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium text-slate-600 dark:text-[var(--dm-body)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] bg-slate-100 dark:bg-neutral-800 rounded cursor-pointer"
+                      onClick={handleResetFilters}
+                      className="text-[11px] text-slate-700 dark:text-[var(--dm-accent)] font-medium hover:underline cursor-pointer whitespace-nowrap"
                     >
-                      <span>{expandAllRows ? 'Minimal View' : 'Expand All Info'}</span>
-                      {expandAllRows ? (
-                        <ChevronUp className="w-3 h-3" />
-                      ) : (
-                        <ChevronDown className="w-3 h-3" />
-                      )}
+                      Reset Filters
                     </button>
-
-                    <label className="inline-flex items-center gap-1.5 cursor-pointer select-none">
-                      <input
-                        type="checkbox"
-                        checked={hideMockProblems}
-                        onChange={(e) => setHideMockProblems(e.target.checked)}
-                        className="rounded border-slate-300 dark:border-neutral-700 text-slate-900 dark:text-[var(--dm-accent)] focus:ring-slate-500 dark:focus:ring-[var(--dm-accent)]"
-                      />
-                      <span>Hide Mock Problems</span>
-                    </label>
-
-                    <span className="font-mono tabular-nums font-medium text-slate-700 dark:text-[var(--dm-body)]" data-testid="visible-problem-count">
-                      Showing {filteredProblems.length} of 72
-                    </span>
-
-                    {hasActiveFilters && (
-                      <button
-                        type="button"
-                        onClick={handleResetFilters}
-                        className="text-slate-700 dark:text-[var(--dm-accent)] font-medium hover:underline cursor-pointer whitespace-nowrap"
-                      >
-                        Reset Filters
-                      </button>
-                    )}
-                  </div>
+                  )}
                 </div>
               </div>
 
               {/* Empty Filter State */}
               {filteredProblems.length === 0 ? (
-                <div className="bg-white dark:bg-[#131313] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg p-10 text-center space-y-2.5">
-                  <Filter className="w-6 h-6 text-slate-400 dark:text-[var(--dm-muted)] mx-auto" />
-                  <h3 className="text-sm font-bold text-slate-900 dark:text-[var(--dm-heading)]">
+                <div className="bg-white dark:bg-[#121212] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg p-8 text-center space-y-2">
+                  <Filter className="w-5 h-5 text-slate-400 dark:text-[var(--dm-muted)] mx-auto" />
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-[var(--dm-heading)]">
                     No problems match your current filters
                   </h3>
                   <p className="text-xs text-slate-500 dark:text-[var(--dm-body)] max-w-md mx-auto">
@@ -1108,14 +1103,14 @@ export default function App() {
                   <button
                     type="button"
                     onClick={handleResetFilters}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium text-white dark:text-[var(--dm-heading)] bg-slate-900 dark:bg-neutral-800 border border-transparent dark:border-neutral-700 rounded-md hover:bg-slate-800 dark:hover:bg-neutral-700 cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-white dark:text-[var(--dm-heading)] bg-slate-900 dark:bg-neutral-800 border border-transparent dark:border-neutral-700 rounded hover:bg-slate-800 dark:hover:bg-neutral-700 cursor-pointer"
                   >
                     Reset All Filters
                   </button>
                 </div>
               ) : (
                 /* Chapter Sections (Priority 1 to Priority 7) */
-                <div className="space-y-5">
+                <div className="space-y-3.5">
                   {CHAPTERS.map((chapter) => {
                     const chProblems = filteredProblems.filter(
                       (p) => p.chapterId === chapter.id
@@ -1129,60 +1124,61 @@ export default function App() {
                       <section
                         key={chapter.id}
                         aria-labelledby={`heading-${chapter.id}`}
-                        className="bg-white dark:bg-[#131313] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg overflow-hidden"
+                        className="bg-white dark:bg-[#121212] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg overflow-hidden"
                       >
-                        {/* Minimal 1-Line Chapter Header (Theory & Why Included expand on click) */}
-                        <div className="px-4 sm:px-5 py-3 bg-slate-50/40 dark:bg-[#101010] border-b border-slate-200/70 dark:border-neutral-800/80">
+                        {/* Minimal Chapter Header (Theory & Why Included expand on click) */}
+                        <div className="px-4 py-2.5 bg-slate-50/40 dark:bg-[#0f0f0f] border-b border-slate-100 dark:border-neutral-800/80">
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div className="min-w-0">
-                              <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
-                                <h2
-                                  id={`heading-${chapter.id}`}
-                                  className="text-sm sm:text-base font-bold text-slate-900 dark:text-[var(--dm-heading)]"
-                                >
-                                  {chapter.title}
-                                </h2>
-                                <span className="text-xs font-mono tabular-nums text-slate-400 dark:text-[var(--dm-muted)]">
-                                  {chapter.problemCount} Problems · Step {chapter.priorityRank}/7
-                                </span>
-                              </div>
-                              <p
+                            <div className="min-w-0 flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+                              <h2
+                                id={`heading-${chapter.id}`}
+                                className="text-sm font-semibold text-slate-900 dark:text-[var(--dm-heading)]"
+                              >
+                                {chapter.title}
+                              </h2>
+                              <span className="text-[11px] font-mono tabular-nums text-slate-400 dark:text-[var(--dm-muted)]">
+                                {chapter.problemCount} Problems · Step {chapter.priorityRank}/7
+                              </span>
+                              <span
                                 data-testid={`chapter-prereq-${chapter.id}`}
-                                className="text-[11px] text-slate-500 dark:text-[var(--dm-muted)] mt-0.5"
+                                className="sr-only"
                               >
                                 {chapter.prerequisiteNote}
-                              </p>
+                              </span>
                             </div>
 
-                            <div className="flex items-center gap-3 shrink-0">
-                              <span className="text-xs font-mono tabular-nums text-slate-500 dark:text-[var(--dm-muted)]">
-                                <strong className="text-slate-900 dark:text-[var(--dm-heading)]">{chProg.completed}/{chProg.total}</strong> ({chProg.completionPercent}%)
+                            <div className="flex items-center gap-2.5 shrink-0">
+                              <span className="text-xs font-mono tabular-nums text-slate-400 dark:text-[var(--dm-muted)]">
+                                <strong className="text-slate-800 dark:text-[var(--dm-heading)]">{chProg.completed}/{chProg.total}</strong> ({chProg.completionPercent}%)
                               </span>
                               <button
                                 type="button"
                                 onClick={() => toggleTheory(chapter.id)}
                                 aria-expanded={isTheoryOpen}
-                                className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium text-slate-600 dark:text-[var(--dm-accent)] bg-slate-100 dark:bg-neutral-800/80 hover:text-slate-900 dark:hover:text-[var(--dm-heading)] rounded cursor-pointer whitespace-nowrap"
+                                className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] text-slate-600 dark:text-[var(--dm-accent)] hover:text-slate-900 dark:hover:text-[var(--dm-heading)] hover:bg-slate-200/60 dark:hover:bg-neutral-800 rounded cursor-pointer whitespace-nowrap"
                               >
-                                <span>{isTheoryOpen ? 'Hide Theory & Info' : 'Theory & Info'}</span>
+                                <span>{isTheoryOpen ? 'Hide Theory' : 'Theory & Info'}</span>
                                 {isTheoryOpen ? (
-                                  <ChevronUp className="w-3.5 h-3.5" />
+                                  <ChevronUp className="w-3 h-3" />
                                 ) : (
-                                  <ChevronDown className="w-3.5 h-3.5" />
+                                  <ChevronDown className="w-3 h-3" />
                                 )}
                               </button>
                             </div>
                           </div>
 
-                          {/* Collapsible Chapter Overview + Yellow Book Theory Sections */}
+                          {/* Collapsible Chapter Overview + Prerequisite Note + Yellow Book Theory Sections */}
                           {isTheoryOpen && (
-                            <div className="mt-2.5 pt-2.5 border-t border-slate-200/60 dark:border-neutral-800/70 space-y-2.5">
-                              <p className="text-xs text-slate-500 dark:text-[var(--dm-body)] leading-relaxed max-w-5xl">
-                                <strong className="font-medium text-slate-700 dark:text-[var(--dm-heading)]">Why included ({chapter.shareOfCorpus}): </strong>
+                            <div className="mt-2.5 pt-2.5 border-t border-slate-100 dark:border-neutral-800/70 space-y-2">
+                              <p className="text-[11px] text-slate-500 dark:text-[var(--dm-muted)]">
+                                {chapter.prerequisiteNote}
+                              </p>
+                              <p className="text-xs text-slate-600 dark:text-[var(--dm-body)] leading-relaxed max-w-5xl">
+                                <strong className="font-medium text-slate-800 dark:text-[var(--dm-heading)]">Why included ({chapter.shareOfCorpus}): </strong>
                                 {chapter.whyIncluded}
                               </p>
 
-                                <div className="border-l-2 border-slate-300 dark:border-neutral-700 pl-3.5 space-y-1.5">
+                              <div className="pt-1.5 border-t border-slate-100 dark:border-neutral-800/60 space-y-1.5">
                                 {chapter.theorySections.map((sec) => {
                                   const pdfPageMatch = sec.pages.match(/\[PDF\s+pp?\.\s*(\d+)/i);
                                   const startPdfPage = pdfPageMatch ? Number(pdfPageMatch[1]) : 1;
@@ -1208,7 +1204,7 @@ export default function App() {
                                             `${chapter.title} · ${sec.pages}`
                                           )
                                         }
-                                        className="inline-flex items-center gap-1 px-2 py-0.5 font-mono tabular-nums text-[11px] text-slate-600 dark:text-[var(--dm-accent)] bg-white dark:bg-neutral-800 border border-slate-200 dark:border-neutral-700 rounded hover:bg-slate-100 dark:hover:bg-neutral-700 shrink-0 cursor-pointer"
+                                        className="inline-flex items-center gap-1 px-2 py-0.5 font-mono tabular-nums text-[11px] text-slate-600 dark:text-[var(--dm-accent)] hover:bg-slate-200/60 dark:hover:bg-neutral-800 rounded shrink-0 cursor-pointer"
                                       >
                                         <FileText className="w-3 h-3 shrink-0" />
                                         <span>{sec.pages}</span>
@@ -1222,7 +1218,7 @@ export default function App() {
                         </div>
 
                         {/* Ordered Problems List (Easier to Harder) */}
-                        <div className="divide-y divide-slate-100 dark:divide-neutral-800/80">
+                        <div className="divide-y divide-slate-100 dark:divide-neutral-800/70">
                           {chProblems.map((problem) => (
                             <ProblemRow
                               key={problem.id}
