@@ -16,6 +16,9 @@ import * as pdfjsLib from 'pdfjs-dist';
 import pdfWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
+if (typeof window !== 'undefined') {
+  (window as unknown as { __pdfjsLib?: typeof pdfjsLib }).__pdfjsLib = pdfjsLib;
+}
 
 interface PdfPageCanvasProps {
   doc: pdfjsLib.PDFDocumentProxy;
@@ -368,7 +371,7 @@ export const InteractivePdfViewer: React.FC<InteractivePdfViewerProps> = ({
                 }`}
               >
                 <FileText className="w-3 h-3" />
-                <span>Problem Only ({endPage - startPage + 1}p)</span>
+                <span>Problem Only ({sourceScope === 'single' && numPages > 0 ? numPages : endPage - startPage + 1}p)</span>
               </button>
               <button
                 type="button"
