@@ -156,15 +156,6 @@ export default function App() {
     }
   });
 
-  // Visual ripple wave state for theme switch animation
-  const [themeRipple, setThemeRipple] = useState<{
-    id: number;
-    x: number;
-    y: number;
-    size: number;
-    targetTheme: ThemeMode;
-  } | null>(null);
-
   // Persistent status map
   const [statusMap, setStatusMap] = useState<StatusMap>(() => {
     try {
@@ -278,28 +269,21 @@ export default function App() {
   const handleToggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
     const nextTheme = toggleThemeMode(theme);
     const rect = (e.currentTarget || toggleBtnRef.current)?.getBoundingClientRect();
-    const x = rect ? rect.left + rect.width / 2 : window.innerWidth - 120;
-    const y = rect ? rect.top + rect.height / 2 : 28;
-    const maxRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y)
+    const x = rect ? Math.round(rect.left + rect.width / 2) : window.innerWidth - 120;
+    const y = rect ? Math.round(rect.top + rect.height / 2) : 28;
+    const maxRadius = Math.ceil(
+      Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y)
+      )
     );
 
     const root = document.documentElement;
-    root.style.setProperty('--theme-x', `${x}px`);
-    root.style.setProperty('--theme-y', `${y}px`);
-    root.style.setProperty('--theme-r', `${Math.ceil(maxRadius)}px`);
-
-    setThemeRipple({
-      id: Date.now(),
-      x,
-      y,
-      size: Math.ceil(maxRadius * 2.1),
-      targetTheme: nextTheme
-    });
-
     const docWithVT = document as Document & {
-      startViewTransition?: (cb: () => void) => { finished: Promise<void> };
+      startViewTransition?: (cb: () => void) => {
+        ready: Promise<void>;
+        finished: Promise<void>;
+      };
     };
 
     if (typeof docWithVT.startViewTransition === 'function') {
@@ -310,6 +294,27 @@ export default function App() {
         });
         root.classList.toggle('dark', nextTheme === 'dark');
       });
+
+      transition.ready
+        .then(() => {
+          root.animate(
+            {
+              clipPath: [
+                `circle(0px at ${x}px ${y}px)`,
+                `circle(${maxRadius}px at ${x}px ${y}px)`
+              ]
+            },
+            {
+              duration: 380,
+              easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+              pseudoElement: '::view-transition-new(root)'
+            }
+          );
+        })
+        .catch(() => {
+          // Ignore interrupted transition errors
+        });
+
       transition.finished.finally(() => {
         root.classList.remove('vt-active');
       });
@@ -460,26 +465,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8fafc] dark:bg-[#0b0b0b] text-slate-900 dark:text-[var(--dm-heading)] relative overflow-x-clip">
-      {/* Non-blocking Radial Wave Ring during Dark <-> Light Theme Switch */}
-      {themeRipple && (
-        <div
-          key={themeRipple.id}
-          aria-hidden="true"
-          onAnimationEnd={() => setThemeRipple(null)}
-          style={{
-            left: `${themeRipple.x}px`,
-            top: `${themeRipple.y}px`,
-            width: `${themeRipple.size}px`,
-            height: `${themeRipple.size}px`
-          }}
-          className={`pointer-events-none fixed z-50 rounded-full animate-theme-ripple ${
-            themeRipple.targetTheme === 'dark'
-              ? 'border-2 border-[#d4c3a3]/40 bg-radial from-[#d4c3a3]/15 via-neutral-900/20 to-transparent'
-              : 'border-2 border-amber-400/50 bg-radial from-amber-200/25 via-white/30 to-transparent'
-          }`}
-        />
-      )}
-
       {/* Minimal Top Bar */}
       <header className="sticky top-0 z-30 flex items-center justify-between gap-6 px-6 py-3 bg-white/95 dark:bg-[#111111]/95 backdrop-blur-xs border-b border-slate-200/80 dark:border-neutral-800/80">
         {/* Zone 1: Minimal Wordmark */}
@@ -765,7 +750,7 @@ export default function App() {
               <div className="bg-white dark:bg-[#131313] border border-slate-200/80 dark:border-neutral-800/80 rounded-lg p-3.5 space-y-2">
                 <div className="flex items-center justify-between">
                   <h2 className="text-xs font-semibold text-slate-900 dark:text-[var(--dm-heading)]">
-                    Yellow Book Chapters (By Yield)
+                    Chapters (Beginner Order)
                   </h2>
                   {chapterFilter !== 'All' && (
                     <button
@@ -1149,16 +1134,24 @@ export default function App() {
                         {/* Minimal 1-Line Chapter Header (Theory & Why Included expand on click) */}
                         <div className="px-4 sm:px-5 py-3 bg-slate-50/40 dark:bg-[#101010] border-b border-slate-200/70 dark:border-neutral-800/80">
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
-                              <h2
-                                id={`heading-${chapter.id}`}
-                                className="text-sm sm:text-base font-bold text-slate-900 dark:text-[var(--dm-heading)]"
+                            <div className="min-w-0">
+                              <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+                                <h2
+                                  id={`heading-${chapter.id}`}
+                                  className="text-sm sm:text-base font-bold text-slate-900 dark:text-[var(--dm-heading)]"
+                                >
+                                  {chapter.title}
+                                </h2>
+                                <span className="text-xs font-mono tabular-nums text-slate-400 dark:text-[var(--dm-muted)]">
+                                  {chapter.problemCount} Problems · Step {chapter.priorityRank}/7
+                                </span>
+                              </div>
+                              <p
+                                data-testid={`chapter-prereq-${chapter.id}`}
+                                className="text-[11px] text-slate-500 dark:text-[var(--dm-muted)] mt-0.5"
                               >
-                                {chapter.title}
-                              </h2>
-                              <span className="text-xs font-mono tabular-nums text-slate-400 dark:text-[var(--dm-muted)]">
-                                {chapter.problemCount} Problems · Priority {chapter.priorityRank}/7
-                              </span>
+                                {chapter.prerequisiteNote}
+                              </p>
                             </div>
 
                             <div className="flex items-center gap-3 shrink-0">

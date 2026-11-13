@@ -157,7 +157,7 @@ export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
       aria-modal="true"
       aria-labelledby="drawer-problem-title"
     >
-      <div className="relative w-full max-w-4xl bg-white dark:bg-[#141414] h-full shadow-2xl border-l border-slate-200 dark:border-neutral-800 flex flex-col overflow-hidden">
+      <div className="relative w-full max-w-5xl bg-white dark:bg-[#141414] h-full shadow-2xl border-l border-slate-200 dark:border-neutral-800 flex flex-col overflow-hidden">
         {/* Top Header */}
         <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3.5 border-b border-slate-200 dark:border-neutral-800 bg-slate-50 dark:bg-[#101010]">
           <div className="min-w-0">
@@ -374,7 +374,7 @@ export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
             {viewerMode === 'sheet' ? (
               <div
                 data-testid="problem-sheet-viewer"
-                className="w-full max-h-[580px] overflow-auto rounded-xl border border-slate-200 dark:border-neutral-800 bg-slate-100/90 dark:bg-[#0c0c0c] p-3 space-y-4"
+                className="w-full overflow-x-auto rounded-xl border border-slate-200 dark:border-neutral-800 bg-slate-100/90 dark:bg-[#0c0c0c] p-3 sm:p-4 space-y-4"
               >
                 {pdfAssets.pageImages.map((imgUrl, idx) => (
                   <div
@@ -398,7 +398,6 @@ export const ProblemDetailDrawer: React.FC<ProblemDetailDrawerProps> = ({
                 endPage={pdfAssets.endPage}
                 initialPage={1}
                 title={`problem-${String(problem.id).padStart(2, '0')}-${problem.exactName}`}
-                heightClass="h-[540px]"
               />
             )}
           </div>

@@ -13,10 +13,6 @@
     --dm-body: #dad3c6;
     --dm-accent: #d4c3a3;
     --dm-muted: #9e988e;
-
-    --theme-x: 50vw;
-    --theme-y: 48px;
-    --theme-r: 1800px;
   }
 
   html.dark {
@@ -56,6 +52,8 @@
     background-color: #f8fafc;
     color: #0f172a;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 240ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   html.dark body {
@@ -73,32 +71,7 @@
   }
 }
 
-/* Smooth theme interpolation when switching between Dark and Light mode */
-html:not(.vt-active) body,
-html:not(.vt-active) header,
-html:not(.vt-active) section,
-html:not(.vt-active) aside,
-html:not(.vt-active) main,
-html:not(.vt-active) footer,
-html:not(.vt-active) div,
-html:not(.vt-active) button,
-html:not(.vt-active) input,
-html:not(.vt-active) select,
-html:not(.vt-active) textarea,
-html:not(.vt-active) a,
-html:not(.vt-active) span,
-html:not(.vt-active) p,
-html:not(.vt-active) h1,
-html:not(.vt-active) h2,
-html:not(.vt-active) h3,
-html:not(.vt-active) td,
-html:not(.vt-active) th {
-  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
-  transition-duration: 460ms;
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Disable element transitions while View Transition snapshots are captured */
+/* Disable element transitions while View Transition snapshots are captured for 60fps smoothness */
 html.vt-active *,
 html.vt-active *::before,
 html.vt-active *::after {
@@ -117,31 +90,4 @@ html.vt-active *::after {
 
 ::view-transition-new(root) {
   z-index: 9999;
-  animation: theme-circle-reveal 580ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes theme-circle-reveal {
-  0% {
-    clip-path: circle(0px at var(--theme-x) var(--theme-y));
-    opacity: 0.65;
-  }
-  100% {
-    clip-path: circle(var(--theme-r) at var(--theme-x) var(--theme-y));
-    opacity: 1;
-  }
-}
-
-@keyframes theme-ripple-ring {
-  0% {
-    transform: translate(-50%, -50%) scale(0.05);
-    opacity: 0.45;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0;
-  }
-}
-
-.animate-theme-ripple {
-  animation: theme-ripple-ring 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }

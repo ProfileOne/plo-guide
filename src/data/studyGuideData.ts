@@ -39,6 +39,7 @@ export interface ChapterMeta {
   priorityRank: number;
   title: string;
   shortTitle: string;
+  prerequisiteNote: string;
   problemCount: number;
   shareOfCorpus: string;
   whyIncluded: string;
@@ -73,52 +74,100 @@ export interface PatternLandscapeRow {
 
 export const CHAPTERS: ChapterMeta[] = [
   {
-    id: 'ch9',
-    chapterNumber: 9,
+    id: 'ch2',
+    chapterNumber: 2,
     priorityRank: 1,
-    title: 'Chapter 9: Number Systems',
-    shortTitle: 'Ch 9 · Number Systems',
-    problemCount: 13,
-    shareOfCorpus: '17.2% (PLOs + IOL 2003–2026)',
+    title: 'Chapter 2: Writing Systems',
+    shortTitle: 'Ch 2 · Writing Systems',
+    prerequisiteNote: 'Step 1 (Orthography & Scripts): Letters, Syllables & Glyphs → Unlocks Ch 4 (Phonology)',
+    problemCount: 4,
+    shareOfCorpus: '6.2% (PLOs + IOL 2003–2026)',
     whyIncluded:
-      'Number systems offer the fastest, most deterministic marks in PLO Round 1 (~20% of historical papers). Mastering base-20/sub-base-5 structures, overcounting (Umbu-Ungu & Dzongkha), subtraction & exponentiation (Birom & Jowulu), body-part tallies, non-linear equations, and modular time reckoning locks in rapid full marks on exam day.',
+      'Starts with how languages are written and segmented into visual units—covering 2D Braille matrices (Tenji), featural triangle blocks (Ditema tsa Dinoko), polyvalent abjad + Aramaic heterograms (IOL 2019 Book Pahlavi), and Old Persian cuneiform.',
     theorySections: [
       {
-        sectionCode: '9.1',
-        title: 'Introduction: Bases, Sub-bases, Orders & Carryovers',
-        pages: 'pp. 321–331 [PDF pp. 345–355]',
-        keyTakeaway: 'Identify constituent order (multiplier × base + unit) and morphological linkers via digit-frequency analysis.'
+        sectionCode: '2.1–2.9',
+        title: 'Abjads, Heterograms (Ideograms), Syllabaries & Featural Systems',
+        pages: 'pp. 11–26 [PDF pp. 35–50]',
+        keyTakeaway: 'Spot frozen Aramaic heterograms vs. polyvalent phonetic spellings (Book Pahlavi), featural stroke geometry (Ditema), and semi-alphabetic cuneiform.'
       },
       {
-        sectionCode: '9.2',
-        title: 'Overcounting Systems',
-        pages: 'pp. 332–341 [PDF pp. 356–365]',
-        keyTakeaway: 'Recognize "4 towards the 2nd twenty" (= 24, not 44) or fractional step overcounting (Dzongkha) by checking whether the multiplier increments one step early.'
+        sectionCode: '2.11',
+        title: 'Braille Alphabet & Compositional Matrix Scripts',
+        pages: 'pp. 27–29 [PDF pp. 51–53]',
+        keyTakeaway: 'Decompose 6-dot cells into vowel sub-grids, consonant sub-grids, and spatial shift modifiers (voicing/palatalisation prefixes).'
+      }
+    ]
+  },
+  {
+    id: 'ch4',
+    chapterNumber: 4,
+    priorityRank: 2,
+    title: 'Chapter 4: Phonology',
+    shortTitle: 'Ch 4 · Phonology',
+    prerequisiteNote: 'Step 2 (Sound Systems): Builds on Ch 2 (Scripts) → Unlocks Ch 5 (Nouns & Morphology)',
+    problemCount: 6,
+    shareOfCorpus: '10.0% (PLOs + IOL 2003–2026)',
+    whyIncluded:
+      'Moves from written symbols to the sound system and phonological rules—covering Rendaku voicing dissimilation (Japanese), rule ordering (Valley Yokuts), autosegmental High-tone mora counting (IOL 2025 Kuria), iambic stress & gemination (IOL 2026 Central Yup’ik), and sibilant harmony (Barbareño).',
+    theorySections: [
+      {
+        sectionCode: '3.2, 3.5–3.6 & 4.1–4.3',
+        title: 'Articulatory Features, Stress Windows, Tone & Complementary Distribution',
+        pages: 'pp. 50–58, 69–74, 91–100 [PDF pp. 74–82, 93–98, 115–124]',
+        keyTakeaway: 'Group sounds by natural classes, count moras for autosegmental tone targets (Kuria), and parse left-to-right iambic feet (Central Yup’ik).'
       },
       {
-        sectionCode: '9.3',
-        title: 'Subtractive Systems',
-        pages: 'pp. 342–344 [PDF pp. 366–368]',
-        keyTakeaway: 'Spot sudden morpheme changes at 8–9, 10–11 (Birom), or 15–19 signaling back-counting from the next threshold.'
+        sectionCode: '4.4–4.6',
+        title: 'Phonological Processes, Vowel Harmony & Consonant Mutation',
+        pages: 'pp. 101–124 [PDF pp. 125–148]',
+        keyTakeaway: 'Check feeding vs. bleeding rule order when vowel harmony, epenthesis, syncope, and sibilant/voicing dissimilation interact.'
+      }
+    ]
+  },
+  {
+    id: 'ch5',
+    chapterNumber: 5,
+    priorityRank: 3,
+    title: 'Chapter 5: Noun and Noun Phrase',
+    shortTitle: 'Ch 5 · Noun & NP',
+    prerequisiteNote: 'Step 3 (Nominal Morphology): Builds on Ch 4 (Phonology) → Required before Ch 6 (Verbs) & Ch 7 (Syntax)',
+    problemCount: 11,
+    shareOfCorpus: '14.4% (PLOs + IOL 2003–2026)',
+    whyIncluded:
+      'Essential prerequisite before Verbs (Ch 6) and Syntax (Ch 7): introduces how nouns inflect for case, number, gender/noun classes, and possession. Directly targets Alienable vs. Inalienable Possession (Fijian, Iaai, Nanti, Terêna), Infixes & Transfixes (Ulwa, Terêna, Maltese, Ilocano), and multi-target classifiers (Kilivila).',
+    theorySections: [
+      {
+        sectionCode: '5.1–5.2',
+        title: 'Morpheme Types: Infix, Circumfix, Transfix & Autosegmental Spread',
+        pages: 'pp. 145–152 [PDF pp. 169–176]',
+        keyTakeaway: 'Isolate discontinuous root consonants (Semitic C1-C2-C3 transfixes), prosodic infix landing sites (Ulwa), and autosegmental nasal/harmony spread (Terêna).'
       },
       {
-        sectionCode: '9.4–9.5',
-        title: 'Body-Part Counting & Time Reckoning',
-        pages: 'pp. 345–352 [PDF pp. 369–376]',
-        keyTakeaway: 'Map anatomical symmetry axes (midpoint = nose/chest) and equatorial 6-hour clock offsets.'
+        sectionCode: '5.3–5.6',
+        title: 'Nominal Variables, Multi-Slot Classifiers, Reduplication & Suppletion',
+        pages: 'pp. 153–164 [PDF pp. 177–188]',
+        keyTakeaway: 'Track Bantu singular/plural class pairs, multi-target sortal classifiers across NP constituents (Kilivila), and partial CV/CVC reduplication.'
+      },
+      {
+        sectionCode: '5.7–5.8',
+        title: 'Alienable vs. Inalienable Possession & Colour Hierarchy',
+        pages: 'pp. 164–179 [PDF pp. 188–203]',
+        keyTakeaway: 'Inalienable nouns (kin, body parts) take direct affixes/infixes; alienable nouns and loanwords require possessive classifiers or helper roots.'
       }
     ]
   },
   {
     id: 'ch6',
     chapterNumber: 6,
-    priorityRank: 2,
+    priorityRank: 4,
     title: 'Chapter 6: Verb and Verb Phrase',
     shortTitle: 'Ch 6 · Verb & VP',
+    prerequisiteNote: 'Step 4 (Verbal Morphology): Builds on Ch 5 (Nouns & NP) → Required before Ch 7 (Syntax)',
     problemCount: 15,
     shareOfCorpus: '18.2% (PLOs + IOL 2003–2026)',
     whyIncluded:
-      'Directly targets four of your primary weak areas: TAM (hodiernal/hesternal/market-week tenses in Nooni & Mee), Pronoun Hierarchy (2>1>3 in Plains Cree and 1>2>3 in Hakhun), Evidentiality (witness, inferential, reportative, sensory), and non-concatenative pluractional infixation/gemination (Alabama).',
+      'Builds on nominal person/number/class (from Ch 5) and is required before tackling full clause Syntax (Ch 7). Directly targets TAM (hodiernal/hesternal/market-week tenses in Nooni & Mee), Pronoun Hierarchy (2>1>3 in Plains Cree and 1>2>3 in Hakhun), Evidentiality, and pluractional infixation (Alabama).',
     theorySections: [
       {
         sectionCode: '6.1–6.3.4',
@@ -149,13 +198,14 @@ export const CHAPTERS: ChapterMeta[] = [
   {
     id: 'ch7',
     chapterNumber: 7,
-    priorityRank: 3,
+    priorityRank: 5,
     title: 'Chapter 7: Syntax',
     shortTitle: 'Ch 7 · Syntax',
+    prerequisiteNote: 'Step 5 (Clause Syntax): Combines Ch 5 (Nouns & NP) + Ch 6 (Verbs & VP) into Full Sentences',
     problemCount: 14,
     shareOfCorpus: '15.3% (PLOs + IOL 2003–2026)',
     whyIncluded:
-      'Directly targets your #1 weak area—Morphosyntactic Alignment (Dyirbal ergative + antipassive pivot, Wambaya & Wiradjuri split ergativity, Dhivehi dative subjects)—plus Wackernagel 2nd-position clitics (Luiseño & Wambaya), irrealis V2 dislocation (Iquito), switch-reference (Amele), and Polish notation logic.',
+      'Combines Noun case marking (Ch 5) and Verb agreement/TAM (Ch 6) to solve full sentences. Directly targets Morphosyntactic Alignment (Dyirbal ergative + antipassive pivot, Wambaya & Wiradjuri split ergativity, Dhivehi dative subjects), Wackernagel 2nd-position clitics (Luiseño & Wambaya), V2 dislocation (Iquito), and switch-reference (Amele).',
     theorySections: [
       {
         sectionCode: '7.1–7.3',
@@ -178,46 +228,54 @@ export const CHAPTERS: ChapterMeta[] = [
     ]
   },
   {
-    id: 'ch5',
-    chapterNumber: 5,
-    priorityRank: 4,
-    title: 'Chapter 5: Noun and Noun Phrase',
-    shortTitle: 'Ch 5 · Noun & NP',
-    problemCount: 11,
-    shareOfCorpus: '14.4% (PLOs + IOL 2003–2026)',
+    id: 'ch9',
+    chapterNumber: 9,
+    priorityRank: 6,
+    title: 'Chapter 9: Number Systems',
+    shortTitle: 'Ch 9 · Number Systems',
+    prerequisiteNote: 'Step 6 (Numeral Systems): Applies Compounding & Syntax (Ch 5–7) to Base/Subtractive Arithmetic',
+    problemCount: 13,
+    shareOfCorpus: '17.2% (PLOs + IOL 2003–2026)',
     whyIncluded:
-      'Directly targets your weak areas in Alienable vs. Inalienable Possession (Fijian, Iaai, Nanti, Terêna), Infixes & Transfixes (Ulwa prosodic infixes, Terêna vowel-harmony infixes & nasal spread, Maltese broken plurals, Ilocano), multi-target classifiers (Kilivila), and Bantu noun classes.',
+      'Applies morphological compounding and constituent order to numeral systems—covering base-20/sub-base-5 structures, overcounting (Umbu-Ungu & Dzongkha), subtraction & exponentiation (Birom & Jowulu), body-part tallies (Tifal), and time reckoning (Swahili).',
     theorySections: [
       {
-        sectionCode: '5.1–5.2',
-        title: 'Morpheme Types: Infix, Circumfix, Transfix & Autosegmental Spread',
-        pages: 'pp. 145–152 [PDF pp. 169–176]',
-        keyTakeaway: 'Isolate discontinuous root consonants (Semitic C1-C2-C3 transfixes), prosodic infix landing sites (Ulwa), and autosegmental nasal/harmony spread (Terêna).'
+        sectionCode: '9.1',
+        title: 'Introduction: Bases, Sub-bases, Orders & Carryovers',
+        pages: 'pp. 321–331 [PDF pp. 345–355]',
+        keyTakeaway: 'Identify constituent order (multiplier × base + unit) and morphological linkers via digit-frequency analysis.'
       },
       {
-        sectionCode: '5.3–5.6',
-        title: 'Nominal Variables, Multi-Slot Classifiers, Reduplication & Suppletion',
-        pages: 'pp. 153–164 [PDF pp. 177–188]',
-        keyTakeaway: 'Track Bantu singular/plural class pairs, multi-target sortal classifiers across NP constituents (Kilivila), and partial CV/CVC reduplication.'
+        sectionCode: '9.2',
+        title: 'Overcounting Systems',
+        pages: 'pp. 332–341 [PDF pp. 356–365]',
+        keyTakeaway: 'Recognize "4 towards the 2nd twenty" (= 24, not 44) or fractional step overcounting (Dzongkha) by checking whether the multiplier increments one step early.'
       },
       {
-        sectionCode: '5.7–5.8',
-        title: 'Alienable vs. Inalienable Possession & Colour Hierarchy',
-        pages: 'pp. 164–179 [PDF pp. 188–203]',
-        keyTakeaway: 'Inalienable nouns (kin, body parts) take direct affixes/infixes; alienable nouns and loanwords require possessive classifiers or helper roots.'
+        sectionCode: '9.3',
+        title: 'Subtractive Systems',
+        pages: 'pp. 342–344 [PDF pp. 366–368]',
+        keyTakeaway: 'Spot sudden morpheme changes at 8–9, 10–11 (Birom), or 15–19 signaling back-counting from the next threshold.'
+      },
+      {
+        sectionCode: '9.4–9.5',
+        title: 'Body-Part Counting & Time Reckoning',
+        pages: 'pp. 345–352 [PDF pp. 369–376]',
+        keyTakeaway: 'Map anatomical symmetry axes (midpoint = nose/chest) and equatorial 6-hour clock offsets.'
       }
     ]
   },
   {
     id: 'ch8',
     chapterNumber: 8,
-    priorityRank: 5,
+    priorityRank: 7,
     title: 'Chapter 8: Semantics',
     shortTitle: 'Ch 8 · Semantics',
+    prerequisiteNote: 'Step 7 (Meaning & Kinship): Synthesizes Morphology, Syntax & Lexical Networks',
     problemCount: 9,
     shareOfCorpus: '11.5% (PLOs + IOL 2003–2026)',
     whyIncluded:
-      'Covers metaphorical compounding networks (Basque, Kubeo, Karuk, Tlingit, Malagasy), NLP vector embeddings (Twisted Translations), plus two high-yield IOL semantic archetypes: topographical/riverine spatial deixis (Aralle-Tabulahan) and kinship exchange graphs (Komnzo).',
+      'Synthesizes nominal possession (Ch 5) and clause structure (Ch 7) to solve metaphorical compounding networks (Basque, Kubeo, Karuk, Tlingit, Malagasy), NLP vector embeddings (Twisted Translations), topographical spatial deixis (Aralle-Tabulahan), and kinship exchange graphs (Komnzo).',
     theorySections: [
       {
         sectionCode: '8.1 & 10.1',
@@ -232,61 +290,11 @@ export const CHAPTERS: ChapterMeta[] = [
         keyTakeaway: 'Match nodes uniquely by degree sequences, cycle lengths, and symmetrical marriage/exchange cycles (Komnzo sister-exchange).'
       }
     ]
-  },
-  {
-    id: 'ch4',
-    chapterNumber: 4,
-    priorityRank: 6,
-    title: 'Chapter 4: Phonology',
-    shortTitle: 'Ch 4 · Phonology',
-    problemCount: 6,
-    shareOfCorpus: '10.0% (PLOs + IOL 2003–2026)',
-    whyIncluded:
-      'Essential for dedicated phonology/prosody problems—including autosegmental High-tone mora counting (IOL 2025 Kuria), iterative iambic stress & gemination (IOL 2026 Central Yup’ik), Irish slender/broad orthography (GaeilGo), rule ordering (Valley Yokuts), and long-distance sibilant harmony (Barbareño).',
-    theorySections: [
-      {
-        sectionCode: '3.2, 3.5–3.6 & 4.1–4.3',
-        title: 'Articulatory Features, Stress Windows, Tone & Complementary Distribution',
-        pages: 'pp. 50–58, 69–74, 91–100 [PDF pp. 74–82, 93–98, 115–124]',
-        keyTakeaway: 'Group sounds by natural classes, count moras for autosegmental tone targets (Kuria), and parse left-to-right iambic feet (Central Yup’ik).'
-      },
-      {
-        sectionCode: '4.4–4.6',
-        title: 'Phonological Processes, Vowel Harmony & Consonant Mutation',
-        pages: 'pp. 101–124 [PDF pp. 125–148]',
-        keyTakeaway: 'Check feeding vs. bleeding rule order when vowel harmony, epenthesis, syncope, and sibilant/voicing dissimilation interact.'
-      }
-    ]
-  },
-  {
-    id: 'ch2',
-    chapterNumber: 2,
-    priorityRank: 7,
-    title: 'Chapter 2: Writing Systems',
-    shortTitle: 'Ch 2 · Writing Systems',
-    problemCount: 4,
-    shareOfCorpus: '6.2% (PLOs + IOL 2003–2026)',
-    whyIncluded:
-      'Since you have already solved 5 script problems (Hmong Daw, Luwian, Aksara Sunda Kuna, Brahmi, Ire-Lined), these 4 problems cover the remaining Senior archetypes: 2D Braille matrices (Tenji), featural triangle blocks (Ditema tsa Dinoko), polyvalent abjad + Aramaic heterograms (IOL 2019 Book Pahlavi), and Old Persian cuneiform.',
-    theorySections: [
-      {
-        sectionCode: '2.1–2.9',
-        title: 'Abjads, Heterograms (Ideograms), Syllabaries & Featural Systems',
-        pages: 'pp. 11–26 [PDF pp. 35–50]',
-        keyTakeaway: 'Spot frozen Aramaic heterograms vs. polyvalent phonetic spellings (Book Pahlavi), featural stroke geometry (Ditema), and semi-alphabetic cuneiform.'
-      },
-      {
-        sectionCode: '2.11',
-        title: 'Braille Alphabet & Compositional Matrix Scripts',
-        pages: 'pp. 27–29 [PDF pp. 51–53]',
-        keyTakeaway: 'Decompose 6-dot cells into vowel sub-grids, consonant sub-grids, and spatial shift modifiers (voicing/palatalisation prefixes).'
-      }
-    ]
   }
 ];
 
 export const PROBLEMS: StudyProblem[] = [
-  // ================= PRIORITY 1: CHAPTER 9 (13 Problems) =================
+  // ================= CHAPTER 9 (13 Problems) =================
   {
     id: 1,
     exactName: 'Problem 4: Divehi Numerals',
@@ -297,7 +305,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Easy',
     chapterId: 'ch9',
     chapterNumber: 9,
-    scheduledDay: 1,
+    scheduledDay: 10,
     uniqueSkillTaught:
       'Deciphering an Indo-Aryan decimal system with preserved duodecimal (base-12 dholhas) and vigesimal breaks using unit-morpheme frequency.',
     weakAreasTargeted: []
@@ -312,7 +320,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Easy',
     chapterId: 'ch9',
     chapterNumber: 9,
-    scheduledDay: 1,
+    scheduledDay: 10,
     uniqueSkillTaught:
       'Breaking into an ungrouped quinary/tally numeral system by tracking compound word length and additive linkers across unordered sets.',
     weakAreasTargeted: []
@@ -327,7 +335,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Easy',
     chapterId: 'ch9',
     chapterNumber: 9,
-    scheduledDay: 1,
+    scheduledDay: 10,
     uniqueSkillTaught:
       'Decomposing 2D positional glyph quadrants (units, tens, hundreds, thousands) via rotation and reflection around a central vertical stave.',
     chapterPlacementReason:
@@ -345,7 +353,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Easy',
     chapterId: 'ch9',
     chapterNumber: 9,
-    scheduledDay: 1,
+    scheduledDay: 10,
     uniqueSkillTaught:
       'Solving the 6-hour equatorial clock phase shift (where 7:00 AM is "hour 1") alongside additive and subtractive quarter/minute expressions.',
     weakAreasTargeted: []
@@ -361,7 +369,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch9',
     chapterNumber: 9,
-    scheduledDay: 1,
+    scheduledDay: 10,
     uniqueSkillTaught:
       'Recognizing and formalizing overcounting ("towards the next group of 24, X units of 4") in a Papuan base-24 / sub-base-4 numeral system.',
     weakAreasTargeted: []
@@ -376,7 +384,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch9',
     chapterNumber: 9,
-    scheduledDay: 1,
+    scheduledDay: 10,
     uniqueSkillTaught:
       'Multi-tier subtractive arithmetic where vigesimal (base-20) multiples are modified simultaneously by "-5" and "-1 to -4" operations.',
     weakAreasTargeted: []
@@ -392,7 +400,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch9',
     chapterNumber: 9,
-    scheduledDay: 2,
+    scheduledDay: 11,
     uniqueSkillTaught:
       'Symmetrical body-part counting centered on the nose (14), distinguishing "other side of the body" markers in multi-person tallies above 27.',
     weakAreasTargeted: []
@@ -408,7 +416,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch9',
     chapterNumber: 9,
-    scheduledDay: 2,
+    scheduledDay: 11,
     uniqueSkillTaught:
       'Using quadratic growth (n² vs. n) and compound-length bounds to crack a quinary-decimal numeral system embedded in squaring equations.',
     weakAreasTargeted: []
@@ -423,7 +431,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch9',
     chapterNumber: 9,
-    scheduledDay: 2,
+    scheduledDay: 11,
     uniqueSkillTaught:
       'Cracking a duodecimal (base-12) Plateau Niger-Congo numeral system with subtractive compounding at 10–11 (gwɛ̄) and exponentiation equations (a^b = c).',
     weakAreasTargeted: []
@@ -438,7 +446,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch9',
     chapterNumber: 9,
-    scheduledDay: 2,
+    scheduledDay: 11,
     uniqueSkillTaught:
       'Exploiting multiplicative chains (a × b = c, b × c = d) and phonological vowel elision across compound boundaries in algebraic equations.',
     weakAreasTargeted: []
@@ -453,7 +461,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch9',
     chapterNumber: 9,
-    scheduledDay: 2,
+    scheduledDay: 11,
     uniqueSkillTaught:
       'Meta-mathematical number puzzles where the data states divisor counts and multiple relationships in prose rather than standard + / - symbols.',
     weakAreasTargeted: []
@@ -468,7 +476,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch9',
     chapterNumber: 9,
-    scheduledDay: 2,
+    scheduledDay: 11,
     uniqueSkillTaught:
       'Aligning two parallel numeral registers in the same language: System A (vigesimal base-20 with fractional 1/2 and 3/4 step overcounting) vs. System B (decimal contraction).',
     weakAreasTargeted: []
@@ -502,7 +510,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Easy',
     chapterId: 'ch6',
     chapterNumber: 6,
-    scheduledDay: 3,
+    scheduledDay: 5,
     uniqueSkillTaught:
       'Rapidly separating proclitic subject agreement from post-verbal tense/aspect particles and copular predication in Kuki-Chin.',
     weakAreasTargeted: ['TAM (Tense, Aspect, Mood)']
@@ -517,7 +525,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Easy',
     chapterId: 'ch6',
     chapterNumber: 6,
-    scheduledDay: 3,
+    scheduledDay: 5,
     uniqueSkillTaught:
       'Pragmatic deduction of direct witness (-DI) vs. indirect/hearsay reportative (-mIş) evidentiality from conversational context and news sourcing.',
     weakAreasTargeted: ['Evidentiality', 'TAM (Tense, Aspect, Mood)']
@@ -532,7 +540,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch6',
     chapterNumber: 6,
-    scheduledDay: 3,
+    scheduledDay: 5,
     uniqueSkillTaught:
       'Two-dimensional evidentiality fused with temporal distance (direct experience, inferential evidence from physical traces, and conjecture across recent vs. distant past).',
     weakAreasTargeted: ['Evidentiality', 'TAM (Tense, Aspect, Mood)']
@@ -548,7 +556,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch6',
     chapterNumber: 6,
-    scheduledDay: 3,
+    scheduledDay: 5,
     uniqueSkillTaught:
       'Agglutinative TAM slot ordering (future, permissive/hortative, desiderative, negative capability, and deictic motion) applied to dialogue completion.',
     weakAreasTargeted: ['TAM (Tense, Aspect, Mood)']
@@ -563,7 +571,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch6',
     chapterNumber: 6,
-    scheduledDay: 3,
+    scheduledDay: 5,
     uniqueSkillTaught:
       'Formal 4-way grammatical evidentiality (visual, non-visual sensory, inferential, reportative) crossed with tense in an Amazonian verb template.',
     weakAreasTargeted: ['Evidentiality', 'TAM (Tense, Aspect, Mood)']
@@ -578,7 +586,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch6',
     chapterNumber: 6,
-    scheduledDay: 4,
+    scheduledDay: 6,
     uniqueSkillTaught:
       'TAM-conditioned split subject/object indexing, where the verb prefix tracks the subject in one tense/mood set and switches paradigm in another.',
     weakAreasTargeted: ['TAM (Tense, Aspect, Mood)', 'Morphosyntactic Alignment']
@@ -594,7 +602,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch6',
     chapterNumber: 6,
-    scheduledDay: 4,
+    scheduledDay: 6,
     uniqueSkillTaught:
       'Mastering the Algonquian 2 > 1 > 3 pronoun hierarchy, Direct (-aa/-e) vs. Inverse (-ikw) theme signs, and Independent vs. Conjunct clause verb orders.',
     weakAreasTargeted: ['Pronoun Hierarchy', 'TAM (Tense, Aspect, Mood)']
@@ -609,7 +617,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch6',
     chapterNumber: 6,
-    scheduledDay: 4,
+    scheduledDay: 6,
     uniqueSkillTaught:
       'Fluid-S (active/stative) alignment driven by volition, where intransitive subjects take ergative marking when acting intentionally and absolutive when accidental.',
     weakAreasTargeted: ['Morphosyntactic Alignment']
@@ -624,7 +632,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch6',
     chapterNumber: 6,
-    scheduledDay: 4,
+    scheduledDay: 6,
     uniqueSkillTaught:
       'Polysynthetic noun incorporation, where direct objects and possessors fuse inside the portmanteau person/number/noun-class verb prefix complex.',
     weakAreasTargeted: ['Pronoun Hierarchy', 'TAM (Tense, Aspect, Mood)']
@@ -639,7 +647,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch6',
     chapterNumber: 6,
-    scheduledDay: 4,
+    scheduledDay: 6,
     uniqueSkillTaught:
       'Untangling a multi-tiered Bantoid temporal distance system (hodiernal, near past/future, distant past/future, and progressive/perfective) anchored to an 8-day market week.',
     weakAreasTargeted: ['TAM (Tense, Aspect, Mood)']
@@ -654,7 +662,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch6',
     chapterNumber: 6,
-    scheduledDay: 5,
+    scheduledDay: 7,
     uniqueSkillTaught:
       'Pronoun hierarchy with summative number marking, where dual/plural suffixes encode the combined number of participants rather than subject or object alone.',
     weakAreasTargeted: ['Pronoun Hierarchy']
@@ -670,7 +678,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch6',
     chapterNumber: 6,
-    scheduledDay: 5,
+    scheduledDay: 7,
     uniqueSkillTaught:
       '1 > 2 > 3 hierarchical agreement interacting simultaneously with past vs. present tense and affirmative vs. negative polarity portmanteaus.',
     weakAreasTargeted: ['Pronoun Hierarchy', 'TAM (Tense, Aspect, Mood)']
@@ -685,7 +693,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch6',
     chapterNumber: 6,
-    scheduledDay: 5,
+    scheduledDay: 7,
     uniqueSkillTaught:
       'Non-concatenative internal consonant gemination and syllable infixation encoding verbal pluractionality and middle/passive valency operations in Muskogean.',
     weakAreasTargeted: ['Infixes & Transfixes', 'TAM (Tense, Aspect, Mood)']
@@ -701,7 +709,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch6',
     chapterNumber: 6,
-    scheduledDay: 5,
+    scheduledDay: 7,
     uniqueSkillTaught:
       'Ergative verbal pluractionality (where the verb stem itself changes for plural S and plural P) combined with causative, reflexive, intensifier, and mitigator affixes.',
     weakAreasTargeted: ['Morphosyntactic Alignment']
@@ -716,7 +724,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Expert',
     chapterId: 'ch6',
     chapterNumber: 6,
-    scheduledDay: 5,
+    scheduledDay: 7,
     uniqueSkillTaught:
       'Multi-layered hodiernal (today\'s past) vs. distant past tense, aspect, and bi-personal object/subject inflection with morphophonemic stem alternations.',
     weakAreasTargeted: ['TAM (Tense, Aspect, Mood)']
@@ -733,7 +741,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Easy',
     chapterId: 'ch7',
     chapterNumber: 7,
-    scheduledDay: 6,
+    scheduledDay: 8,
     uniqueSkillTaught:
       'Clean SOV ditransitive case alignment and differential object marking combined with verb agreement in an eastern Indo-Aryan language.',
     weakAreasTargeted: ['Morphosyntactic Alignment']
@@ -748,7 +756,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Easy',
     chapterId: 'ch7',
     chapterNumber: 7,
-    scheduledDay: 6,
+    scheduledDay: 8,
     uniqueSkillTaught:
       'Separating enclitic pronominal argument markers from postpositions and aspectual stems in an endangered Indo-Iranian SOV clause structure.',
     weakAreasTargeted: ['Morphosyntactic Alignment', 'TAM (Tense, Aspect, Mood)']
@@ -763,7 +771,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch7',
     chapterNumber: 7,
-    scheduledDay: 6,
+    scheduledDay: 8,
     uniqueSkillTaught:
       'The definitive diagnostic grid for distinguishing Nominative-Accusative, Ergative-Absolutive, Tripartite (S ≠ A ≠ P), and Direct alignments side-by-side.',
     weakAreasTargeted: ['Morphosyntactic Alignment']
@@ -778,7 +786,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch7',
     chapterNumber: 7,
-    scheduledDay: 6,
+    scheduledDay: 8,
     uniqueSkillTaught:
       'Parsing bracket-free Polish (prefix) formal logic notation by tracking operator arity (unary vs. binary connectives)—the #1 formal-grammar wildcard in PLO.',
     chapterPlacementReason:
@@ -795,7 +803,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch7',
     chapterNumber: 7,
-    scheduledDay: 6,
+    scheduledDay: 8,
     uniqueSkillTaught:
       'SOV case/possessive stacking and participial clause ordering in Altai where every suffix undergoes 2-dimensional (backness + rounding) vowel harmony.',
     chapterPlacementReason:
@@ -882,7 +890,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch7',
     chapterNumber: 7,
-    scheduledDay: 7,
+    scheduledDay: 9,
     uniqueSkillTaught:
       'Wackernagel\'s Law (second-position clitic clusters) for tense/evidentiality/person and unspaced word-boundary segmentation in flexible word-order syntax.',
     weakAreasTargeted: ['Evidentiality', 'TAM (Tense, Aspect, Mood)']
@@ -897,7 +905,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch7',
     chapterNumber: 7,
-    scheduledDay: 7,
+    scheduledDay: 9,
     uniqueSkillTaught:
       'The gold-standard Ergative-Absolutive syntax problem: syntactic ergativity, antipassive voice (-ŋay-) for clause coordination, and 4 semantically rich noun classes.',
     weakAreasTargeted: ['Morphosyntactic Alignment']
@@ -912,7 +920,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch7',
     chapterNumber: 7,
-    scheduledDay: 7,
+    scheduledDay: 9,
     uniqueSkillTaught:
       'Combining Australian ergative case/gender concord with a mandatory Wackernagel second-position auxiliary clitic cluster encoding subject, object, direction, and tense.',
     weakAreasTargeted: ['Morphosyntactic Alignment', 'TAM (Tense, Aspect, Mood)']
@@ -927,7 +935,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch7',
     chapterNumber: 7,
-    scheduledDay: 7,
+    scheduledDay: 9,
     uniqueSkillTaught:
       'Mood-driven word order: Realis SVO vs. Irrealis V2 syntax where an object or postpositional phrase must front before the verb to satisfy an irrealis template.',
     weakAreasTargeted: ['Morphosyntactic Alignment', 'TAM (Tense, Aspect, Mood)']
@@ -942,7 +950,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Expert',
     chapterId: 'ch7',
     chapterNumber: 7,
-    scheduledDay: 7,
+    scheduledDay: 9,
     uniqueSkillTaught:
       'Switch-reference clause chaining (medial verbs marking Same-Subject vs. Different-Subject for the following clause) and simultaneous vs. sequential event syntax.',
     weakAreasTargeted: ['TAM (Tense, Aspect, Mood)']
@@ -959,7 +967,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Easy',
     chapterId: 'ch5',
     chapterNumber: 5,
-    scheduledDay: 8,
+    scheduledDay: 3,
     uniqueSkillTaught:
       'Recursive derivational morphology (agentive, instrumental, abstract state, diminutive, and adjectival suffixes) and stem-vowel truncation rules.',
     weakAreasTargeted: []
@@ -974,7 +982,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Easy',
     chapterId: 'ch5',
     chapterNumber: 5,
-    scheduledDay: 8,
+    scheduledDay: 3,
     uniqueSkillTaught:
       'The three-way Oceanic possession system: inalienable direct suffixation (body parts/kin) vs. alienable possession split into edible (ke-), drinkable (me-), and general (no-) classifiers.',
     weakAreasTargeted: ['Alienable vs. Inalienable Possession']
@@ -990,7 +998,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch5',
     chapterNumber: 5,
-    scheduledDay: 8,
+    scheduledDay: 3,
     uniqueSkillTaught:
       'Multi-target sortal numeral classifiers in Oceanic, where the exact same semantic classifier stem infixes/prefixes into numerals, demonstratives, and adjectives alike.',
     weakAreasTargeted: []
@@ -1005,7 +1013,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch5',
     chapterNumber: 5,
-    scheduledDay: 8,
+    scheduledDay: 3,
     uniqueSkillTaught:
       'Prosodically anchored possessive infixes vs. suffixes, where the possessive marker infixes immediately after the first iambic foot / heavy syllable of the noun stem.',
     weakAreasTargeted: ['Infixes & Transfixes', 'Alienable vs. Inalienable Possession']
@@ -1020,7 +1028,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch5',
     chapterNumber: 5,
-    scheduledDay: 8,
+    scheduledDay: 3,
     uniqueSkillTaught:
       'Semitic non-concatenative root-and-pattern transfixes (broken plurals) interacting with Berlin & Kay colour-hierarchy loanword invariance.',
     chapterPlacementReason:
@@ -1037,7 +1045,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch5',
     chapterNumber: 5,
-    scheduledDay: 9,
+    scheduledDay: 4,
     uniqueSkillTaught:
       'CVC partial reduplication for plurals and verbal actor-focus infixation (-um-) paired with Baybayin abugida script transcription.',
     chapterPlacementReason:
@@ -1054,7 +1062,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch5',
     chapterNumber: 5,
-    scheduledDay: 9,
+    scheduledDay: 4,
     uniqueSkillTaught:
       'Autosegmental 1st-person nasal spread (which nasalises vowels/sonorants until blocked and prenasalised by a voiceless stop/fricative) vs. 2nd-person vowel-harmony infixation and alienable loanword possession.',
     weakAreasTargeted: ['Infixes & Transfixes', 'Alienable vs. Inalienable Possession']
@@ -1121,13 +1129,13 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch5',
     chapterNumber: 5,
-    scheduledDay: 9,
+    scheduledDay: 4,
     uniqueSkillTaught:
       'Fine-grained Melanesian possession classification (distinguishing body parts, kin across generations, food, drinks, chewing items, plants, animals, and shelter) with stem vowel mutations.',
     weakAreasTargeted: ['Alienable vs. Inalienable Possession']
   },
 
-  // ================= PRIORITY 5: CHAPTER 8 (9 Problems) =================
+  // ================= CHAPTER 8 (9 Problems) =================
   {
     id: 54,
     exactName: 'Problem No. 1 (20 Points): Basque',
@@ -1139,7 +1147,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Easy',
     chapterId: 'ch8',
     chapterNumber: 8,
-    scheduledDay: 9,
+    scheduledDay: 12,
     uniqueSkillTaught:
       'Constructing a bipartite morpheme-connection graph (roots × derivational suffixes for place -tegi, tool -gailu, group -talde, companion -kide, keeper -zain) to solve an unordered matrix without guessing.',
     weakAreasTargeted: []
@@ -1172,7 +1180,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch8',
     chapterNumber: 8,
-    scheduledDay: 9,
+    scheduledDay: 12,
     uniqueSkillTaught:
       'Topographical and riverine spatial deixis (upriver vs. downriver, uphill vs. downhill, and level/across-stream motion verbs) used to reconstruct a 9-village elevation map.',
     weakAreasTargeted: []
@@ -1187,7 +1195,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch8',
     chapterNumber: 8,
-    scheduledDay: 10,
+    scheduledDay: 12,
     uniqueSkillTaught:
       'Combining shape/material noun-classifier suffixes (spherical, hollow, tree/wood, filamentous, liquid) with metaphorical compound heads in an Amazonian lexicon.',
     weakAreasTargeted: []
@@ -1237,7 +1245,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch8',
     chapterNumber: 8,
-    scheduledDay: 10,
+    scheduledDay: 12,
     uniqueSkillTaught:
       'Multi-part idiomatic compound phrases where literal constituent meanings ("sun\'s eye", "water\'s child", "frog\'s thigh") map simultaneously to figurative glosses and possession rules.',
     weakAreasTargeted: []
@@ -1252,7 +1260,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch8',
     chapterNumber: 8,
-    scheduledDay: 10,
+    scheduledDay: 12,
     uniqueSkillTaught:
       'Solving a Papuan direct sister-exchange marriage kinship system where maternal and paternal cross-cousin/in-law terms merge symmetrically alongside ergative/possessive cases.',
     weakAreasTargeted: ['Morphosyntactic Alignment']
@@ -1268,13 +1276,13 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch8',
     chapterNumber: 8,
-    scheduledDay: 10,
+    scheduledDay: 12,
     uniqueSkillTaught:
       'Solving an NLP vector-space / distributional semantics wildcard using semantic proximity clues and morphological paradigms to align an obfuscated Hrangkhol corpus.',
     weakAreasTargeted: []
   },
 
-  // ================= PRIORITY 6: CHAPTER 4 (6 Problems) =================
+  // ================= CHAPTER 4 (6 Problems) =================
   {
     id: 63,
     exactName: 'Problem #5: Japanese Compound Words',
@@ -1285,7 +1293,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Easy',
     chapterId: 'ch4',
     chapterNumber: 4,
-    scheduledDay: 11,
+    scheduledDay: 2,
     uniqueSkillTaught:
       'Rendaku (sequential voicing) in compounds blocked by Lyman\'s Law (long-distance voicing dissimilation when the second root contains a voiced obstruent) and branching constituent trees.',
     weakAreasTargeted: []
@@ -1300,7 +1308,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch4',
     chapterNumber: 4,
-    scheduledDay: 11,
+    scheduledDay: 2,
     uniqueSkillTaught:
       'Strict phonological rule ordering (feeding/bleeding) across height-conditioned rounding vowel harmony, vowel epenthesis in CCC clusters, and closed-syllable vowel shortening.',
     weakAreasTargeted: []
@@ -1315,7 +1323,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch4',
     chapterNumber: 4,
-    scheduledDay: 11,
+    scheduledDay: 2,
     uniqueSkillTaught:
       'Autosegmental High-tone mora counting in Bantu verb TAM: determining which tense/aspect prefix assigns a High tone to the 1st, 3rd, or 4th mora of the macrostem with bounded tone spreading.',
     weakAreasTargeted: ['TAM (Tense, Aspect, Mood)']
@@ -1347,7 +1355,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch4',
     chapterNumber: 4,
-    scheduledDay: 11,
+    scheduledDay: 2,
     uniqueSkillTaught:
       'Iterative left-to-right iambic stress assignment, rhythmic vowel lengthening, onset gemination before CVV syllables, and Norton Sound vs. General Central Yup’ik consonant assimilation.',
     weakAreasTargeted: []
@@ -1362,13 +1370,13 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch4',
     chapterNumber: 4,
-    scheduledDay: 11,
+    scheduledDay: 2,
     uniqueSkillTaught:
       'Long-distance regressive sibilant harmony (s vs. š), glottalization, vowel syncope, and CVC reduplication / infixation interacting across multiple prefix slots.',
     weakAreasTargeted: ['Infixes & Transfixes']
   },
 
-  // ================= PRIORITY 7: CHAPTER 2 (4 Problems) =================
+  // ================= CHAPTER 2 (4 Problems) =================
   {
     id: 69,
     exactName: 'Problem 3: Tenji Braille',
@@ -1380,7 +1388,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Easy',
     chapterId: 'ch2',
     chapterNumber: 2,
-    scheduledDay: 12,
+    scheduledDay: 1,
     uniqueSkillTaught:
       'Compositional 2D matrix encoding in Japanese Braille, where vowel dot-patterns (top-left) and consonant dot-patterns (bottom-right) combine with spatial shifts for yōon palatalisation and dakuten voicing.',
     weakAreasTargeted: []
@@ -1396,7 +1404,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Medium',
     chapterId: 'ch2',
     chapterNumber: 2,
-    scheduledDay: 12,
+    scheduledDay: 1,
     uniqueSkillTaught:
       'Featural syllable blocks where triangle apex orientation encodes vowel quality and internal/external line strokes systematically encode consonant place, manner, voicing, and prenasalisation.',
     weakAreasTargeted: []
@@ -1411,7 +1419,7 @@ export const PROBLEMS: StudyProblem[] = [
     difficulty: 'Hard',
     chapterId: 'ch2',
     chapterNumber: 2,
-    scheduledDay: 12,
+    scheduledDay: 1,
     uniqueSkillTaught:
       'Deciphering a right-to-left polyvalent consonantal abjad (where single glyphs merged multiple Aramaic letters) alongside frozen Aramaic heterograms (ideograms) read as Persian words.',
     weakAreasTargeted: []
@@ -1439,100 +1447,16 @@ export const SCHEDULE_DAYS: ScheduleDay[] = [
   {
     day: 1,
     dateLabel: 'Fri, 13 Nov 2026',
-    focusTitle: 'Ch 1 Intro + Ch 9: Number Systems (Part 1 — Bases, Overcounting & Subtraction)',
-    theoryReading: 'Yellow Book Ch 1 (1.1–1.5, pp. 1–10 [PDF pp. 25–34]) & Ch 9 (9.1–9.5, pp. 321–352 [PDF pp. 345–376])',
-    timeBreakdown: '1.0h Theory + 3.0h Problems (6)',
-    problemIds: [1, 2, 3, 4, 5, 6],
-    isMockExamDay: false
+    focusTitle: 'Ch 1 Intro + Ch 2: Writing Systems — Braille, Featural Blocks & IOL Book Pahlavi Heterograms',
+    theoryReading: 'Yellow Book Ch 1 (1.1–1.5, pp. 1–10 [PDF pp. 25–34]) & Ch 2 (2.1–2.11, pp. 11–29 [PDF pp. 35–53])',
+    timeBreakdown: '1.0h Theory + 3.0h Problems (3)',
+    problemIds: [69, 70, 71],
+    isMockExamDay: false,
+    mockNote: 'Problem #72 (Old Persian) is held for Day 15 Timed Mock Paper 2.'
   },
   {
     day: 2,
     dateLabel: 'Sat, 14 Nov 2026',
-    focusTitle: 'Ch 9: Number Systems (Part 2 — Tallies, IOL Birom, Equations & IOL Dzongkha)',
-    theoryReading: 'Yellow Book Ch 9 Practice & Solutions (9.6–9.7, pp. 353–364 [PDF pp. 377–388])',
-    timeBreakdown: '0.5h Review + 3.5h Problems (6)',
-    problemIds: [7, 8, 9, 10, 11, 12],
-    isMockExamDay: false,
-    mockNote: 'Problem #13 (Jowulu) is held unseen for Day 16 Timed Mock Paper 3.'
-  },
-  {
-    day: 3,
-    dateLabel: 'Sun, 15 Nov 2026',
-    focusTitle: 'Ch 6: Verb & VP — TAM & Evidentiality (Part 1)',
-    theoryReading: 'Yellow Book Ch 6 (6.1–6.6, pp. 199–222 [PDF pp. 223–246])',
-    timeBreakdown: '1.0h Theory + 3.0h Problems (5)',
-    problemIds: [14, 15, 16, 17, 18],
-    isMockExamDay: false
-  },
-  {
-    day: 4,
-    dateLabel: 'Mon, 16 Nov 2026',
-    focusTitle: 'Ch 6: Verb & VP — IOL Plains Cree Hierarchy, Fluid-S & IOL Nooni (Part 2)',
-    theoryReading: 'Yellow Book Ch 6 (6.7–6.8, pp. 223–232 [PDF pp. 247–256])',
-    timeBreakdown: '0.75h Theory + 3.25h Problems (5)',
-    problemIds: [19, 20, 21, 22, 23],
-    isMockExamDay: false
-  },
-  {
-    day: 5,
-    dateLabel: 'Tue, 17 Nov 2026',
-    focusTitle: 'Ch 6: Verb & VP — IOL Hakhun, IOL Alabama & Expert Synthesis (Part 3)',
-    theoryReading: 'Yellow Book Ch 6 Practice & Solutions (6.9–6.10, pp. 233–256 [PDF pp. 257–280])',
-    timeBreakdown: '4.0h Deep Problem Solving (5)',
-    problemIds: [24, 25, 26, 27, 28],
-    isMockExamDay: false
-  },
-  {
-    day: 6,
-    dateLabel: 'Wed, 18 Nov 2026',
-    focusTitle: 'Ch 7: Syntax — Alignment & Polish Logic (Part 1)',
-    theoryReading: 'Yellow Book Ch 7 (7.1–7.5, pp. 257–275 [PDF pp. 281–299])',
-    timeBreakdown: '1.0h Theory + 3.0h Problems (5)',
-    problemIds: [29, 30, 31, 32, 33],
-    isMockExamDay: false
-  },
-  {
-    day: 7,
-    dateLabel: 'Thu, 19 Nov 2026',
-    focusTitle: 'Ch 7: Syntax — IOL Dyirbal, IOL Wambaya, IOL Iquito & Switch-Ref (Part 2)',
-    theoryReading: 'Yellow Book Ch 7 Alignment & Practice (7.4–7.7, pp. 269–298 [PDF pp. 293–322])',
-    timeBreakdown: '0.5h Review + 3.5h Problems (5)',
-    problemIds: [38, 39, 40, 41, 42],
-    isMockExamDay: false,
-    mockNote: 'Problems #34 (Dhivehi), #35 (Icari Dargwa), #36 (Epun), and #37 (Wiradjuri) are held for Days 14–16 Mocks.'
-  },
-  {
-    day: 8,
-    dateLabel: 'Fri, 20 Nov 2026',
-    focusTitle: 'Ch 5: Noun & NP — Possession, IOL Kilivila Classifiers & Infixes/Transfixes (Part 1)',
-    theoryReading: 'Yellow Book Ch 5 (5.1–5.8, pp. 145–179 [PDF pp. 169–203])',
-    timeBreakdown: '1.0h Theory + 3.0h Problems (5)',
-    problemIds: [43, 44, 45, 46, 47],
-    isMockExamDay: false
-  },
-  {
-    day: 9,
-    dateLabel: 'Sat, 21 Nov 2026',
-    focusTitle: 'Ch 5: Noun & NP (IOL Terêna & Iaai) + Ch 8: Semantics (Basque & IOL Aralle-Tabulahan)',
-    theoryReading: 'Yellow Book Ch 5 (5.9, pp. 180–187 [PDF pp. 204–211]), Ch 8 (8.1–8.2, pp. 299–310 [PDF pp. 323–334]) & Ch 10 (10.1, pp. 365–368 [PDF pp. 389–392])',
-    timeBreakdown: '0.75h Theory + 3.25h Problems (5)',
-    problemIds: [48, 49, 53, 54, 56],
-    isMockExamDay: false,
-    mockNote: 'Problems #50 (Nanti), #51 (Romanian), and #52 (When it clicks…) are held for Days 15–16 Mocks.'
-  },
-  {
-    day: 10,
-    dateLabel: 'Sun, 22 Nov 2026',
-    focusTitle: 'Ch 8: Semantics — Kubeo, Malagasy, IOL Komnzo Kinship & Vector Embeddings (Part 2)',
-    theoryReading: 'Yellow Book Ch 8 Graph Method (8.2–8.3, pp. 300–314 [PDF pp. 324–338]) & Ch 10 Kinship (10.2, pp. 369–379 [PDF pp. 393–403])',
-    timeBreakdown: '0.5h Review + 3.5h Problems (4)',
-    problemIds: [57, 60, 61, 62],
-    isMockExamDay: false,
-    mockNote: 'Problems #55 (miks salat), #58 (Karuk), and #59 (Singing it in Tlingit) are held for Days 14 & 16 Mocks.'
-  },
-  {
-    day: 11,
-    dateLabel: 'Mon, 23 Nov 2026',
     focusTitle: 'Ch 4: Phonology — Rendaku, Rule Ordering, IOL Kuria Tone & IOL Central Yup’ik Stress',
     theoryReading: 'Yellow Book Ch 3 (3.2 & 3.5–3.6, pp. 50–58, 69–74 [PDF pp. 74–82, 93–98]) & Ch 4 (4.1–4.6, pp. 91–124 [PDF pp. 115–148])',
     timeBreakdown: '1.0h Theory + 3.0h Problems (5)',
@@ -1541,14 +1465,98 @@ export const SCHEDULE_DAYS: ScheduleDay[] = [
     mockNote: 'Problem #66 (GaeilGo Doesn’t Go) is held for Day 16 Timed Mock Paper 3.'
   },
   {
+    day: 3,
+    dateLabel: 'Sun, 15 Nov 2026',
+    focusTitle: 'Ch 5: Noun & NP — Possession, IOL Kilivila Classifiers & Infixes/Transfixes (Part 1)',
+    theoryReading: 'Yellow Book Ch 5 (5.1–5.8, pp. 145–179 [PDF pp. 169–203])',
+    timeBreakdown: '1.0h Theory + 3.0h Problems (5)',
+    problemIds: [43, 44, 45, 46, 47],
+    isMockExamDay: false
+  },
+  {
+    day: 4,
+    dateLabel: 'Mon, 16 Nov 2026',
+    focusTitle: 'Ch 5: Noun & NP — Ilocano Reduplication, IOL Terêna Nasal Spread & Iaai Possession (Part 2)',
+    theoryReading: 'Yellow Book Ch 5 Practice & Solutions (5.9–5.10, pp. 180–198 [PDF pp. 204–222])',
+    timeBreakdown: '0.75h Review + 3.25h Problems (3)',
+    problemIds: [48, 49, 53],
+    isMockExamDay: false,
+    mockNote: 'Problems #50 (Nanti), #51 (Romanian), and #52 (When it clicks…) are held for Days 15–16 Mocks.'
+  },
+  {
+    day: 5,
+    dateLabel: 'Tue, 17 Nov 2026',
+    focusTitle: 'Ch 6: Verb & VP — TAM & Evidentiality (Part 1 — Builds on Ch 5 Nouns)',
+    theoryReading: 'Yellow Book Ch 6 (6.1–6.6, pp. 199–222 [PDF pp. 223–246])',
+    timeBreakdown: '1.0h Theory + 3.0h Problems (5)',
+    problemIds: [14, 15, 16, 17, 18],
+    isMockExamDay: false
+  },
+  {
+    day: 6,
+    dateLabel: 'Wed, 18 Nov 2026',
+    focusTitle: 'Ch 6: Verb & VP — IOL Plains Cree Hierarchy, Fluid-S & IOL Nooni (Part 2)',
+    theoryReading: 'Yellow Book Ch 6 (6.7–6.8, pp. 223–232 [PDF pp. 247–256])',
+    timeBreakdown: '0.75h Theory + 3.25h Problems (5)',
+    problemIds: [19, 20, 21, 22, 23],
+    isMockExamDay: false
+  },
+  {
+    day: 7,
+    dateLabel: 'Thu, 19 Nov 2026',
+    focusTitle: 'Ch 6: Verb & VP — IOL Hakhun, IOL Alabama & Expert Synthesis (Part 3)',
+    theoryReading: 'Yellow Book Ch 6 Practice & Solutions (6.9–6.10, pp. 233–256 [PDF pp. 257–280])',
+    timeBreakdown: '4.0h Deep Problem Solving (5)',
+    problemIds: [24, 25, 26, 27, 28],
+    isMockExamDay: false
+  },
+  {
+    day: 8,
+    dateLabel: 'Fri, 20 Nov 2026',
+    focusTitle: 'Ch 7: Syntax — Alignment & Polish Logic (Part 1 — Combines Ch 5 Nouns + Ch 6 Verbs)',
+    theoryReading: 'Yellow Book Ch 7 (7.1–7.5, pp. 257–275 [PDF pp. 281–299])',
+    timeBreakdown: '1.0h Theory + 3.0h Problems (5)',
+    problemIds: [29, 30, 31, 32, 33],
+    isMockExamDay: false
+  },
+  {
+    day: 9,
+    dateLabel: 'Sat, 21 Nov 2026',
+    focusTitle: 'Ch 7: Syntax — IOL Dyirbal, IOL Wambaya, IOL Iquito & Switch-Ref (Part 2)',
+    theoryReading: 'Yellow Book Ch 7 Alignment & Practice (7.4–7.7, pp. 269–298 [PDF pp. 293–322])',
+    timeBreakdown: '0.5h Review + 3.5h Problems (5)',
+    problemIds: [38, 39, 40, 41, 42],
+    isMockExamDay: false,
+    mockNote: 'Problems #34 (Dhivehi), #35 (Icari Dargwa), #36 (Epun), and #37 (Wiradjuri) are held for Days 14–16 Mocks.'
+  },
+  {
+    day: 10,
+    dateLabel: 'Sun, 22 Nov 2026',
+    focusTitle: 'Ch 9: Number Systems (Part 1 — Bases, Overcounting & Subtraction)',
+    theoryReading: 'Yellow Book Ch 9 (9.1–9.5, pp. 321–352 [PDF pp. 345–376])',
+    timeBreakdown: '1.0h Theory + 3.0h Problems (6)',
+    problemIds: [1, 2, 3, 4, 5, 6],
+    isMockExamDay: false
+  },
+  {
+    day: 11,
+    dateLabel: 'Mon, 23 Nov 2026',
+    focusTitle: 'Ch 9: Number Systems (Part 2 — Tallies, IOL Birom, Equations & IOL Dzongkha)',
+    theoryReading: 'Yellow Book Ch 9 Practice & Solutions (9.6–9.7, pp. 353–364 [PDF pp. 377–388])',
+    timeBreakdown: '0.5h Review + 3.5h Problems (6)',
+    problemIds: [7, 8, 9, 10, 11, 12],
+    isMockExamDay: false,
+    mockNote: 'Problem #13 (Jowulu) is held unseen for Day 16 Timed Mock Paper 3.'
+  },
+  {
     day: 12,
     dateLabel: 'Tue, 24 Nov 2026',
-    focusTitle: 'Ch 2: Writing Systems — Braille, Featural Blocks & IOL Book Pahlavi Heterograms',
-    theoryReading: 'Yellow Book Ch 2 (2.1–2.11, pp. 11–29 [PDF pp. 35–53])',
-    timeBreakdown: '1.0h Theory + 3.0h Problems (3)',
-    problemIds: [69, 70, 71],
+    focusTitle: 'Ch 8: Semantics — Basque, IOL Aralle-Tabulahan, Kubeo, Malagasy, IOL Komnzo & Vectors',
+    theoryReading: 'Yellow Book Ch 8 (8.1–8.3, pp. 299–314 [PDF pp. 323–338]) & Ch 10 (10.1–10.2, pp. 365–379 [PDF pp. 389–403])',
+    timeBreakdown: '0.75h Theory + 3.25h Problems (6)',
+    problemIds: [54, 56, 57, 60, 61, 62],
     isMockExamDay: false,
-    mockNote: 'Problem #72 (Old Persian) is held for Day 15 Timed Mock Paper 2.'
+    mockNote: 'Problems #55 (miks salat), #58 (Karuk), and #59 (Singing it in Tlingit) are held for Days 14 & 16 Mocks.'
   },
   {
     day: 13,

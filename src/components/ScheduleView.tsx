@@ -32,18 +32,18 @@ interface ScheduleViewProps {
 const YELLOW_BOOK_URL = 'assets/aistudio/Yellow_Book__Linguistics_Olympiad_Training_Guide___1__d490d1a9.pdf';
 
 const DAY_PDF_TARGET: Record<number, { title: string; pdfUrl: string; page: number }> = {
-  1: { title: 'Yellow Book — Ch 9: Number Systems (§9.1–9.5)', pdfUrl: YELLOW_BOOK_URL, page: 345 },
-  2: { title: 'Yellow Book — Ch 9 Practice & Solutions (§9.6–9.7)', pdfUrl: YELLOW_BOOK_URL, page: 377 },
-  3: { title: 'Yellow Book — Ch 6: Verb & Verb Phrase (§6.1–6.5)', pdfUrl: YELLOW_BOOK_URL, page: 187 },
-  4: { title: 'Yellow Book — Ch 6 Practice & Solutions (§6.6–6.7)', pdfUrl: YELLOW_BOOK_URL, page: 214 },
-  5: { title: 'Yellow Book — Ch 7: Syntax & Alignment (§7.1–7.6)', pdfUrl: YELLOW_BOOK_URL, page: 229 },
-  6: { title: 'Yellow Book — Ch 7 Practice & Solutions (§7.7–7.8)', pdfUrl: YELLOW_BOOK_URL, page: 263 },
-  7: { title: 'Yellow Book — Ch 5: Noun & Noun Phrase (§5.1–5.5)', pdfUrl: YELLOW_BOOK_URL, page: 131 },
-  8: { title: 'Yellow Book — Ch 5 Practice & Solutions (§5.6–5.7)', pdfUrl: YELLOW_BOOK_URL, page: 155 },
-  9: { title: 'Yellow Book — Ch 8: Semantics & Kinship (§8.1–8.5)', pdfUrl: YELLOW_BOOK_URL, page: 295 },
-  10: { title: 'Yellow Book — Ch 8 Practice & Solutions (§8.6–8.7)', pdfUrl: YELLOW_BOOK_URL, page: 306 },
-  11: { title: 'Yellow Book — Ch 4: Phonology (§4.1–4.7)', pdfUrl: YELLOW_BOOK_URL, page: 95 },
-  12: { title: 'Yellow Book — Ch 2: Writing Systems (§2.1–2.7)', pdfUrl: YELLOW_BOOK_URL, page: 35 },
+  1: { title: 'Yellow Book — Ch 2: Writing Systems (§2.1–2.11)', pdfUrl: YELLOW_BOOK_URL, page: 35 },
+  2: { title: 'Yellow Book — Ch 4: Phonology (§4.1–4.6)', pdfUrl: YELLOW_BOOK_URL, page: 115 },
+  3: { title: 'Yellow Book — Ch 5: Noun & Noun Phrase (§5.1–5.8)', pdfUrl: YELLOW_BOOK_URL, page: 169 },
+  4: { title: 'Yellow Book — Ch 5 Practice & Solutions (§5.9–5.10)', pdfUrl: YELLOW_BOOK_URL, page: 204 },
+  5: { title: 'Yellow Book — Ch 6: Verb & Verb Phrase (§6.1–6.6)', pdfUrl: YELLOW_BOOK_URL, page: 223 },
+  6: { title: 'Yellow Book — Ch 6: Verb Hierarchy & Semantics (§6.7–6.8)', pdfUrl: YELLOW_BOOK_URL, page: 247 },
+  7: { title: 'Yellow Book — Ch 6 Practice & Solutions (§6.9–6.10)', pdfUrl: YELLOW_BOOK_URL, page: 257 },
+  8: { title: 'Yellow Book — Ch 7: Syntax & Alignment (§7.1–7.5)', pdfUrl: YELLOW_BOOK_URL, page: 281 },
+  9: { title: 'Yellow Book — Ch 7 Practice & Solutions (§7.4–7.7)', pdfUrl: YELLOW_BOOK_URL, page: 293 },
+  10: { title: 'Yellow Book — Ch 9: Number Systems (§9.1–9.5)', pdfUrl: YELLOW_BOOK_URL, page: 345 },
+  11: { title: 'Yellow Book — Ch 9 Practice & Solutions (§9.6–9.7)', pdfUrl: YELLOW_BOOK_URL, page: 377 },
+  12: { title: 'Yellow Book — Ch 8: Semantics & Kinship (§8.1–8.3)', pdfUrl: YELLOW_BOOK_URL, page: 323 },
   14: { title: 'PLO 2026 Senior & Junior (Mock Paper 1)', pdfUrl: 'assets/aistudio/PLO_26__Senior_Junior_11665a6e.pdf', page: 1 },
   15: { title: 'PLO 2023 Senior (Mock Paper 2)', pdfUrl: 'assets/aistudio/PLO_23__Senior_dab9c4d4.pdf', page: 1 },
   16: { title: 'PLO 2024 Senior (Mock Paper 3)', pdfUrl: 'assets/aistudio/PLO_24__Senior_76504da1.pdf', page: 1 }
@@ -132,7 +132,7 @@ export const ScheduleView: React.FC<ScheduleViewProps> = ({
 
         {showPlanNote && (
           <p className="mt-2 pt-2 border-t border-slate-100 dark:border-neutral-800 text-xs text-slate-600 dark:text-[var(--dm-body)] leading-relaxed">
-            Ordered from highest-yield Round 1 chapters first (Ch 9 → Ch 6 → Ch 7 → Ch 5 → Ch 8 → Ch 4 → Ch 2). The 13 problems belonging to PLO 2026 Senior &amp; Junior, PLO 2023 Senior, and PLO 2024 Senior are reserved unseen for Days 14–16 Timed Mock Exams.
+            Ordered in Linguistic Progression (Ch 2 Writing Systems → Ch 4 Phonology → Ch 5 Noun &amp; NP → Ch 6 Verb &amp; VP → Ch 7 Syntax → Ch 9 Number Systems → Ch 8 Semantics). The 13 problems belonging to PLO 2026 Senior &amp; Junior, PLO 2023 Senior, and PLO 2024 Senior are reserved unseen for Days 14–16 Timed Mock Exams.
           </p>
         )}
       </div>

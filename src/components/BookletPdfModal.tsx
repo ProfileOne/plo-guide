@@ -60,7 +60,6 @@ export const BookletPdfModal: React.FC<BookletPdfModalProps> = ({ booklet, onClo
             pdfUrl={booklet.pdfUrl}
             initialPage={booklet.initialPage ?? 1}
             title={booklet.title}
-            heightClass="h-[72vh]"
           />
         </div>
       </div>

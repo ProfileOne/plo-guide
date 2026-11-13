@@ -64,6 +64,15 @@ test('validateGuideInvariants confirms 72 problems, zero Junior-only, and zero e
   assert.equal(PROBLEMS.length, 72);
 });
 
+test('CHAPTERS are ordered in linguistic progression (Ch 2 -> Ch 4 -> Ch 5 -> Ch 6 -> Ch 7 -> Ch 9 -> Ch 8)', () => {
+  const chapterOrder = CHAPTERS.map((ch) => ch.id);
+  assert.deepEqual(chapterOrder, ['ch2', 'ch4', 'ch5', 'ch6', 'ch7', 'ch9', 'ch8']);
+  for (let i = 0; i < CHAPTERS.length; i++) {
+    assert.equal(CHAPTERS[i].priorityRank, i + 1);
+    assert.equal(CHAPTERS[i].prerequisiteNote.length > 10, true);
+  }
+});
+
 test('getProblemPdfAssets provides standalone single-problem PDF and page images for all 72 problems', () => {
   for (const problem of PROBLEMS) {
     const assets = getProblemPdfAssets(problem.id);
